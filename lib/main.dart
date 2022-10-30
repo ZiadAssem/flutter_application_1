@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/homescreen.dart';
 
 void main(){
-  runApp(App());
+  runApp(const App());
 }
 class App extends StatelessWidget {
   const App({super.key});

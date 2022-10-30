@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_application_1/screens/loginscreen.dart';
 import '../themes/style.dart';
 
 
@@ -11,7 +12,7 @@ class HomeScreen extends StatelessWidget {
   ];
 
     Widget buildImage (String urlImage, int index )=>Container( //builds image
-      margin: EdgeInsets.symmetric(horizontal: 12),
+      margin:const EdgeInsets.symmetric(horizontal: 12),
       color: Colors.grey,
     );
 
@@ -35,10 +36,31 @@ class HomeScreen extends StatelessWidget {
     return  Scaffold(
       appBar: AppBar(
         title:appLogo ,
-        backgroundColor: Color(0xff69539C),
+        actions: <Widget>[
+          Row(
+            children: [
+              loginButton(context),
+              Container(padding: EdgeInsets.all(10)),
+            ],
+          ),
+        ],
+        backgroundColor: const Color(0xff69539C),
       ),
       body: slideShow()
     );
   
+  }
+  Widget loginButton(context){
+    return  TextButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginScreen()));
+            },
+            child: const Text(
+              "LOGIN",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+              ),
+          );
   }
   }
