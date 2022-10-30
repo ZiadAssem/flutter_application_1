@@ -13,8 +13,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
   String? password = '';
 
   Widget build(context) {
-    return Scaffold(
-      body: Container(
+    return Container(
       margin: EdgeInsets.all(20.0),
       child: Form(
         key: formKey,
@@ -27,7 +26,6 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
           ],
         ),
       ),
-    )
     );
   }
 
@@ -62,10 +60,10 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
 
   Widget submitButton() {
     return ElevatedButton(
-     
       onPressed: () {
         if (formKey.currentState!.validate()) {
           formKey.currentState?.save();
+          print('Time to post $email and $password to an API!!');
         }
       },
       child: Text('submit'),
