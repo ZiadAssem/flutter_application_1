@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/themes/style.dart';
 import '../mixins/validation_mixin.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -13,7 +14,64 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
   String? password = '';
 
   Widget build(context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: LayoutBuilder(builder: (context, constraints) {
+        return Row(
+          children: [
+            Expanded(
+                child: Stack(
+              children: [
+                Container(
+                  color: const Color(0xff69539C),
+                  constraints: BoxConstraints(
+                    maxHeight: double.infinity,
+                  ),
+                ),
+                Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(100),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      constraints: BoxConstraints(maxHeight: 200),
+                      child: Image.asset('assets/download.png'),
+                    )
+                  ],
+                )
+              ],
+            )),
+            Expanded(
+              child: Column(children: [
+                Container(margin: EdgeInsets.only(top: 50.0)),
+                Container(
+                  child: loginForm(),
+                )
+              ]),
+            )
+          ],
+        );
+      }),
+    );
+  }
+
+  Widget backgroundImage() {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+          // maxHeight: 500.0,
+          ),
+      child: const DecoratedBox(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.fill, image: AssetImage('assets/download2.png'))),
+      ),
+    );
+  }
+
+  Widget loginForm() {
     return Container(
+      alignment: Alignment.centerRight,
       margin: EdgeInsets.all(20.0),
       child: Form(
         key: formKey,
@@ -21,7 +79,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
           children: [
             emailField(),
             passwordField(),
-            Container(margin: EdgeInsets.only(top: 25.0)),
+            Container(margin: EdgeInsets.only(top: 50.0)),
             submitButton(),
           ],
         ),
@@ -37,7 +95,6 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
       },
       keyboardType: TextInputType.emailAddress,
       decoration: const InputDecoration(
-
         labelText: 'Enter Email Address',
         hintText: 'you@example.com',
       ),
