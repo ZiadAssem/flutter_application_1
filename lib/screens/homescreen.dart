@@ -11,26 +11,7 @@ class HomeScreen extends StatelessWidget {
       'data:image/jpeg;base64,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'
   ];
 
-    Widget buildImage (String urlImage, int index )=>Container( //builds image
-      margin:const EdgeInsets.symmetric(horizontal: 12),
-      color: Colors.grey,
-    );
-
-    Widget slideShow(){ //generates slideshow of images
-      return Center(
-        child: CarouselSlider.builder(
-          options: CarouselOptions(height: 400),
-          itemCount: urlImages.length,
-          itemBuilder: ((context, index, realIndex) {
-            final urlImage = urlImages[index];
-            return buildImage(urlImage, index);
-          }
-          ),
-        ),
-      );
-
-    }
-
+   
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -50,6 +31,26 @@ class HomeScreen extends StatelessWidget {
     );
   
   }
+   Widget buildImage (String urlImage, int index )=>Container( //builds image
+      margin:const EdgeInsets.symmetric(horizontal: 12),
+      color: Colors.grey,
+    );
+
+    Widget slideShow(){ //generates slideshow of images
+      return Center(
+        child: CarouselSlider.builder(
+          options: CarouselOptions(height: 400),
+          itemCount: urlImages.length,
+          itemBuilder: ((context, index, realIndex) {
+            final urlImage = urlImages[index];
+            return buildImage(urlImage, index);
+          }
+          ),
+        ),
+      );
+
+    }
+
   Widget loginButton(context){
     return  TextButton(
             onPressed: () {
