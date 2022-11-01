@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/authentication.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -8,6 +9,8 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
