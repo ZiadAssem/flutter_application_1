@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/themes/style.dart';
 import '../mixins/validation_mixin.dart';
+import 'registerscreen.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   State<StatefulWidget> createState() {
     return LoginScreenState();
   }
@@ -24,18 +27,18 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
               children: [
                 Container(
                   color: const Color(0xff69539C),
-                  constraints: BoxConstraints(
+                  constraints: const BoxConstraints(
                     maxHeight: double.infinity,
                   ),
                 ),
                 Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.all(100),
+                      margin: const EdgeInsets.all(100),
                     ),
                     Container(
                       alignment: Alignment.center,
-                      constraints: BoxConstraints(maxHeight: 200),
+                      constraints: const BoxConstraints(maxHeight: 200),
                       child: Image.asset('assets/download.png'),
                     )
                   ],
@@ -44,10 +47,14 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
             )),
             Expanded(
               child: Column(children: [
-                Container(margin: EdgeInsets.only(top: 50.0)),
+                Container(margin: const EdgeInsets.only(top: 50.0)),
                 Container(
                   child: loginForm(),
-                )
+                  
+                ),
+                Container(margin: const EdgeInsets.only(top: 50.0)),
+                newUserButton(context),
+
               ]),
             )
           ],
@@ -72,14 +79,14 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
   Widget loginForm() {
     return Container(
       alignment: Alignment.centerRight,
-      margin: EdgeInsets.all(20.0),
+      margin: const EdgeInsets.all(20.0),
       child: Form(
         key: formKey,
         child: Column(
           children: [
             emailField(),
             passwordField(),
-            Container(margin: EdgeInsets.only(top: 50.0)),
+            Container(margin: const EdgeInsets.only(top: 50.0)),
             submitButton(),
           ],
         ),
@@ -123,7 +130,27 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
           print('Time to post $email and $password to an API!!');
         }
       },
-      child: Text('submit'),
+      child: const Text('submit'),
+    );
+  }
+ 
+  Widget newUserButton(context){
+    return Column(
+        children:  [
+          const Text(
+            "New User? Register Here",
+            style: TextStyle(
+              color: Colors.black,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          ElevatedButton(
+            onPressed: (){
+               Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const RegisterScreen()));
+            },
+             child: const Text('REGISTER'))
+        ],
     );
   }
 }
