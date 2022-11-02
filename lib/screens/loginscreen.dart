@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/registerscreen2.dart';
+//import 'package:flutter_application_1/screens/registerscreen2.dart';
 import 'package:flutter_application_1/themes/style.dart';
 import '../mixins/validation_mixin.dart';
 import 'registerscreen.dart';
@@ -12,7 +14,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> with ValidationMixin {
-  final formKey = GlobalKey<FormState>();
+  final loginFormKey = GlobalKey<FormState>();
   String? email = '';
   String? password = '';
 
@@ -81,7 +83,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
       alignment: Alignment.centerRight,
       margin: const EdgeInsets.all(20.0),
       child: Form(
-        key: formKey,
+        key: loginFormKey,
         child: Column(
           children: [
             emailField(),
@@ -125,9 +127,8 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
   Widget submitButton() {
     return ElevatedButton(
       onPressed: () {
-        if (formKey.currentState!.validate()) {
-          formKey.currentState?.save();
-          print('Time to post $email and $password to an API!!');
+        if (loginFormKey.currentState!.validate()) {
+          loginFormKey.currentState?.save();
         }
       },
       child: const Text('submit'),
@@ -147,7 +148,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
           ElevatedButton(
             onPressed: (){
                Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const RegisterScreen()));
+            .push(MaterialPageRoute(builder: (context) => const SignUpScreen()));
             },
              child: const Text('REGISTER'))
         ],

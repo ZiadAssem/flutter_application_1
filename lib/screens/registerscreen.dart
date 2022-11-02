@@ -1,5 +1,10 @@
+import 'dart:js';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/homescreen.dart';
 import '../utils/authentication.dart';
+import '../mixins/validation_mixin.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -70,21 +75,21 @@ Widget registerForm() {
               children: [
                 Row(
                   children: [
-                    SizedBox(width: 250, child: makeInput(label: 'Last Name')),
+                    SizedBox(width: 250, child: makeInput(label: 'First Name')),
                     const SizedBox(
                       width: 100,
                     ),
                     SizedBox(width: 250, child: makeInput(label: 'Last Name')),
                   ],
                 ),
-                makeInput(label: "Email"),
+                makeInput(label: "Email",),
                 makeInput(label: "Phone Number"),
                 makeInput(label: "Password", obsureText: true),
                 makeInput(label: "Confirm Pasword", obsureText: true)
               ],
             ),
           ),
-          signupButton(),
+          signupButton(context),
           const SizedBox(
             height: 20,
           ),
@@ -104,7 +109,7 @@ Widget registerForm() {
   );
 }
 
-Widget makeInput({label, obsureText = false}) {
+Widget makeInput({label, obsureText = false,validator}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -118,7 +123,8 @@ Widget makeInput({label, obsureText = false}) {
       ),
       SizedBox(
         height: 30,
-        child: TextField(
+        child: TextFormField(
+          validator: validator,
           obscureText: obsureText,
           decoration: InputDecoration(
             contentPadding:
@@ -168,11 +174,17 @@ Widget signupText() {
   );
 }
 
-Widget signupButton() {
+Widget signupButton(context) {
   return MaterialButton(
       minWidth: double.infinity,
       height: 60,
-      onPressed: () {},
+      onPressed: () {
+        // FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailTextController.text,
+        //                        password: _passwordTextController.text);
+        Navigator.push(context,
+         MaterialPageRoute(builder: ((context) => HomeScreen())
+         ));
+      },
       color: Colors.redAccent,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
       child: Text(
