@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return TextButton(
       onPressed: () {
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => LoginScreen()));
+            .push(MaterialPageRoute(builder: (context) => const LoginScreen()));
       },
       child: const Text(
         "LOGIN",

@@ -182,12 +182,12 @@ Widget signupButton(context) {
         // FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailTextController.text,
         //                        password: _passwordTextController.text);
         Navigator.push(context,
-         MaterialPageRoute(builder: ((context) => HomeScreen())
+         MaterialPageRoute(builder: ((context) => const HomeScreen())
          ));
       },
       color: Colors.redAccent,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-      child: Text(
+      child: const Text(
         "Sign Up",
         style: TextStyle(
           fontWeight: FontWeight.w600,

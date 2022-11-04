@@ -8,6 +8,7 @@ import 'registerscreen.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
+  @override
   State<StatefulWidget> createState() {
     return LoginScreenState();
   }
@@ -18,6 +19,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
   String? email = '';
   String? password = '';
 
+  @override
   Widget build(context) {
     return Scaffold(
       appBar: AppBar(),
