@@ -1,4 +1,4 @@
-import 'dart:js';
+
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(children: [
                 Container(margin: const EdgeInsets.only(top: 20.0)),
                 Container(
-                  child: registerForm(),
+                  child: registerForm(context),
                 ),
                 Container(margin: const EdgeInsets.only(top: 50.0)),
               ]),
@@ -62,7 +62,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 }
 
-Widget registerForm() {
+Widget registerForm(context) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
