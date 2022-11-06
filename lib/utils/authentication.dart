@@ -1,50 +1,52 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
+import '../classes/user.dart' as u;
 
+class FirebaseAuthService {
+  final FirebaseAuth _firebaseAuth;
+  final GoogleSignIn _googleSignIn;
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseAuthService({required FirebaseAuth firebaseAuth, required GoogleSignIn googleSignin})
+      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
+        _googleSignIn = googleSignin ?? GoogleSignIn();
 
-String? uid;
-String? userEmail;
-
-Future<User?> signInWithEmailPassword(String email, String password) async {
-  await Firebase.initializeApp();
-  User? user;
-
-  try {
-    UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
+  u.User? _userFromFirebase(User user) {
+   
+    return u.User(
+      uid: user.uid,
+      email: user.email!,
+      displayName: user.displayName!,
+      photoUrl: user.photoUrl
     );
-    user = userCredential.user;
-
-    if (user != null) {
-      uid = user.uid;
-      userEmail = user.email;
-
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('auth', true);
-    }
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'user-not-found') {
-      print('No user found for that email.');
-    } else if (e.code == 'wrong-password') {
-      print('Wrong password provided.');
-    }
   }
 
-  return user;
-}
-Future<String> signOut() async {
-  await _auth.signOut();
+  Stream<User> get onAuthStateChanged {
+    return _firebaseAuth.authStateChanges().map(_userFromFirebase);
+  }
 
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setBool('auth', false);
+  Future<User> signInAnonymously() async {
+    final authResult = await _firebaseAuth.signInAnonymously();
+    return _userFromFirebase(authResult.user);
+  }
 
-  uid = null;
-  userEmail = null;
+  Future<User> signInWithGoogle() async {
+    final googleUser = await _googleSignIn.signIn();
+    final googleAuth = await googleUser.authentication;
+    final credential = GoogleAuthProvider.getCredential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    final authResult = await _firebaseAuth.signInWithCredential(credential);
+    return _userFromFirebase(authResult.user);
+  }
 
-  return 'User Signed out';
+  Future<void> signOut() async {
+    return _firebaseAuth.signOut();
+  }
+
+  Future<User> currentUser() async {
+    final user = await _firebaseAuth.currentUser();
+    return _userFromFirebase(user);
+  }
 }
