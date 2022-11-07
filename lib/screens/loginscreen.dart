@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/registerscreen2.dart';
+import 'package:flutter_application_1/src2/signup_form.dart';
+
 //import 'package:flutter_application_1/screens/registerscreen2.dart';
 import 'package:flutter_application_1/themes/style.dart';
 import '../mixins/validation_mixin.dart';
@@ -150,7 +152,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
           ElevatedButton(
             onPressed: (){
                Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const SignUpScreen()));
+            .push(MaterialPageRoute(builder: (context) => const SignUpFormWidget()));
             },
              child: const Text('REGISTER'))
         ],

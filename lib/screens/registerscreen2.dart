@@ -31,35 +31,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                hexStringToColor("CB2B93"),
-                hexStringToColor("9546C4"),
-                hexStringToColor("5E61F4")
-              ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
-              ),
+              gradient: LinearGradient(colors: [
+            hexStringToColor("CB2B93"),
+            hexStringToColor("9546C4"),
+            hexStringToColor("5E61F4")
+          ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
           child: SingleChildScrollView(
               child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 120, 20, 0),
             child: Column(
               children: <Widget>[
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
+
                 reusableTextField("Enter UserName", Icons.person_outline, false,
                     _userNameTextController),
-                const SizedBox(
-                  height: 20,
-                ),
+
+                const SizedBox(height: 20),
+                
                 reusableTextField("Enter Email Id", Icons.person_outline, false,
                     _emailTextController),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 reusableTextField("Enter Password", Icons.lock_outlined, true,
                     _passwordTextController),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 firebaseUIButton(context, "Sign Up", () {
                   FirebaseAuth.instance
                       .createUserWithEmailAndPassword(
@@ -67,8 +61,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           password: _passwordTextController.text)
                       .then((value) {
                     print("Created New Account");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const HomeScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen()));
                   }).onError((error, stackTrace) {
                     print("Error ${error.toString()}");
                   });
