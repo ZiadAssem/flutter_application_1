@@ -2,13 +2,14 @@ import 'package:meta/meta.dart';
 
 @immutable
 class User {
+  final String fullName;
+  final String email;
+  final String phoneNo;
   const User({
-    required this.uid,
+    required this.fullName,
     required this.email,
-    required this.displayName,
+    required this.phoneNo,
   });
 
-  final String uid;
-  final String email;
-  final String displayName;
+
 }

@@ -1,10 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'success.dart';
+import 'package:flutter_application_1/screens/homescreen.dart';
 import 'package:flutter_application_1/screens/registerscreen2.dart';
 import 'package:flutter_application_1/src2/signup_form.dart';
+import '../src2/authentication_repository.dart';
 
 //import 'package:flutter_application_1/screens/registerscreen2.dart';
 import 'package:flutter_application_1/themes/style.dart';
+import 'package:get/get.dart';
 import '../mixins/validation_mixin.dart';
+import '../src2/login_controller.dart';
 import 'registerscreen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,7 +23,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> with ValidationMixin {
-  final loginFormKey = GlobalKey<FormState>();
+  final controller = Get.put(LoginController());
+  final _formKey = GlobalKey<FormState>();
+
   String? email = '';
   String? password = '';
 
@@ -55,12 +63,10 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
               child: Column(children: [
                 Container(margin: const EdgeInsets.only(top: 50.0)),
                 Container(
-                  child: loginForm(),
-                  
+                  child: loginForm(controller),
                 ),
                 Container(margin: const EdgeInsets.only(top: 50.0)),
                 newUserButton(context),
-
               ]),
             )
           ],
@@ -82,30 +88,31 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
     );
   }
 
-  Widget loginForm() {
+  Widget loginForm(controller) {
     return Container(
       alignment: Alignment.centerRight,
       margin: const EdgeInsets.all(20.0),
       child: Form(
-        key: loginFormKey,
+        key: _formKey,
         child: Column(
           children: [
-            emailField(),
-            passwordField(),
+            emailField(controller),
+            passwordField(controller),
             Container(margin: const EdgeInsets.only(top: 50.0)),
-            submitButton(),
+            submitButton(controller),
           ],
         ),
       ),
     );
   }
 
-  Widget emailField() {
+  Widget emailField(controller) {
     return TextFormField(
       validator: validateEmail,
-      onSaved: (String? value) {
-        email = value;
-      },
+      controller: controller.email,
+      // onSaved: (String? value) {
+      //   controller.email = value;
+      // },
       keyboardType: TextInputType.emailAddress,
       decoration: const InputDecoration(
         labelText: 'Enter Email Address',
@@ -114,12 +121,13 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
     );
   }
 
-  Widget passwordField() {
+  Widget passwordField(controller) {
     return TextFormField(
       validator: validatePassword,
-      onSaved: (String? value) {
-        password = value;
-      },
+      controller: controller.password,
+      // onSaved: (String? value) {
+      //   controller.password = value;
+      // },
       obscureText: true,
       decoration: const InputDecoration(
         labelText: 'Enter Password',
@@ -128,34 +136,38 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
     );
   }
 
-  Widget submitButton() {
+  Widget submitButton(controller) {
     return ElevatedButton(
-      onPressed: () {
-        if (loginFormKey.currentState!.validate()) {
-          loginFormKey.currentState?.save();
+      onPressed: ()  {
+        if (_formKey.currentState!.validate()) {
+          //loginFormKey.currentState?.save();
+          LoginController.instance.loginUser(controller.email.text.trim() as String, controller.password.text.trim() as String);
+          //  Navigator.of(context)
+          //        .push(MaterialPageRoute(builder: (context) => const Success()));
+       
         }
       },
-      child: const Text('submit'),
+      child: const Text('submit'),  
     );
   }
- 
-  Widget newUserButton(context){
+
+  Widget newUserButton(context) {
     return Column(
-        children:  [
-          const Text(
-            "New User? Register Here",
-            style: TextStyle(
-              color: Colors.black,
-              fontStyle: FontStyle.italic,
-            ),
+      children: [
+        const Text(
+          "New User? Register Here",
+          style: TextStyle(
+            color: Colors.black,
+            fontStyle: FontStyle.italic,
           ),
-          ElevatedButton(
-            onPressed: (){
-               Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const SignUpFormWidget()));
+        ),
+        ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const SignUpScreen()));
             },
-             child: const Text('REGISTER'))
-        ],
+            child: const Text('REGISTER'))
+      ],
     );
   }
 }

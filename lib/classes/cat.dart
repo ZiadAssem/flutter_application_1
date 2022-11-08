@@ -8,11 +8,10 @@ int birthYear = 0;
 int age = 0;
 
 Cat(this.name,this.birthYear){
-  
+     final DateTime now = DateTime.now();
+     age= now.year - birthYear;
+
 }
 
-static getYear(){
-   final DateTime now = DateTime.now();
-   
-}
+
 }

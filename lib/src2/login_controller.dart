@@ -16,8 +16,10 @@ class LoginController extends GetxController {
   /// TextField Validation
 
   //Call this Function from Design & it will do the rest
-  Future<void> loginUser(String email, String password) async {
-    String? error = await AuthenticationRepository.instance.loginWithEmailAndPassword(email, password);
+  void loginUser(String email, String password)    {
+    Get.put(AuthenticationRepository());
+    String? error =   Get.put(AuthenticationRepository.instance.loginWithEmailAndPassword(email, password) ) as String?; //kanet gowa
+    
     if(error != null) {
       Get.showSnackbar(GetSnackBar(message: error.toString(),));
     }

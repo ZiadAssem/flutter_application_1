@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_application_1/screens/success.dart';
 import 'package:get/get.dart';
 import '../screens/homescreen.dart';
 //import 'package:login_flutter_app/src/features/authentication/screens/welcome/welcome_screen.dart';
@@ -13,15 +14,15 @@ class AuthenticationRepository extends GetxController {
 
 
   //Variables
-  final _auth = FirebaseAuth.instance;
+  final auth = FirebaseAuth.instance;
   late final Rx<User?> firebaseUser;
 
 
   //Will be load when app launches this func will be called and set the firebaseUser state
   @override
   void onReady() {
-    firebaseUser = Rx<User?>(_auth.currentUser);
-    firebaseUser.bindStream(_auth.userChanges());
+    firebaseUser = Rx<User?>(auth.currentUser);
+    firebaseUser.bindStream(auth.userChanges());
     ever(firebaseUser, _setInitialScreen);
   }
 
@@ -36,7 +37,7 @@ class AuthenticationRepository extends GetxController {
   //FUNC
   Future<String?> createUserWithEmailAndPassword(String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      await auth.createUserWithEmailAndPassword(email: email, password: password);
       firebaseUser.value != null ? Get.offAll(() => const HomeScreen()) : Get.to(() => const HomeScreen());
     } on FirebaseAuthException catch (e) {
       final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
@@ -51,7 +52,7 @@ class AuthenticationRepository extends GetxController {
 
   Future<String?> loginWithEmailAndPassword(String email, String password) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      await auth.signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       final ex = LogInWithEmailAndPasswordFailure.fromCode(e.code);
       return ex.message;
@@ -63,5 +64,5 @@ class AuthenticationRepository extends GetxController {
   }
 
 
-  Future<void> logout() async => await _auth.signOut();
+  Future<void> logout() async => await auth.signOut();
 }

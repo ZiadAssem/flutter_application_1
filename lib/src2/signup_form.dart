@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'signup_controller.dart';
+import '../reusable_widgets/reusable_widget.dart';
 
 class SignUpFormWidget extends StatelessWidget {
   const SignUpFormWidget({
@@ -15,40 +16,22 @@ class SignUpFormWidget extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(),
-      body:  Container(
-     // padding: const EdgeInsets.symmetric(vertical: tFormHeight - 10),
-      child: Form(
+      body:  Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextFormField(
-              controller: controller.fullName,
-              decoration: const InputDecoration(
-                //label: Text(tFullName),
-                 prefixIcon: Icon(Icons.person_outline_rounded)),
-            ),
+            reusableTextField("Enter UserName", Icons.person_outline, false,
+                    controller.fullName),
             const SizedBox(height: 20),
-            TextFormField(
-              controller: controller.email,
-              decoration: const InputDecoration(
-               // label: Text(tEmail),
-                 prefixIcon: Icon(Icons.email_outlined)),
-            ),
+            reusableTextField("Enter email", Icons.person_outline, false,
+                    controller.email),
             const SizedBox(height: 20),
-            TextFormField(
-              controller: controller.phoneNo,
-              decoration: const InputDecoration(
-                //label: Text(tPhoneNo),
-                 prefixIcon: Icon(Icons.numbers)),
-            ),
+           reusableTextField("Enter UserName", Icons.numbers, false,
+                    controller.phoneNo),
             const SizedBox(height: 20),
-            TextFormField(
-              controller: controller.password,
-              decoration: const InputDecoration(
-              //  label: Text(tPassword),
-                 prefixIcon: Icon(Icons.fingerprint)),
-            ),
+            reusableTextField("Enter Password", Icons.lock_outlined, true,
+                    controller.password),
             const SizedBox(height:   10),
             SizedBox(
               width: double.infinity,
@@ -66,7 +49,6 @@ class SignUpFormWidget extends StatelessWidget {
           ],
         ),
       ),
-    ),
     );
   }
 }
