@@ -7,15 +7,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'utils/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/homescreen.dart';
+import 'classes/user.dart' as u;
 
 
 
 void main ()  async{
    WidgetsFlutterBinding.ensureInitialized();
-  
-   Firebase.initializeApp(options: DefaultFirebaseOptions.web);
+    final Future<FirebaseApp> _future = Firebase.initializeApp();
+
+   await Firebase.initializeApp(options: DefaultFirebaseOptions.web);
    runApp( App());
+   //runApp(HomePage());
+   
+
+
 }
+
 
 class App extends StatelessWidget {
    App({super.key});

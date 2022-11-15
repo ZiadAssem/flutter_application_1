@@ -4,6 +4,7 @@ import '../reusable_widgets/reusable_widget.dart';
 import 'package:flutter/material.dart';
 import '../reusable_widgets/colors.dart';
 import '../src2/signup_controller.dart';
+import '../classes/user.dart' as u;
 import 'homescreen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -66,6 +67,7 @@ Widget form(context,controller,_formKey){
                 const SizedBox(height: 20),
                 firebaseUIButton(context, "Sign Up",   () {
                   if(_formKey.currentState!.validate()){
+                    u.User.addUser(controller.fullName.text.trim(),controller.email.text.trim(),controller.phoneNo.text.trim());
                     SignUpController.instance.registerUser(controller.email.text.trim(), controller.password.text.trim());
                   }
                 },)
