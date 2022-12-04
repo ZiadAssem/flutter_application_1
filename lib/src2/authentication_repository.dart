@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_application_1/screens/success.dart';
 import 'package:get/get.dart';
 import '../screens/homescreen.dart';
 //import 'package:login_flutter_app/src/features/authentication/screens/welcome/welcome_screen.dart';

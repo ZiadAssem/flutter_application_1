@@ -1,13 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_application_1/src2/authentication_repository.dart';
 import 'package:get/get.dart';
 import 'firebase_options.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'utils/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/homescreen.dart';
-import 'classes/user.dart' as u;
 
 
 

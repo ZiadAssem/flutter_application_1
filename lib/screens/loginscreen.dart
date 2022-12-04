@@ -1,17 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'success.dart';
-import 'package:flutter_application_1/screens/homescreen.dart';
 import 'package:flutter_application_1/screens/registerscreen2.dart';
-import 'package:flutter_application_1/src2/signup_form.dart';
-import '../src2/authentication_repository.dart';
 
 //import 'package:flutter_application_1/screens/registerscreen2.dart';
-import 'package:flutter_application_1/themes/style.dart';
 import 'package:get/get.dart';
 import '../mixins/validation_mixin.dart';
 import '../src2/login_controller.dart';
-import 'registerscreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -63,7 +56,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
               child: Column(children: [
                 Container(margin: const EdgeInsets.only(top: 50.0)),
                 Container(
-                  child: loginForm(controller),
+                  child: loginForm(controller,_formKey,validateEmail,validatePassword),
                 ),
                 Container(margin: const EdgeInsets.only(top: 50.0)),
                 newUserButton(context),
@@ -74,7 +67,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
       }),
     );
   }
-
+}
   Widget backgroundImage() {
     return ConstrainedBox(
       constraints: const BoxConstraints(
@@ -88,7 +81,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
     );
   }
 
-  Widget loginForm(controller) {
+  Widget loginForm(controller,_formKey,validateEmail,validatePassword) {
     return Container(
       alignment: Alignment.centerRight,
       margin: const EdgeInsets.all(20.0),
@@ -96,17 +89,17 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
         key: _formKey,
         child: Column(
           children: [
-            emailField(controller),
-            passwordField(controller),
+            emailField(controller,validateEmail),
+            passwordField(controller,validatePassword),
             Container(margin: const EdgeInsets.only(top: 50.0)),
-            submitButton(controller),
+            submitButton(controller,_formKey),
           ],
         ),
       ),
     );
   }
 
-  Widget emailField(controller) {
+  Widget emailField(controller,validateEmail) {
     return TextFormField(
       validator: validateEmail,
       controller: controller.email,
@@ -121,7 +114,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
     );
   }
 
-  Widget passwordField(controller) {
+  Widget passwordField(controller,validatePassword) {
     return TextFormField(
       validator: validatePassword,
       controller: controller.password,
@@ -136,7 +129,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
     );
   }
 
-  Widget submitButton(controller) {
+  Widget submitButton(controller,_formKey) {
     return ElevatedButton(
       onPressed: ()  {
         if (_formKey.currentState!.validate()) {
@@ -170,4 +163,4 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
       ],
     );
   }
-}
+
