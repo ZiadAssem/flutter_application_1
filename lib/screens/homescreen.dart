@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 appBarButton(const LoginScreen(), 'LOGIN', context),
                 Container(padding: const EdgeInsets.all(10)),
-               appBarButton(AdoptionScreen(), 'ADOPT  ', context)
+                appBarButton(AdoptionScreen(), 'ADOPT  ', context)
               ],
             ),
           ],
