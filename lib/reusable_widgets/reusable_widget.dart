@@ -66,3 +66,28 @@ Container firebaseUIButton(BuildContext context, String title, Function onTap) {
     ),
   );
 }
+ Widget buildImage(String urlImage) => Container(
+        //builds image
+
+        margin: const EdgeInsets.symmetric(horizontal: 2),
+        color: Colors.grey,
+        child: Image.network(
+          urlImage,
+          fit: BoxFit.cover,
+        ),
+      );
+
+Widget appBarButton(Widget navigateTo, String title,context){
+  return TextButton(
+      onPressed: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) =>  navigateTo));
+      },
+      child:  Text(
+        title,
+        style: const TextStyle(
+          color: Colors.white,
+        ),
+      ),
+    );
+}

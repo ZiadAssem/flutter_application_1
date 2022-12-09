@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_application_1/screens/loginscreen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:flutter_application_1/reusable_widgets/reusable_widget.dart';
+import 'adoptscreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,8 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: <Widget>[
             Row(
               children: [
-                loginButton(context),
+                appBarButton(const LoginScreen(), 'LOGIN', context),
                 Container(padding: const EdgeInsets.all(10)),
+               appBarButton(AdoptionScreen(), 'ADOPT  ', context)
               ],
             ),
           ],
@@ -43,16 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ));
   }
 
-  Widget buildImage(String urlImage, int index) => Container(
-        //builds image
-
-        margin: const EdgeInsets.symmetric(horizontal: 2),
-        color: Colors.grey,
-        child: Image.network(
-          urlImage,
-          fit: BoxFit.cover,
-        ),
-      );
+ 
 
   Widget slideShow() {
     //generates slideshow of images
@@ -68,26 +62,13 @@ class _HomeScreenState extends State<HomeScreen> {
         itemCount: urlImages.length,
         itemBuilder: ((context, index, realIndex) {
           final urlImage = urlImages[index];
-          return buildImage(urlImage, index);
+          return buildImage(urlImage);
         }),
       ),
     );
   }
 
-  Widget loginButton(context) {
-    return TextButton(
-      onPressed: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const LoginScreen()));
-      },
-      child: const Text(
-        "LOGIN",
-        style: TextStyle(
-          color: Colors.white,
-        ),
-      ),
-    );
-  }
+  
 
   Widget homeButton(context) {
     return IconButton(
