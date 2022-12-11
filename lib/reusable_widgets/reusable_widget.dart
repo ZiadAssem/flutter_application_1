@@ -5,7 +5,7 @@ import '../screens/adoptscreen.dart';
 
 
 
-Image logoWidget(String imageName) {
+Image logoWidget(String imageName) {//logo image
   return Image.asset(
     imageName,
     fit: BoxFit.fitWidth,
@@ -16,7 +16,7 @@ Image logoWidget(String imageName) {
 }
 
 TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
-    TextEditingController controller) {
+    TextEditingController controller) {//text form field
   return TextFormField(
     controller: controller,
     obscureText: isPasswordType,
@@ -72,7 +72,7 @@ Container firebaseUIButton(BuildContext context, String title, Function onTap) {
   );
 }
  Widget buildImage(String urlImage) => Container(
-        //builds image
+        //builds image for slideshow
 
         margin: const EdgeInsets.symmetric(horizontal: 2),
         color: Colors.grey,
@@ -82,7 +82,7 @@ Container firebaseUIButton(BuildContext context, String title, Function onTap) {
         ),
       );
 
-Widget appBarButton(Widget navigateTo, String title,context){
+Widget appBarButton(Widget navigateTo, String title,context){ //buttons for appbar navigation
   return TextButton(
       onPressed: () {
         Navigator.of(context)
