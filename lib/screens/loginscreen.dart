@@ -18,7 +18,7 @@ class LoginScreen extends StatefulWidget {
 class LoginScreenState extends State<LoginScreen> with ValidationMixin {
   final controller = Get.put(LoginController());
   final _formKey = GlobalKey<FormState>();
-
+  static bool loggedIn=false;
   String? email = '';
   String? password = '';
 
@@ -56,7 +56,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
               child: Column(children: [
                 Container(margin: const EdgeInsets.only(top: 50.0)),
                 Container(
-                  child: loginForm(controller,_formKey,validateEmail,validatePassword),
+                  child: loginForm(controller,_formKey,validateEmail,validatePassword,loggedIn),
                 ),
                 Container(margin: const EdgeInsets.only(top: 50.0)),
                 newUserButton(context),
@@ -81,7 +81,8 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
     );
   }
 
-  Widget loginForm(controller,_formKey,validateEmail,validatePassword) {
+  Widget loginForm(controller,_formKey,validateEmail,validatePassword,loggedIn) {
+
     return Container(
       alignment: Alignment.centerRight,
       margin: const EdgeInsets.all(20.0),
@@ -92,7 +93,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
             emailField(controller,validateEmail),
             passwordField(controller,validatePassword),
             Container(margin: const EdgeInsets.only(top: 50.0)),
-            submitButton(controller,_formKey),
+            submitButton(controller,_formKey,loggedIn),
           ],
         ),
       ),
@@ -129,12 +130,13 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
     );
   }
 
-  Widget submitButton(controller,_formKey) {
+  Widget submitButton(controller,_formKey,loggedIn) {
     return ElevatedButton(
       onPressed: ()  {
         if (_formKey.currentState!.validate()) {
           //loginFormKey.currentState?.save();
           LoginController.instance.loginUser(controller.email.text.trim() as String, controller.password.text.trim() as String);
+          loggedIn=true;
           //  Navigator.of(context)
           //        .push(MaterialPageRoute(builder: (context) => const Success()));
        

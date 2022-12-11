@@ -9,19 +9,19 @@ class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  SignUpScreenState createState() => SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class SignUpScreenState extends State<SignUpScreen> {
  final signUpController = Get.put(SignUpController());
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return ScreenDecoration(context, Text('sign up'), form(context, signUpController, _formKey));
+    return screenDecoration(context, const Text('sign up'), form(context, signUpController, _formKey));
     
   }
 }
-Widget ScreenDecoration(context,title,Widget child){
+Widget screenDecoration(context,title,Widget child){
   return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -45,9 +45,9 @@ Widget ScreenDecoration(context,title,Widget child){
           ))),
     );
 }
-Widget form(context,controller,_formKey){
+Widget form(context,controller,formKey){
   return Form(
-    key:_formKey,
+    key:formKey,
     child: Column(
               children: <Widget>[
                 const SizedBox(height: 20),
@@ -64,7 +64,7 @@ Widget form(context,controller,_formKey){
                     controller.password),
                 const SizedBox(height: 20),
                 firebaseUIButton(context, "Sign Up",   () {
-                  if(_formKey.currentState!.validate()){
+                  if(formKey.currentState!.validate()){
                     u.User.addUser(controller.fullName.text.trim(),controller.email.text.trim(),controller.phoneNo.text.trim());
                     SignUpController.instance.registerUser(controller.email.text.trim(), controller.password.text.trim());
                   }

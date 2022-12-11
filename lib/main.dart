@@ -7,6 +7,7 @@ import 'package:flutter_application_1/screens/homescreen.dart';
 
 
 void main ()  async{
+  
    WidgetsFlutterBinding.ensureInitialized();
     final Future<FirebaseApp> _future = Firebase.initializeApp();
 
@@ -26,6 +27,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       home: FutureBuilder(
         future: _initialization,
         builder: (context,snapshot){

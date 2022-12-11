@@ -22,20 +22,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: homeButton(context),
-          automaticallyImplyLeading: false,
-          actions: <Widget>[
-            Row(
-              children: [
-                appBarButton(const LoginScreen(), 'LOGIN', context),
-                Container(padding: const EdgeInsets.all(10)),
-                appBarButton(AdoptionScreen(), 'ADOPT  ', context)
-              ],
-            ),
-          ],
-          backgroundColor: const Color(0xff69539C),
-        ),
+        appBar: PreferredSize(
+          preferredSize:const Size.fromHeight(50) ,
+          child: appBarCustom(context),
+          ), 
         body: Column(
           children: [
             Container(margin: const EdgeInsets.only(top: 50.0)),

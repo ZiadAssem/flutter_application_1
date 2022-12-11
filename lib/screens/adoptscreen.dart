@@ -5,9 +5,9 @@ import 'package:flutter_application_1/reusable_widgets/reusable_widget.dart';
 
 class AdoptionScreen extends StatelessWidget {
 
-  final List<Cat> _cats=[
+  final List<Cat> _cats=[ //local list of dummy cat objects
     Cat('tabby', 2000, 'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
-       Cat('tabby', 2000, 'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
+    Cat('tabby', 2000, 'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
     Cat('tabby', 2000, 'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
     Cat('tabby', 2000, 'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
     Cat('tabby', 2000, 'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
@@ -24,7 +24,7 @@ class AdoptionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  GridView.builder(
+    return  GridView.builder( //Builds a grid of cat objects
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,

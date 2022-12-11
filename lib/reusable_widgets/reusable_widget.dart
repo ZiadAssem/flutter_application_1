@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import '../screens/homescreen.dart';
+import '../screens/loginscreen.dart';
+import '../screens/adoptscreen.dart';
+
+
 
 Image logoWidget(String imageName) {
   return Image.asset(
@@ -91,3 +96,32 @@ Widget appBarButton(Widget navigateTo, String title,context){
       ),
     );
 }
+Widget appBarCustom(context){
+  return AppBar(
+          title: homeButton(context),
+          automaticallyImplyLeading: false,
+          actions: <Widget>[
+            Row(
+              children: [
+                Visibility(
+                  visible: ! LoginScreenState.loggedIn,
+                  child:                 appBarButton(const LoginScreen(), 'LOGIN', context),
+              ),
+                Container(padding: const EdgeInsets.all(10)),
+                appBarButton(AdoptionScreen(), 'ADOPT  ', context)
+              ],
+            ),
+          ],
+          backgroundColor: const Color(0xff69539C),
+        );
+}
+Widget homeButton(context) {
+    return IconButton(
+      icon: Image.asset('assets/download2.png'),
+      iconSize: 50,
+      onPressed: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const HomeScreen()));
+      },
+    );
+  }
