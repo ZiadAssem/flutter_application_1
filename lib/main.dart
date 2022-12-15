@@ -35,7 +35,7 @@ class App extends StatelessWidget {
             print('Error');
           }
           if(snapshot.connectionState==ConnectionState.done){
-            return HomeScreen();
+            return const HomeScreen();
           }
           return CircularProgressIndicator();
         },

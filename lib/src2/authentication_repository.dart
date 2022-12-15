@@ -13,7 +13,7 @@ class AuthenticationRepository extends GetxController {
 
 
   //Variables
-  final auth = FirebaseAuth.instance;
+  static final auth = FirebaseAuth.instance;
   late final Rx<User?> firebaseUser;
 
 
@@ -64,4 +64,5 @@ class AuthenticationRepository extends GetxController {
 
 
   Future<void> logout() async => await auth.signOut();
+
 }

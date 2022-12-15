@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/homescreen.dart';
+import 'package:flutter_application_1/screens/registerscreen.dart';
 import 'package:flutter_application_1/screens/registerscreen2.dart';
+import 'package:flutter_application_1/src2/authentication_repository.dart';
 
 //import 'package:flutter_application_1/screens/registerscreen2.dart';
 import 'package:get/get.dart';
@@ -16,11 +19,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> with ValidationMixin {
-  final controller = Get.put(LoginController());
+  static final controller = Get.put(LoginController());
   final _formKey = GlobalKey<FormState>();
-  static bool loggedIn=false;
-  String? email = '';
-  String? password = '';
+  static bool loggedIn = false;
+  static String? email = '';
+  static String? password = '';
 
   @override
   Widget build(context) {
@@ -56,7 +59,8 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
               child: Column(children: [
                 Container(margin: const EdgeInsets.only(top: 50.0)),
                 Container(
-                  child: loginForm(controller,_formKey,validateEmail,validatePassword,loggedIn),
+                  child: loginForm(context, controller, _formKey, validateEmail,
+                      validatePassword, loggedIn),
                 ),
                 Container(margin: const EdgeInsets.only(top: 50.0)),
                 newUserButton(context),
@@ -68,101 +72,109 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
     );
   }
 }
-  Widget backgroundImage() {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-          // maxHeight: 500.0,
-          ),
-      child: const DecoratedBox(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.fill, image: AssetImage('assets/download2.png'))),
-      ),
-    );
-  }
 
-  Widget loginForm(controller,_formKey,validateEmail,validatePassword,loggedIn) {
-
-    return Container(
-      alignment: Alignment.centerRight,
-      margin: const EdgeInsets.all(20.0),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            emailField(controller,validateEmail),
-            passwordField(controller,validatePassword),
-            Container(margin: const EdgeInsets.only(top: 50.0)),
-            submitButton(controller,_formKey,loggedIn),
-          ],
+Widget backgroundImage() {
+  return ConstrainedBox(
+    constraints: const BoxConstraints(
+        // maxHeight: 500.0,
         ),
-      ),
-    );
-  }
+    child: const DecoratedBox(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              fit: BoxFit.fill, image: AssetImage('assets/download2.png'))),
+    ),
+  );
+}
 
-  Widget emailField(controller,validateEmail) {
-    return TextFormField(
-      validator: validateEmail,
-      controller: controller.email,
-      // onSaved: (String? value) {
-      //   controller.email = value;
-      // },
-      keyboardType: TextInputType.emailAddress,
-      decoration: const InputDecoration(
-        labelText: 'Enter Email Address',
-        hintText: 'you@example.com',
+Widget loginForm(
+    context, controller, _formKey, validateEmail, validatePassword, loggedIn) {
+  return Container(
+    alignment: Alignment.centerRight,
+    margin: const EdgeInsets.all(20.0),
+    child: Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          emailField(controller, validateEmail),
+          passwordField(controller, validatePassword),
+          Container(margin: const EdgeInsets.only(top: 50.0)),
+          submitButton(context, controller, _formKey, loggedIn),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
 
-  Widget passwordField(controller,validatePassword) {
-    return TextFormField(
-      validator: validatePassword,
-      controller: controller.password,
-      // onSaved: (String? value) {
-      //   controller.password = value;
-      // },
-      obscureText: true,
-      decoration: const InputDecoration(
-        labelText: 'Enter Password',
-        hintText: 'Password',
-      ),
-    );
-  }
+Widget emailField(controller, validateEmail) {
+  return TextFormField(
+    validator: validateEmail,
+    controller: controller.email,
+    // onSaved: (String? value) {
+    //   controller.email = value;
+    // },
+    keyboardType: TextInputType.emailAddress,
+    decoration: const InputDecoration(
+      labelText: 'Enter Email Address',
+      hintText: 'you@example.com',
+    ),
+  );
+}
 
-  Widget submitButton(controller,_formKey,loggedIn) {
-    return ElevatedButton(
-      onPressed: ()  {
-        if (_formKey.currentState!.validate()) {
-          //loginFormKey.currentState?.save();
-          LoginController.instance.loginUser(controller.email.text.trim() as String, controller.password.text.trim() as String);
-          loggedIn=true;
-          //  Navigator.of(context)
-          //        .push(MaterialPageRoute(builder: (context) => const Success()));
-       
+Widget passwordField(controller, validatePassword) {
+  return TextFormField(
+    validator: validatePassword,
+    controller: controller.password,
+    // onSaved: (String? value) {
+    //   controller.password = value;
+    // },
+    obscureText: true,
+    decoration: const InputDecoration(
+      labelText: 'Enter Password',
+      hintText: 'Password',
+    ),
+  );
+}
+
+Widget submitButton(context, controller, formKey, loggedIn)   {
+  return ElevatedButton(
+    onPressed: ()  {
+      if (formKey.currentState!.validate()) {
+        //loginFormKey.currentState?.save();
+        LoginController.instance.loginUser(
+            controller.email.text.trim() as String,
+            controller.password.text.trim() as String);
+        if ( AuthenticationRepository.auth.currentUser != null) {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const HomeScreen()));
+        }else{
+          Navigator.of(context).push(
+           MaterialPageRoute(builder: (context) => const LoginScreen()));
         }
-      },
-      child: const Text('submit'),  
-    );
-  }
+      }
+    },
+    child: const Text('submit'),
+  );
+}
 
-  Widget newUserButton(context) {
-    return Column(
-      children: [
-        const Text(
-          "New User? Register Here",
-          style: TextStyle(
-            color: Colors.black,
-            fontStyle: FontStyle.italic,
-          ),
+Widget newUserButton(context) {
+  return Column(
+    children: [
+      const Text(
+        "New User? Register Here",
+        style: TextStyle(
+          color: Colors.black,
+          fontStyle: FontStyle.italic,
         ),
-        ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const SignUpScreen()));
-            },
-            child: const Text('REGISTER'))
-      ],
-    );
-  }
+      ),
+      ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const SignUpScreen()));
+          },
+          child: const Text('REGISTER'))
+    ],
+  );
+}
+
+
 
