@@ -25,16 +25,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return Flexible(
       child:Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: ()async{
-            // scrollController.animateTo(500,
-            //         duration: const Duration(seconds: 1), curve: Curves.easeIn);
-           pickFile();
+          onPressed: (){
+             scrollController.animateTo(500,
+                     duration: const Duration(seconds: 1), curve: Curves.easeIn);
           }
           ),
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(0.07*homeQuery.size.height) ,
-          child: appBarCustom(context),
-          ), 
+        appBar:  appBarCustom(context,homeQuery)as PreferredSize,
+           
         body:SingleChildScrollView(
           controller: scrollController,
           child: Column(
@@ -43,7 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
             slideShow(homeQuery),
             Container(margin: const EdgeInsets.only(top: 25.0)),
             buildIndicator(),
-            TextButton(onPressed:(){ pickFile();}, child: Text('test'))
             
           ],
         ),
@@ -92,18 +88,3 @@ Widget aboutUs(){
 }
 
 
-Future<void> pickFile() async {
-  
- var result = await FilePicker.platform.pickFiles(
-  type: FileType.image,
- );
-
-       if (result != null && result.files.isNotEmpty) {
-  final fileBytes = result.files.first.bytes;
-  final fileName = result.files.first.name;
-  }
-
-
-
-
-}

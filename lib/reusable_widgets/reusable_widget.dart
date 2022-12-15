@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/admin-screens/addcatscreen.dart';
 import '../screens/homescreen.dart';
 import '../screens/loginscreen.dart';
 import '../screens/adoptscreen.dart';
@@ -75,8 +76,6 @@ Container firebaseUIButton(BuildContext context, String title, Function onTap) {
 
 //builds image for slideshow
  Widget buildImage(String urlImage) => Container(
-        
-
         margin: const EdgeInsets.symmetric(horizontal: 2),
         color: Colors.grey,
         child: Image.network(
@@ -99,8 +98,10 @@ Widget appBarButton(Widget navigateTo, String title,context){ //buttons for appb
       ),
     );
 }
-Widget appBarCustom(context){
-  return AppBar(
+Widget appBarCustom(context,homeQuery){
+  return PreferredSize(
+          preferredSize: Size.fromHeight(0.07*homeQuery.size.height) ,
+          child:AppBar(
           title: homeButton(context),
           automaticallyImplyLeading: false,
           actions: <Widget>[
@@ -108,15 +109,19 @@ Widget appBarCustom(context){
               children: [
                 Visibility(
                   visible: ! LoginScreenState.loggedIn,
-                  child:                 appBarButton(const LoginScreen(), 'LOGIN', context),
+                  child:   appBarButton(const LoginScreen(), 'LOGIN', context),
               ),
                 Container(padding: const EdgeInsets.all(10)),
-                appBarButton(AdoptionScreen(), 'ADOPT  ', context)
+                appBarButton(AdoptionScreen(), 'ADOPT  ', context),
+                Container(padding: const EdgeInsets.all(10)),
+                appBarButton(const AddCat(), 'Add Cat', context)
+                
               ],
             ),
           ],
           backgroundColor: const Color(0xff69539C),
-        );
+        ),
+  );
 }
 Widget homeButton(context) {
     return IconButton(
