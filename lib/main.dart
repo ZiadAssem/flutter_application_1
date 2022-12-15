@@ -22,6 +22,7 @@ void main ()  async{
 
 class App extends StatelessWidget {
    App({super.key});
+
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
@@ -37,10 +38,10 @@ class App extends StatelessWidget {
           if(snapshot.connectionState==ConnectionState.done){
             return const HomeScreen();
           }
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         },
       ) ,
-      title: 'Dog Shelter',
+      title: 'Animal Rights Association',
       );
   }
 }

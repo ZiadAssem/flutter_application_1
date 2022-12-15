@@ -32,17 +32,18 @@ dependencies:
   age_calculator: ^1.0.0
   carousel_slider: ^4.1.1
   cupertino_icons: ^1.0.2
+  file_picker: ^5.2.4
   firebase_auth: ^4.1.1
   firebase_core: ^2.1.1
   firebase_database: ^10.0.4
+  flutter:
+    sdk: flutter
   get: ^4.6.5
   google_sign_in: ^5.4.2
   meta: ^1.8.0
   provider: ^6.0.4
   shared_preferences: ^2.0.15
   smooth_page_indicator: ^1.0.0+2
-  flutter:
-    sdk: flutter
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:

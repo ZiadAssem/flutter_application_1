@@ -15,8 +15,9 @@ Image logoWidget(String imageName) {//logo image
   );
 }
 
+//text form field
 TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
-    TextEditingController controller) {//text form field
+    TextEditingController controller) {
   return TextFormField(
     controller: controller,
     obscureText: isPasswordType,
@@ -71,8 +72,10 @@ Container firebaseUIButton(BuildContext context, String title, Function onTap) {
     ),
   );
 }
+
+//builds image for slideshow
  Widget buildImage(String urlImage) => Container(
-        //builds image for slideshow
+        
 
         margin: const EdgeInsets.symmetric(horizontal: 2),
         color: Colors.grey,
