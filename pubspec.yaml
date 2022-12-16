@@ -42,6 +42,7 @@ dependencies:
   google_sign_in: ^5.4.2
   meta: ^1.8.0
   provider: ^6.0.4
+  rive: ^0.10.0
   shared_preferences: ^2.0.15
   smooth_page_indicator: ^1.0.0+2
 dev_dependencies:

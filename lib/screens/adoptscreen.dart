@@ -24,20 +24,25 @@ class AdoptionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  GridView.builder( //Builds a grid of cat objects
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          crossAxisCount: 4,
-        ),
-        itemCount: _cats.length,
-        itemBuilder: (context, index) {
-          return catCard(_cats, index);
-          //buildImage(_cats[index].image);
+    MediaQueryData homeQuery = MediaQuery.of(context);
 
-        },
-      )
-    ;
+    return  Scaffold(
+      
+      appBar: appBarCustom(context, homeQuery)as PreferredSize,
+      //Builds a grid of cat objects with photos
+      body: GridView.builder( 
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              crossAxisCount: 4,
+            ),
+            itemCount: _cats.length,
+            itemBuilder: (context, index) {
+              return catCard(_cats, index);
+
+            },
+          )
+    );
   }
 }
 Widget catCard(cats,index) {
@@ -46,10 +51,10 @@ Widget catCard(cats,index) {
     child: Column(
       children: [
         Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0),),
-      elevation: 10,
-      margin: const EdgeInsets.all(10),
-      child: buildImage(cats[index].image),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0),),
+          elevation: 20,
+          margin: const EdgeInsets.all(10),
+          child: buildImage(cats[index].image),
     ),
         Text(
       cats[index].name,

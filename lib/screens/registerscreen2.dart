@@ -1,3 +1,4 @@
+import 'package:flutter_application_1/mixins/validation_mixin.dart';
 import 'package:get/get.dart';
 import '../reusable_widgets/reusable_widget.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +13,12 @@ class SignUpScreen extends StatefulWidget {
   SignUpScreenState createState() => SignUpScreenState();
 }
 
-class SignUpScreenState extends State<SignUpScreen> {
+class SignUpScreenState extends State<SignUpScreen> with ValidationMixin{
  final signUpController = Get.put(SignUpController());
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return screenDecoration(context, const Text('sign up'), form(context, signUpController, _formKey));
+    return screenDecoration(context, const Text('sign up'), form(context, signUpController, _formKey,validateEmail,validatePassword));
     
   }
 }
@@ -45,7 +46,7 @@ Widget screenDecoration(context,title,Widget child){
           ))),
     );
 }
-Widget form(context,controller,formKey){
+Widget form(context,controller,formKey,validateEmail,validatePassword){
   return Form(
     key:formKey,
     child: Column(
@@ -55,13 +56,13 @@ Widget form(context,controller,formKey){
                     controller.fullName),
                 const SizedBox(height: 20),
                 reusableTextField("Enter email", Icons.person_outline, false,
-                    controller.email),
+                    controller.email,validateEmail),
                 const SizedBox(height: 20),
                 reusableTextField("Enter phone number", Icons.numbers, false,
                     controller.phoneNo),
                 const SizedBox(height: 20),
                 reusableTextField("Enter Password", Icons.lock_outlined, true,
-                    controller.password),
+                    controller.password,validatePassword),
                 const SizedBox(height: 20),
                 firebaseUIButton(context, "Sign Up",   () {
                   if(formKey.currentState!.validate()){

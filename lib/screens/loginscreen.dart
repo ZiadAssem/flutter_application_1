@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/homescreen.dart';
-import 'package:flutter_application_1/screens/registerscreen.dart';
 import 'package:flutter_application_1/screens/registerscreen2.dart';
 import 'package:flutter_application_1/src2/authentication_repository.dart';
 
@@ -59,8 +58,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
               child: Column(children: [
                 Container(margin: const EdgeInsets.only(top: 50.0)),
                 Container(
-                  child: loginForm(context, controller, _formKey, validateEmail,
-                      validatePassword, loggedIn),
+                  child: loginForm(context, controller, _formKey, validateEmail, loggedIn),
                 ),
                 Container(margin: const EdgeInsets.only(top: 50.0)),
                 newUserButton(context),
@@ -87,7 +85,7 @@ Widget backgroundImage() {
 }
 
 Widget loginForm(
-    context, controller, _formKey, validateEmail, validatePassword, loggedIn) {
+    context, controller, _formKey, validateEmail, loggedIn) {
   return Container(
     alignment: Alignment.centerRight,
     margin: const EdgeInsets.all(20.0),
@@ -96,7 +94,7 @@ Widget loginForm(
       child: Column(
         children: [
           emailField(controller, validateEmail),
-          passwordField(controller, validatePassword),
+          passwordField(controller),
           Container(margin: const EdgeInsets.only(top: 50.0)),
           submitButton(context, controller, _formKey, loggedIn),
         ],
@@ -120,9 +118,8 @@ Widget emailField(controller, validateEmail) {
   );
 }
 
-Widget passwordField(controller, validatePassword) {
+Widget passwordField(controller) {
   return TextFormField(
-    validator: validatePassword,
     controller: controller.password,
     // onSaved: (String? value) {
     //   controller.password = value;
