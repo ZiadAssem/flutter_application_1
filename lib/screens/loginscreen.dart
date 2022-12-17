@@ -58,7 +58,8 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
               child: Column(children: [
                 Container(margin: const EdgeInsets.only(top: 50.0)),
                 Container(
-                  child: loginForm(context, controller, _formKey, validateEmail, loggedIn),
+                  child: loginForm(
+                      context, controller, _formKey, validateEmail, loggedIn),
                 ),
                 Container(margin: const EdgeInsets.only(top: 50.0)),
                 newUserButton(context),
@@ -84,8 +85,7 @@ Widget backgroundImage() {
   );
 }
 
-Widget loginForm(
-    context, controller, _formKey, validateEmail, loggedIn) {
+Widget loginForm(context, controller, _formKey, validateEmail, loggedIn) {
   return Container(
     alignment: Alignment.centerRight,
     margin: const EdgeInsets.all(20.0),
@@ -132,20 +132,20 @@ Widget passwordField(controller) {
   );
 }
 
-Widget submitButton(context, controller, formKey, loggedIn)   {
+Widget submitButton(context, controller, formKey, loggedIn) {
   return ElevatedButton(
-    onPressed: ()  {
+    onPressed: () {
       if (formKey.currentState!.validate()) {
         //loginFormKey.currentState?.save();
         LoginController.instance.loginUser(
             controller.email.text.trim() as String,
             controller.password.text.trim() as String);
-        if ( AuthenticationRepository.auth.currentUser != null) {
+        if (AuthenticationRepository.auth.currentUser != null) {
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const HomeScreen()));
-        }else{
+        } else {
           Navigator.of(context).push(
-           MaterialPageRoute(builder: (context) => const LoginScreen()));
+              MaterialPageRoute(builder: (context) => const LoginScreen()));
         }
       }
     },
@@ -172,6 +172,3 @@ Widget newUserButton(context) {
     ],
   );
 }
-
-
-
