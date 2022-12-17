@@ -39,7 +39,8 @@ Widget screenDecoration(context, title, Widget child, homeQuery) {
       children: [
         Container(
           decoration: const BoxDecoration(
-            color: Color(0xff69539C),
+            color: Colors.deepPurple,
+            //Color(0xff69539C),
           ),
         ),
         Center(

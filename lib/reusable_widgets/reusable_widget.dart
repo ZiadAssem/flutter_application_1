@@ -63,12 +63,14 @@ Container firebaseUIButton(
         onTap();
       },
       style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith((states) {
+          backgroundColor: MaterialStateProperty.all(Colors.deepPurple),
+          //MaterialStateProperty.resolveWith((states) {
             // if (states.contains(MaterialState.pressed)) {
             //   return Colors.purple;
             // }
-            return const Color(0xff69539C);
-          }),
+            //return const Color(0xff69539C);
+          //}
+          //),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
       child: Text(
