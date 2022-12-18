@@ -78,7 +78,7 @@ Widget form(context, controller, formKey, validateEmail, validatePassword) {
       children: <Widget>[
         const SizedBox(height: 20),
         reusableTextField("Enter full name", Icons.person_outline, false,
-            controller.fullName),
+            controller.fullName,context),
         const SizedBox(height: 20),
         reusableTextField("Enter email", Icons.person_outline, false,
             controller.email, validateEmail),

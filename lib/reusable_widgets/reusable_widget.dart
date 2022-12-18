@@ -20,37 +20,36 @@ Widget reusableTextField(String text, IconData icon, bool isPasswordType,
     TextEditingController controller,
     [validator]) {
   return Card(
-      shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(30.0) ),
-      elevation: 10,
-      child: TextFormField(
-        validator: validator,
-        controller: controller,
-        obscureText: isPasswordType,
-        enableSuggestions: !isPasswordType,
-        autocorrect: !isPasswordType,
-        style: TextStyle(color: Colors.black.withOpacity(0.9)),
-        decoration: InputDecoration(
-          prefixIcon: Icon(
-            icon,
-            color: const Color(0xff69539C),
-          ),
-          labelText: text,
-          labelStyle: TextStyle(color: Colors.black.withOpacity(0.9)),
-          //filled: true,
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          //fillColor: Colors.transparent,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30.0),
-            // borderSide: const BorderSide(width: 0, style: BorderStyle.none)
-          ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+    color: Colors.transparent,
+    elevation: 10,
+    child: TextFormField(
+      validator: validator,
+      controller: controller,
+      obscureText: isPasswordType,
+      enableSuggestions: !isPasswordType,
+      autocorrect: !isPasswordType,
+      style: TextStyle(color: Colors.black.withOpacity(0.9)),
+      decoration: InputDecoration(
+      
+        prefixIcon: Icon(
+          icon,
+          color: const Color(0xff69539C),
         ),
-        keyboardType: isPasswordType
-            ? TextInputType.visiblePassword
-            : TextInputType.emailAddress,
+        labelText: text,
+        labelStyle: TextStyle(color: Colors.black.withOpacity(0.9)),
+        filled: true,
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0),),
       ),
+      keyboardType: isPasswordType
+          ? TextInputType.visiblePassword
+          : TextInputType.emailAddress,
+    ),
   );
 }
-
+//SignUpbutton in register screen 2
 Container firebaseUIButton(
     BuildContext context, String title, Function onTap, width) {
   return Container(
@@ -65,10 +64,10 @@ Container firebaseUIButton(
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(Colors.deepPurple),
           //MaterialStateProperty.resolveWith((states) {
-            // if (states.contains(MaterialState.pressed)) {
-            //   return Colors.purple;
-            // }
-            //return const Color(0xff69539C);
+          // if (states.contains(MaterialState.pressed)) {
+          //   return Colors.purple;
+          // }
+          //return const Color(0xff69539C);
           //}
           //),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
