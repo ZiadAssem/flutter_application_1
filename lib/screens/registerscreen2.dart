@@ -114,7 +114,7 @@ Widget signUpDesign(
     child: Column(
       children: [
         const Text(
-          'SIGN UP',
+          'SIGN UP, SAVE A LIFE',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -125,7 +125,7 @@ Widget signUpDesign(
         reusableTextField("Enter full name", Icons.person_outline, false,
             controller.fullName),
         const SizedBox(height: 20),
-        reusableTextField("Enter email", Icons.person_outline, false,
+        reusableTextField("Enter email", Icons.email, false,
             controller.email, validateEmail),
         const SizedBox(height: 20),
         reusableTextField(
