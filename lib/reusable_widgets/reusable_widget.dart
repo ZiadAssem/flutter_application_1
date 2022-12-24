@@ -18,7 +18,8 @@ Image logoWidget(String imageName) {
 //text form field
 Widget reusableTextField(String text, IconData icon, bool isPasswordType,
     TextEditingController controller,
-    [validator]) {
+    [validator,suffixIcon,showPassword]) {
+      
   return Card(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
     color: Colors.transparent,
@@ -31,10 +32,11 @@ Widget reusableTextField(String text, IconData icon, bool isPasswordType,
       autocorrect: !isPasswordType,
       style: TextStyle(color: Colors.black.withOpacity(0.9)),
       decoration: InputDecoration(
-      
+       suffixIcon:  suffixIcon,
         prefixIcon: Icon(
           icon,
           color: const Color(0xff69539C),
+          
         ),
         labelText: text,
         labelStyle: TextStyle(color: Colors.black.withOpacity(0.9)),

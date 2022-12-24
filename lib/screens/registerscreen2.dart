@@ -16,16 +16,26 @@ class SignUpScreen extends StatefulWidget {
 class SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
   final signUpController = Get.put(SignUpController());
   final _formKey = GlobalKey<FormState>();
+   bool showPassword=true;
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData homeQuery = MediaQuery.of(context);
     return screenDecoration(
       context,
       const Text('sign up'),
-      // form(context, signUpController, _formKey, validateEmail,
-      //     validatePassword)
       signUpDesign(
-          signUpController, _formKey, context, validateEmail, validatePassword),
+        signUpController,_formKey,context,validateEmail,validatePassword,
+        IconButton(
+          icon: Icon(Icons.remove_red_eye_sharp),
+          //Needs Fixing 
+          onPressed: () {
+            setState(() {
+              showPassword = !showPassword;
+            });
+          },
+        ),
+      ),
       homeQuery,
     );
   }
@@ -53,10 +63,10 @@ Widget screenDecoration(context, title, Widget child, homeQuery) {
               width: 0.4 * MediaQuery.of(context).size.width,
               height: 0.8 * MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: Colors.black),
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  ),
+                color: Colors.white,
+                border: Border.all(color: Colors.black),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+              ),
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 50, 20, 10),
@@ -71,44 +81,8 @@ Widget screenDecoration(context, title, Widget child, homeQuery) {
   );
 }
 
-Widget form(context, controller, formKey, validateEmail, validatePassword) {
-  return Form(
-    key: formKey,
-    child: Column(
-      children: <Widget>[
-        const SizedBox(height: 20),
-        reusableTextField("Enter full name", Icons.person_outline, false,
-            controller.fullName,context),
-        const SizedBox(height: 20),
-        reusableTextField("Enter email", Icons.person_outline, false,
-            controller.email, validateEmail),
-        const SizedBox(height: 20),
-        reusableTextField(
-            "Enter phone number", Icons.numbers, false, controller.phoneNo),
-        const SizedBox(height: 20),
-        reusableTextField("Enter Password", Icons.lock_outlined, true,
-            controller.password, validatePassword),
-        const SizedBox(height: 20),
-        // firebaseUIButton(
-        //   context,
-        //   "Sign Up",
-        //   () {
-        //     if (formKey.currentState!.validate()) {
-        //       u.User.addUser(controller.fullName.text.trim(),
-        //           controller.email.text.trim(), controller.phoneNo.text.trim());
-        //       SignUpController.instance.registerUser(
-        //           controller.email.text.trim(),
-        //           controller.password.text.trim());
-        //     }
-        //   },
-        // )
-      ],
-    ),
-  );
-}
-
-Widget signUpDesign(
-    controller, formKey, context, validateEmail, validatePassword) {
+Widget signUpDesign(controller, formKey, context, validateEmail,
+    validatePassword, passwordIcon) {
   return Form(
     key: formKey,
     child: Column(
@@ -123,16 +97,16 @@ Widget signUpDesign(
         ),
         const SizedBox(height: 20),
         reusableTextField("Enter full name", Icons.person_outline, false,
-            controller.fullName),
+         controller.fullName),
         const SizedBox(height: 20),
-        reusableTextField("Enter email", Icons.email, false,
-            controller.email, validateEmail),
+        reusableTextField("Enter email", Icons.email, false,        
+           controller.email, validateEmail),
         const SizedBox(height: 20),
         reusableTextField(
             "Enter phone number", Icons.numbers, false, controller.phoneNo),
         const SizedBox(height: 20),
         reusableTextField("Enter Password", Icons.lock_outlined, true,
-            controller.password, validatePassword),
+            controller.password, validatePassword, passwordIcon, true),
         const SizedBox(height: 20),
         firebaseUIButton(context, "Sign Up", () {
           if (formKey.currentState!.validate()) {
