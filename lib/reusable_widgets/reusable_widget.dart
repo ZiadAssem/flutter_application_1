@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/admin-screens/addcatscreen.dart';
+import 'package:flutter_application_1/src2/authentication_repository.dart';
 import '../screens/homescreen.dart';
 import '../screens/loginscreen.dart';
 import '../screens/adoptscreen.dart';
@@ -118,10 +119,14 @@ Widget appBarCustom(context, homeQuery) {
       actions: <Widget>[
         Row(
           children: [
-            Visibility(
-              visible: !LoginScreenState.loggedIn,
-              child: appBarButton(const LoginScreen(), 'LOGIN', context),
-            ),
+            
+              AuthenticationRepository.auth.currentUser==null? appBarButton(const LoginScreen(), 'LOGIN', context)
+              :TextButton(
+                onPressed: (){
+                  AuthenticationRepository.logout();
+                },
+               child: const Text('LOGOUT',style: TextStyle(color: Colors.white),)),
+            
             Container(padding: const EdgeInsets.all(10)),
             appBarButton(AdoptionScreen(), 'ADOPT  ', context),
             Container(padding: const EdgeInsets.all(10)),

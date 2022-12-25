@@ -19,7 +19,7 @@ class LoginScreen extends StatefulWidget {
 
 class LoginScreenState extends State<LoginScreen> with ValidationMixin {
   static final controller = Get.put(LoginController());
-  final _formKey = GlobalKey<FormState>();
+  final loginFormKey = GlobalKey<FormState>();
   static bool loggedIn = false;
   static String? email = '';
   static String? password = '';
@@ -59,7 +59,7 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
                 Container(margin: const EdgeInsets.only(top: 50.0)),
                 Container(
                   child: loginForm(
-                      context, controller, _formKey, validateEmail, loggedIn),
+                      context, controller, loginFormKey, validateEmail, loggedIn),
                 ),
                 Container(margin: const EdgeInsets.only(top: 50.0)),
                 newUserButton(context),
@@ -85,26 +85,27 @@ Widget backgroundImage() {
   );
 }
 
-Widget loginForm(context, controller, _formKey, validateEmail, loggedIn) {
+Widget loginForm(context, controller, formKey, validateEmail, loggedIn) {
   return Container(
     alignment: Alignment.centerRight,
     margin: const EdgeInsets.all(20.0),
     child: Form(
-      key: _formKey,
+      key: formKey,
       child: Column(
         children: [
-          emailField(controller, validateEmail),
-          passwordField(controller),
+          emailField(controller, validateEmail,formKey),
+          passwordField(controller,formKey),
           Container(margin: const EdgeInsets.only(top: 50.0)),
-          submitButton(context, controller, _formKey, loggedIn),
+          submitButton(context, controller, formKey, loggedIn),
         ],
       ),
     ),
   );
 }
 
-Widget emailField(controller, validateEmail) {
+Widget emailField(controller, validateEmail,loginFormKey) {
   return TextFormField(
+    
     validator: validateEmail,
     controller: controller.email,
     // onSaved: (String? value) {
@@ -118,7 +119,7 @@ Widget emailField(controller, validateEmail) {
   );
 }
 
-Widget passwordField(controller) {
+Widget passwordField(controller,loginFormKey) {
   return TextFormField(
     controller: controller.password,
     // onSaved: (String? value) {
@@ -140,6 +141,8 @@ Widget submitButton(context, controller, formKey, loggedIn) {
         LoginController.instance.loginUser(
             controller.email.text.trim() as String,
             controller.password.text.trim() as String);
+           formKey.currentState.reset();
+
         if (await AuthenticationRepository.auth.currentUser != null) {
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const HomeScreen()));
