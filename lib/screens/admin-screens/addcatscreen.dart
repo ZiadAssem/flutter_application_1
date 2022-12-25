@@ -27,6 +27,12 @@ class _AddCatState extends State<AddCat> {
   }
 }
 
+Widget catForm(){
+  
+  return Form(
+    child: Column(),
+  );
+}
 
 Future<void> pickFile() async {
   

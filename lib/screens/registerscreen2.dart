@@ -35,6 +35,7 @@ class SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
             });
           },
         ),
+        showPassword,
       ),
       homeQuery,
     );
@@ -49,6 +50,10 @@ Widget screenDecoration(context, title, Widget child, homeQuery) {
       children: [
         Container(
           decoration: const BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.fitWidth,
+              image: AssetImage('assets/shelter illustration.jpg'),
+              ),
             color: Colors.deepPurple,
             //Color(0xff69539C),
           ),
@@ -63,7 +68,7 @@ Widget screenDecoration(context, title, Widget child, homeQuery) {
               width: 0.4 * MediaQuery.of(context).size.width,
               height: 0.8 * MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.white.withOpacity(0.6),
                 border: Border.all(color: Colors.black),
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
               ),
@@ -82,7 +87,8 @@ Widget screenDecoration(context, title, Widget child, homeQuery) {
 }
 
 Widget signUpDesign(controller, formKey, context, validateEmail,
-    validatePassword, passwordIcon) {
+    validatePassword, passwordIcon,showPassword) {
+    
   return Form(
     key: formKey,
     child: Column(
@@ -106,7 +112,7 @@ Widget signUpDesign(controller, formKey, context, validateEmail,
             "Enter phone number", Icons.numbers, false, controller.phoneNo),
         const SizedBox(height: 20),
         reusableTextField("Enter Password", Icons.lock_outlined, true,
-            controller.password, validatePassword, passwordIcon, true),
+            controller.password, validatePassword, passwordIcon, showPassword),
         const SizedBox(height: 20),
         firebaseUIButton(context, "Sign Up", () {
           if (formKey.currentState!.validate()) {
