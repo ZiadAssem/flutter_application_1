@@ -23,11 +23,11 @@ class User {
 FirebaseDatabase database = FirebaseDatabase.instance;
 
 
-static void  addUser(
+static addUser(
   String uId,
   String name,String email,String phoneNo) {
     DatabaseReference reference = FirebaseDatabase.instance.ref('user/$uId');
-  reference.push().set({
+ reference.push().set({
     
     'fullName': name, 
     'email': email, 
