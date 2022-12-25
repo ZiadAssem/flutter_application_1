@@ -1,10 +1,12 @@
 import 'package:flutter_application_1/mixins/validation_mixin.dart';
+import 'package:flutter_application_1/src2/authentication_repository.dart';
 import 'package:get/get.dart';
 import '../reusable_widgets/reusable_widget.dart';
 import 'package:flutter/material.dart';
 import '../reusable_widgets/colors.dart';
 import '../src2/signup_controller.dart';
 import '../classes/user.dart' as u;
+import 'dart:io';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -16,7 +18,7 @@ class SignUpScreen extends StatefulWidget {
 class SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
   final signUpController = Get.put(SignUpController());
   final _formKey = GlobalKey<FormState>();
-   bool showPassword=true;
+  bool showPassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +27,13 @@ class SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
       context,
       const Text('sign up'),
       signUpDesign(
-        signUpController,_formKey,context,validateEmail,validatePassword,
+        signUpController,
+        _formKey,
+        context,
+        validateEmail,
+        validatePassword,
         IconButton(
-          icon: Icon(Icons.remove_red_eye_sharp),
-          //Needs Fixing 
+          icon: const Icon(Icons.remove_red_eye_sharp),
           onPressed: () {
             setState(() {
               showPassword = !showPassword;
@@ -53,7 +58,7 @@ Widget screenDecoration(context, title, Widget child, homeQuery) {
             image: DecorationImage(
               fit: BoxFit.fitWidth,
               image: AssetImage('assets/shelter illustration.jpg'),
-              ),
+            ),
             color: Colors.deepPurple,
             //Color(0xff69539C),
           ),
@@ -87,8 +92,7 @@ Widget screenDecoration(context, title, Widget child, homeQuery) {
 }
 
 Widget signUpDesign(controller, formKey, context, validateEmail,
-    validatePassword, passwordIcon,showPassword) {
-    
+    validatePassword, passwordIcon, showPassword) {
   return Form(
     key: formKey,
     child: Column(
@@ -103,10 +107,10 @@ Widget signUpDesign(controller, formKey, context, validateEmail,
         ),
         const SizedBox(height: 20),
         reusableTextField("Enter full name", Icons.person_outline, false,
-         controller.fullName),
+            controller.fullName),
         const SizedBox(height: 20),
-        reusableTextField("Enter email", Icons.email, false,        
-           controller.email, validateEmail),
+        reusableTextField(
+            "Enter email", Icons.email, false, controller.email, validateEmail),
         const SizedBox(height: 20),
         reusableTextField(
             "Enter phone number", Icons.numbers, false, controller.phoneNo),
@@ -114,68 +118,20 @@ Widget signUpDesign(controller, formKey, context, validateEmail,
         reusableTextField("Enter Password", Icons.lock_outlined, true,
             controller.password, validatePassword, passwordIcon, showPassword),
         const SizedBox(height: 20),
-        firebaseUIButton(context, "Sign Up", () {
+        firebaseUIButton(context, "Sign Up", ()  async {
+          
           if (formKey.currentState!.validate()) {
-            u.User.addUser(controller.fullName.text.trim(),
-                controller.email.text.trim(), controller.phoneNo.text.trim());
+            
             SignUpController.instance.registerUser(
-                controller.email.text.trim(), controller.password.text.trim());
+                controller.email.text.trim(), controller.password.text.trim(),
+                 controller.fullName.text.trim(),controller.phoneNo.text.trim(),
+
+                );
+            
+           
           }
         }, 0.25 * MediaQuery.of(context).size.width),
       ],
     ),
   );
 }
-// Scaffold(
-//   extendBodyBehindAppBar: true,
-//   appBar: AppBar(
-//     backgroundColor: Colors.transparent,
-//     elevation: 0,
-//     title: const Text(
-//       "Sign Up",
-//       style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-//     ),
-//   ),
-//   body: Container(
-//       width: MediaQuery.of(context).size.width,
-//       height: MediaQuery.of(context).size.height,
-//       decoration: BoxDecoration(
-//           gradient: LinearGradient(colors: [
-//         hexStringToColor("CB2B93"),
-//         hexStringToColor("9546C4"),
-//         hexStringToColor("5E61F4")
-//       ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
-//       child: SingleChildScrollView(
-//           child: Padding(
-//         padding: const EdgeInsets.fromLTRB(20, 120, 20, 0),
-//         child: Column(
-//           children: <Widget>[
-//             const SizedBox(height: 20),
-//             reusableTextField("Enter UserName", Icons.person_outline, false,
-//                 _userNameTextController),
-//             const SizedBox(height: 20),
-//             reusableTextField("Enter Email Id", Icons.person_outline, false,
-//                 _emailTextController),
-//             const SizedBox(height: 20),
-//             reusableTextField("Enter Password", Icons.lock_outlined, true,
-//                 _passwordTextController),
-//             const SizedBox(height: 20),
-//             firebaseUIButton(context, "Sign Up", () {
-//               FirebaseAuth.instance
-//                   .createUserWithEmailAndPassword(
-//                       email: _emailTextController.text,
-//                       password: _passwordTextController.text)
-//                   .then((value) {
-//                 print("Created New Account");
-//                 Navigator.push(
-//                     context,
-//                     MaterialPageRoute(
-//                         builder: (context) => const HomeScreen()));
-//               }).onError((error, stackTrace) {
-//                 print("Error ${error.toString()}");
-//               });
-//             })
-//           ],
-//         ),
-//       ))),
-// );

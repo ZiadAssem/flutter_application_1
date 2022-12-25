@@ -135,7 +135,7 @@ Widget passwordField(controller,loginFormKey) {
 
 Widget submitButton(context, controller, formKey, loggedIn) {
   return ElevatedButton(
-    onPressed:  ()async {
+    onPressed:  () {
       if (formKey.currentState!.validate()) {
         //loginFormKey.currentState?.save();
         LoginController.instance.loginUser(
@@ -143,7 +143,7 @@ Widget submitButton(context, controller, formKey, loggedIn) {
             controller.password.text.trim() as String);
            formKey.currentState.reset();
 
-        if (await AuthenticationRepository.auth.currentUser != null) {
+        if ( AuthenticationRepository.auth.currentUser != null) {
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const HomeScreen()));
         } else {

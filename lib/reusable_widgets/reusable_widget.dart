@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/admin-screens/addcatscreen.dart';
 import 'package:flutter_application_1/src2/authentication_repository.dart';
+import 'package:flutter_application_1/utils/database.dart';
 import '../screens/homescreen.dart';
 import '../screens/loginscreen.dart';
 import '../screens/adoptscreen.dart';
@@ -111,6 +112,7 @@ Widget appBarButton(Widget navigateTo, String title, context) {
 }
 
 Widget appBarCustom(context, homeQuery) {
+  var userFirebaseId = AuthenticationRepository.auth.currentUser?.uid;
   return PreferredSize(
     preferredSize: Size.fromHeight(0.07 * homeQuery.size.height),
     child: AppBar(
@@ -119,9 +121,10 @@ Widget appBarCustom(context, homeQuery) {
       actions: <Widget>[
         Row(
           children: [
-            
-              AuthenticationRepository.auth.currentUser==null? appBarButton(const LoginScreen(), 'LOGIN', context)
-              :TextButton(
+              if(AuthenticationRepository.auth.currentUser==null) appBarButton(const LoginScreen(), 'LOGIN', context)
+              else if  ( DbHelper.ref.child('user/$userFirebaseId/admin')==true) TextButton(onPressed: (){}, child: Text('admin'))
+              
+              else TextButton(
                 onPressed: (){
                   AuthenticationRepository.logout();
                 },
