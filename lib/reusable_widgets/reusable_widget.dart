@@ -122,7 +122,7 @@ Widget appBarCustom(context, homeQuery) {
         Row(
           children: [
               if(AuthenticationRepository.auth.currentUser==null) appBarButton(const LoginScreen(), 'LOGIN', context)
-              else if  ( DbHelper.ref.child('user/$userFirebaseId/admin')==true) TextButton(onPressed: (){}, child: Text('admin'))
+              else if  ( DbHelper.ref.child('user/$userFirebaseId/.../admin')==true) TextButton(onPressed: (){}, child: Text('admin'))
               
               else TextButton(
                 onPressed: (){
