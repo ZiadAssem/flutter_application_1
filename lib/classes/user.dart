@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_application_1/src2/authentication_repository.dart';
 
 import '../utils/database.dart';
 
@@ -26,13 +27,34 @@ FirebaseDatabase database = FirebaseDatabase.instance;
 static addUser(
   String uId,
   String name,String email,String phoneNo) {
-    DatabaseReference reference = FirebaseDatabase.instance.ref('user/$uId');
- reference.push().set({
+    DatabaseReference reference = FirebaseDatabase.instance.ref('user/');
+ reference.child(uId).set({
     
     'fullName': name, 
     'email': email, 
-    'phoneNo':phoneNo
+    'phoneNo':phoneNo,
+    'admin':false,
     });
+}
+
+static bool isAdmin(){
+  if (AuthenticationRepository.auth.currentUser != null){
+    var currentUser = AuthenticationRepository.auth.currentUser;
+    var uId = currentUser!.uid;
+    DatabaseReference reference = FirebaseDatabase.instance.ref('user/$uId');
+
+    
+    // DataSnapshot snapshot1;
+    // reference.child(uId).once().then((snapshot1 ) async {
+      
+    //   // Use the val() method on the snapshot to get the value of the 'admin' field
+    //   bool isAdmin =await  snapshot1.value!['admin'];
+    //   return isAdmin;
+      
+    // });
+  }
+
+  return false;
 }
 // void printFirebase(){
 //   reference.once().then(

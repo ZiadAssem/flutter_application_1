@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/admin-screens/addcatscreen.dart';
 import 'package:flutter_application_1/src2/authentication_repository.dart';
@@ -67,13 +68,7 @@ Container firebaseUIButton(
       },
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(Colors.deepPurple),
-          //MaterialStateProperty.resolveWith((states) {
-          // if (states.contains(MaterialState.pressed)) {
-          //   return Colors.purple;
-          // }
-          //return const Color(0xff69539C);
-          //}
-          //),
+          
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
       child: Text(
@@ -111,9 +106,23 @@ Widget appBarButton(Widget navigateTo, String title, context) {
   );
 }
 
-Widget appBarCustom(context, homeQuery) {
-  var userFirebaseId = AuthenticationRepository.auth.currentUser?.uid;
+
+ Future<bool> isAdminFun()async{
+  
+   var userFirebaseId = AuthenticationRepository.auth.currentUser?.uid;
+  var isAdmin;
+  final snapshotHelper = await DbHelper.ref.child('user').child('$userFirebaseId').child('admin').get();
+  if(snapshotHelper.exists){
+     isAdmin=snapshotHelper;
+     return isAdmin;
+  }
+  return false;
+ }
+ appBarCustom(context, homeQuery)   {
+    
+
   return PreferredSize(
+    
     preferredSize: Size.fromHeight(0.07 * homeQuery.size.height),
     child: AppBar(
       title: homeButton(context),
@@ -121,8 +130,21 @@ Widget appBarCustom(context, homeQuery) {
       actions: <Widget>[
         Row(
           children: [
+               TextButton(onPressed: ()
+               async
+               {
+                bool isAdmin =await isAdminFun();
+                print(isAdmin);
+                if(isAdmin){
+                  Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => const AddCat()));
+                }else{
+                   Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) =>  AdoptionScreen()));
+                }
+               }, child: const Text('admin')),
+
               if(AuthenticationRepository.auth.currentUser==null) appBarButton(const LoginScreen(), 'LOGIN', context)
-              else if  ( DbHelper.ref.child('user/$userFirebaseId/.../admin')==true) TextButton(onPressed: (){}, child: Text('admin'))
               
               else TextButton(
                 onPressed: (){
