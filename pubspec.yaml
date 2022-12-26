@@ -32,7 +32,6 @@ dependencies:
   age_calculator: ^1.0.0
   carousel_slider: ^4.1.1
   cupertino_icons: ^1.0.2
-  file_picker: ^5.2.4
   firebase_auth: ^4.1.1
   firebase_core: ^2.1.1
   firebase_database: ^10.0.4
@@ -40,9 +39,13 @@ dependencies:
     sdk: flutter
   get: ^4.6.5
   google_sign_in: ^5.4.2
+  intl: ^0.18.0
+  invoiceninja: ^0.0.9
   meta: ^1.8.0
+  open_file: ^3.2.1
+  path_provider: ^2.0.11
+  pdf: ^3.8.4
   provider: ^6.0.4
-  rive: ^0.10.0
   shared_preferences: ^2.0.15
   smooth_page_indicator: ^1.0.0+2
 dev_dependencies:

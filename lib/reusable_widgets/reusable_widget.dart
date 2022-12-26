@@ -142,7 +142,10 @@ and then redirect to correct page
                 print(isAdmin);
                 if(isAdmin){
                   Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => const AddCat()));
+                  .push(MaterialPageRoute(builder: (context) => 
+                 // const AddCat() 
+                 HomeScreen()
+                  ));
                 }else{
                    Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) =>  AdoptionScreen()));
@@ -160,7 +163,10 @@ and then redirect to correct page
             Container(padding: const EdgeInsets.all(10)),
             appBarButton(AdoptionScreen(), 'ADOPT  ', context),
             Container(padding: const EdgeInsets.all(10)),
-            appBarButton(const AddCat(), 'Add Cat', context)
+            appBarButton(const
+            // AddCat(),
+            HomeScreen(),
+             'Add Cat', context)
           ],
         ),
       ],
