@@ -105,7 +105,12 @@ Widget appBarButton(Widget navigateTo, String title, context) {
     ),
   );
 }
+/*
+Admin authentication needs to be worked on
+we need to find if user is admin
+and then redirect to correct page
 
+*/
 
  Future<bool> isAdminFun()async{
   
