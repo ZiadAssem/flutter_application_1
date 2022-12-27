@@ -4,25 +4,26 @@ class Cat {
 
 String name = '';
 int birthYear = 0;
+String imageUrl='';
+int age=0;
 
-final String image;
 
-Cat(this.name,this.birthYear,this.image){
+Cat(this.name,this.birthYear,this.imageUrl){
      final DateTime now = DateTime.now();
-     int age= now.year - birthYear;
+     this.age= now.year - birthYear;
 
 }
 FirebaseDatabase database = FirebaseDatabase.instance;
 static DatabaseReference reference = FirebaseDatabase.instance.ref('cat/');
 
-static void  addCat(String name,int birthYear) {
-       final DateTime now = DateTime.now();
-       int age= now.year - birthYear;
+//Add Birth Month later
+ static void  addCat(name,birthYear,imageUrl) {
+    
 
   reference.push().set({
-    'Name': name, 
-    'birthYear': birthYear, 
-    'age':age
+    'name': name,  
+    'birthYear':birthYear,
+    'imageUrl':imageUrl
     });
 }
 

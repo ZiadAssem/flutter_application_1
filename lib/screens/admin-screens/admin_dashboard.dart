@@ -21,8 +21,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
     MediaQueryData homeQuery = MediaQuery.of(context);
     return Scaffold(
      appBar: appBarCustom(context, homeQuery),
-     body: Container(
+     body:Row(
+      children: [
 
+        Container(
+          alignment: Alignment.centerLeft,
+          width: 0.5* homeQuery.size.width,
       child: FirebaseAnimatedList(
         query: ref,
         itemBuilder:((context, snapshot, animation, index) {
@@ -32,8 +36,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
           return listRequest(request: request);
         }) ,
         ),
-     ),
-    );
+     ),],
+    ));
   }
 }
 Widget listRequest({required Map request}){
@@ -41,7 +45,7 @@ Widget listRequest({required Map request}){
     child: Column(
       children: [
         Text(request['userId']),
-        SizedBox(height: 5,),
+        const SizedBox(height: 5,),
         Text(request['cat']),
 
       ],

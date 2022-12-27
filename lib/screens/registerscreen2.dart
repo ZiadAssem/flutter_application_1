@@ -3,7 +3,6 @@ import 'package:flutter_application_1/src2/authentication_repository.dart';
 import 'package:get/get.dart';
 import '../reusable_widgets/reusable_widget.dart';
 import 'package:flutter/material.dart';
-import '../reusable_widgets/colors.dart';
 import '../src2/signup_controller.dart';
 import '../classes/user.dart' as u;
 import 'dart:io';
