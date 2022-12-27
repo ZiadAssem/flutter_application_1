@@ -31,9 +31,11 @@ environment:
 dependencies:
   age_calculator: ^1.0.0
   carousel_slider: ^4.1.1
+  cloud_firestore: ^4.3.0
   cupertino_icons: ^1.0.2
+  file_picker: ^5.2.4
   firebase_auth: ^4.1.1
-  firebase_core: ^2.1.1
+  firebase_core: ^2.4.0
   firebase_database: ^10.0.4
   flutter:
     sdk: flutter
@@ -42,7 +44,6 @@ dependencies:
   intl: ^0.18.0
   invoiceninja: ^0.0.9
   meta: ^1.8.0
-  open_file: ^3.2.1
   path_provider: ^2.0.11
   pdf: ^3.8.4
   provider: ^6.0.4
