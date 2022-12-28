@@ -19,11 +19,13 @@ class SignUpController extends GetxController {
   void registerUser(String email, String password,String fullName, String phoneNo) {
     Get.put(AuthenticationRepository());
     String? error = Get.put(AuthenticationRepository.instance
-    .createUserWithEmailAndPassword(email, password)
-    .then((value) => u.User.addUser(
-      AuthenticationRepository.auth.currentUser!.uid,
-       fullName, email, phoneNo))
-     as String?);
+    .createUserWithEmailAndPassword(email, password) as String);
+    // Get.put(AuthenticationRepository.instance
+    // .createUserWithEmailAndPassword(email, password)
+    // .then((value) => u.User.addUser(
+    //   AuthenticationRepository.auth.currentUser!.uid,
+    //    fullName, email, phoneNo))
+    //  as String?);
 
     if(error != null) {
       Get.showSnackbar(GetSnackBar(message: error.toString(),));
