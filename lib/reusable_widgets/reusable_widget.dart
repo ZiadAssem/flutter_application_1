@@ -143,8 +143,8 @@ and then redirect to correct page
                 if(isAdmin){
                   Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => 
-                 // const AddCat() 
-                 HomeScreen()
+                  const AddCat() 
+                 //HomeScreen()
                   ));
                 }else{
                    Navigator.of(context)

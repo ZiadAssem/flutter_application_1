@@ -33,11 +33,6 @@ class Request {
     });
 
 
-    // ref.push().set(
-    //   {'catName': catName, 
-    //   'userName': userName, 
-    //   'userId': uId
-    //   }
-    // );
+    
   }
 }
