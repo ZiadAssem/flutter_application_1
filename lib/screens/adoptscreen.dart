@@ -44,7 +44,12 @@ class AdoptionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MediaQueryData homeQuery = MediaQuery.of(context);
+    DatabaseReference catRef=DbHelper.database.ref('cat');
 
+    catRef.once().then((snapshot){
+      Map cat = snapshot.snapshot.value as Map;
+      
+    });
     return Scaffold(
       appBar: appBarCustom(context, homeQuery) as PreferredSize,
       //Builds a grid of cat objects with photos
@@ -62,7 +67,8 @@ class AdoptionScreen extends StatelessWidget {
                   cat['key'] = snapshot.key;
 
                   return catCardV2(cat: cat);
-                }));
+                }),
+                );
           }
           //       },
           //     )
