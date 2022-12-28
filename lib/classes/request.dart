@@ -10,10 +10,15 @@ class Request{
   Query query = DbHelper.getQuery('user')
   .startAt(AuthenticationRepository.auth.currentUser!.uid).endAt(AuthenticationRepository.auth.currentUser!.uid);
   final snapshot =await  query.get();
-   Map user = snapshot.value as Map;
-   user['key']=snapshot.key;
-   var userName=user['fullName'];
-  print(user['fullName']);
+
+   final user = (snapshot.value as Map)
+   .map((key, value) =>
+    MapEntry(key,userEx.fromJson(value as Map<String, dynamic>))
+    ).values.toList();
+
+  //  user['key']=snapshot.key;
+  //  var userName=user['fullName'];
+  // print(user['fullName']);
   DatabaseReference ref=DbHelper.database.ref('request');
 
   ref.push().set({
