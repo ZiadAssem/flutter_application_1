@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/cat.dart';
 import 'package:flutter_application_1/reusable_widgets/reusable_widget.dart';
 import 'package:flutter_application_1/utils/database.dart';
+import '../classes/request.dart';
 
 class AdoptionScreen extends StatelessWidget {
   final List<Cat> _cats = [
@@ -98,6 +99,7 @@ Widget catCardV2({required Map cat}) {
   String url = cat['imageUrl'];
   url = url.replaceAll('file/d/', 'uc?export=view&id=');
   url = url.replaceAll('/view?usp=share_link', ' ');
+  var catName=cat['name'];
   return FittedBox(
       fit: BoxFit.scaleDown,
       child: Column(
@@ -110,7 +112,7 @@ Widget catCardV2({required Map cat}) {
                   child: buildImage(url),
                 ),
                 Text(
-                  cat['name'],
+                  catName,
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -119,7 +121,11 @@ Widget catCardV2({required Map cat}) {
               ],
             ),
           ),
-          ElevatedButton(onPressed: () {}, child: const Text('ADOPT ME <3'))
+          ElevatedButton(
+            onPressed: () {
+              Request.requestCat(catName);
+            }, 
+            child: const Text('ADOPT ME <3'))
         ],
       ));
 }
