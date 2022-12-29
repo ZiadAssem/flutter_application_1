@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/admin-screens/addcatscreen.dart';
 import 'package:flutter_application_1/src2/authentication_repository.dart';
 import 'package:flutter_application_1/utils/database.dart';
+import '../classes/user.dart';
+import '../screens/admin-screens/admin_dashboard.dart';
 import '../screens/homescreen.dart';
 import '../screens/loginscreen.dart';
 import '../screens/adoptscreen.dart';
@@ -122,21 +124,11 @@ and then redirect to correct page
 
 */
 
- Future<bool> isAdminFun()async{
-  
-   var userFirebaseId = AuthenticationRepository.auth.currentUser?.uid;
-  var isAdmin;
-  final snapshotHelper = await DbHelper.ref.child('user').child('$userFirebaseId').child('admin').get();
-  if(snapshotHelper.exists){
-     isAdmin=snapshotHelper;
-     return isAdmin;
-  }
-  return false;
- }
+
 
  //A custom appbar for easy implementation
  appBarCustom(context, homeQuery)   {
-  
+  bool test = User.isAdmin;
   return PreferredSize(
     
     preferredSize: Size.fromHeight(0.07 * homeQuery.size.height),
@@ -146,22 +138,12 @@ and then redirect to correct page
       actions: <Widget>[
         Row(
           children: [
-               TextButton(onPressed: ()
-               async
-               {
-                bool isAdmin =await isAdminFun();
-                print(isAdmin);
-                if(isAdmin){
-                  Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => 
-                  const AddCat() 
-                 //HomeScreen()
-                  ));
-                }else{
-                   Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) =>  AdoptionScreen()));
-                }
-               }, child: const Text('admin')),
+
+
+               if(User.isAdmin)
+               appBarButton(AdminDashboard(), 'ADMIN', context)
+               else
+               appBarButton(AdoptionScreen(), '$test', context),
 
               if(AuthenticationRepository.auth.currentUser==null) appBarButton(const LoginScreen(), 'LOGIN', context)
               

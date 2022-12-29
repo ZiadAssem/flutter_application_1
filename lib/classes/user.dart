@@ -10,6 +10,8 @@ class User {
   final String fullName;
   final String email;
   final String phoneNo;
+  static bool isAdmin = false;
+  
    User({required this.fullName,required this.email,required this.phoneNo,}){
 
     DbHelper.ref.set({
@@ -19,6 +21,10 @@ class User {
       "email":email
       
     });
+  }
+
+  static setIsAdmin(bool value){
+    isAdmin = value;
   }
 //need to set the singleton later on
 FirebaseDatabase database = FirebaseDatabase.instance;
@@ -37,25 +43,9 @@ static addUser(
     });
 }
 
-static bool isAdmin(){
-  if (AuthenticationRepository.auth.currentUser != null){
-    var currentUser = AuthenticationRepository.auth.currentUser;
-    var uId = currentUser!.uid;
-    DatabaseReference reference = FirebaseDatabase.instance.ref('user/$uId');
 
-    
-    // DataSnapshot snapshot1;
-    // reference.child(uId).once().then((snapshot1 ) async {
-      
-    //   // Use the val() method on the snapshot to get the value of the 'admin' field
-    //   bool isAdmin =await  snapshot1.value!['admin'];
-    //   return isAdmin;
-      
-    // });
-  }
 
-  return false;
-}
+  
 // void printFirebase(){
 //   reference.once().then(
 //     (event) 

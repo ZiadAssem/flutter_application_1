@@ -7,6 +7,7 @@ import 'package:flutter_application_1/src2/authentication_repository.dart';
 import 'package:get/get.dart';
 import '../mixins/validation_mixin.dart';
 import '../src2/login_controller.dart';
+import '../utils/database.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -135,7 +136,7 @@ Widget passwordField(controller,loginFormKey) {
 
 Widget submitButton(context, controller, formKey, loggedIn) {
   return ElevatedButton(
-    onPressed:  () {
+    onPressed:  () async {
       if (formKey.currentState!.validate()) {
         //loginFormKey.currentState?.save();
         LoginController.instance.loginUser(
@@ -144,6 +145,8 @@ Widget submitButton(context, controller, formKey, loggedIn) {
            formKey.currentState.reset();
 
         if ( AuthenticationRepository.auth.currentUser != null) {
+            await DbHelper.isAdmin();
+
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const HomeScreen()));
         } else {
