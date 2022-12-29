@@ -7,9 +7,14 @@ import 'package:flutter_application_1/utils/database.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import '../classes/request.dart';
 
-class AdoptionScreen extends StatelessWidget {
-  AdoptionScreen({super.key});
+class AdoptionScreen extends StatefulWidget {
+  const AdoptionScreen({super.key});
 
+  @override
+  State<AdoptionScreen> createState() => _AdoptionScreenState();
+}
+
+class _AdoptionScreenState extends State<AdoptionScreen> {
   static Query query = DbHelper.getQuery('cat');
   //Map catMap = await DbHelper.getCats();
   @override
@@ -36,13 +41,15 @@ class AdoptionScreen extends StatelessWidget {
               Map cat = snapshot.value as Map;
               cat['key'] = snapshot.key;
 
-              return Expanded(
-                child:Row(
+              return Row(
                 children:[
+                  Expanded(
+                child:
                   catCardV2(homeQuery, cat: cat),
+                  ),
                   Container(width: homeQuery.size.width*0.3,)
                 ]
-               ),
+               ,
                ) ;
               
             },
@@ -68,7 +75,6 @@ class AdoptionScreen extends StatelessWidget {
 
 
 
-
 Widget catCardV2(homeQuery, {required Map cat}) {
   // changes google drive format to an accepted format
   String url = cat['imageUrl'];
@@ -90,7 +96,7 @@ Widget catCardV2(homeQuery, {required Map cat}) {
           children: [
             SizedBox(
               width: homeQuery.size.width*0.1,
-            child:buildImage(imageUrl, homeQuery),
+            child:buildRequestImage(imageUrl, homeQuery),
             ),
             SizedBox(width: homeQuery.size.width * 0.4,),
             Text(

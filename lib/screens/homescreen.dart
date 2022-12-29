@@ -21,7 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
   @override
   Widget build(BuildContext context) {
+
     MediaQueryData homeQuery = MediaQuery.of(context);
+
     return Flexible(
       child:Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -30,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
                      duration: const Duration(seconds: 1), curve: Curves.easeIn);
           }
           ),
-        appBar:  appBarCustom(context,homeQuery)as PreferredSize,
+        appBar:  appBarCustom(context,homeQuery),
            
         body:SingleChildScrollView(
           controller: scrollController,
@@ -63,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   activeIndex = index;
                 }))),
         itemCount: urlImages.length,
+        
         itemBuilder: ((context, index, realIndex) {
           final urlImage = urlImages[index];
           return buildImage(urlImage);

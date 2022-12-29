@@ -83,7 +83,7 @@ Container firebaseUIButton(
 //builds image for slideshow
 Widget buildImage(String urlImage,[homeQuery]) => Container(
       margin: const EdgeInsets.symmetric(horizontal: 2),
-      width: homeQuery.size.width *0.3,
+      //width:homeQuery==Null?Null: homeQuery.size.width *0.3,
       color: Colors.grey,
       child: Image.network(
         urlImage,
@@ -91,6 +91,15 @@ Widget buildImage(String urlImage,[homeQuery]) => Container(
       ),
     );
 
+Widget buildRequestImage(String urlImage,[homeQuery]) => Container(
+      margin: const EdgeInsets.symmetric(horizontal: 2),
+      width:homeQuery==Null?Null: homeQuery.size.width *0.3,
+      color: Colors.grey,
+      child: Image.network(
+        urlImage,
+        fit: BoxFit.cover,
+      ),
+    );
 Widget appBarButton(Widget navigateTo, String title, context) {
   //buttons for appbar navigation
   return TextButton(
