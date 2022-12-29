@@ -27,7 +27,7 @@ class _PdfPageState extends State<PdfPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-               const TitleWidget(
+                const TitleWidget(
                   icon: Icons.picture_as_pdf,
                   text: 'Generate Invoice',
                 ),

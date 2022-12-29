@@ -33,7 +33,8 @@ static DatabaseReference reference = FirebaseDatabase.instance.ref('cat/');
   reference.push().set({
     'name': name,  
     'birthYear':birthYear,
-    'imageUrl':imageUrl
+    'imageUrl':imageUrl,
+    
     });
 }
 static  getCount(snapshot){
