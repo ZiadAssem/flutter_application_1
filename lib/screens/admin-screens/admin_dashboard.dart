@@ -14,7 +14,7 @@ class AdminDashboard extends StatefulWidget {
 }
 
 class _AdminDashboardState extends State<AdminDashboard> {
-  static Query ref = DbHelper.getQuery('requests');
+  static Query ref = DbHelper.getQuery('request');
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +26,14 @@ class _AdminDashboardState extends State<AdminDashboard> {
 
         Container(
           alignment: Alignment.centerLeft,
-          width: 0.5* homeQuery.size.width,
+          width: 0.3* homeQuery.size.width,
       child: FirebaseAnimatedList(
         query: ref,
         itemBuilder:((context, snapshot, animation, index) {
           Map request = snapshot.value as Map;
-          request['key']=snapshot.key;
 
+          request['key']=snapshot.key;
+          
           return listRequest(request: request);
         }) ,
         ),
@@ -40,13 +41,16 @@ class _AdminDashboardState extends State<AdminDashboard> {
     ));
   }
 }
+// Displays Adoption requests in shape of cards
 Widget listRequest({required Map request}){
   return Card(
     child: Column(
       children: [
-        Text(request['userId']),
+        Text(request['userName']),
         const SizedBox(height: 5,),
-        Text(request['cat']),
+        Text(request['catName']),
+        const SizedBox(height: 5,),
+        Text(request['userPhoneNo']),
 
       ],
     ),

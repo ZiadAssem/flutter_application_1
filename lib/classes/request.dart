@@ -4,6 +4,7 @@ import 'package:flutter_application_1/src2/authentication_repository.dart';
 import '../utils/database.dart';
 
 class Request {
+  
   static requestCat(catName) async {
     final uId = AuthenticationRepository.auth.currentUser!.uid;
     // Query query = DbHelper.database.ref('user').orderByValue().equalTo(uId);

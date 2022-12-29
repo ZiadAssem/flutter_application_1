@@ -4,75 +4,47 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/cat.dart';
 import 'package:flutter_application_1/reusable_widgets/reusable_widget.dart';
 import 'package:flutter_application_1/utils/database.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import '../classes/request.dart';
 
 class AdoptionScreen extends StatelessWidget {
-  final List<Cat> _cats = [
-    //local list of dummy cat objects
-    Cat('tabby', 2000,
-        'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
-    Cat('tabby', 2000,
-        'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
-    Cat('tabby', 2000,
-        'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
-    Cat('tabby', 2000,
-        'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
-    Cat('tabby', 2000,
-        'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
-    Cat('tabby', 2000,
-        'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
-    Cat('tabby', 2000,
-        'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
-    Cat('tabby', 2000,
-        'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
-    Cat('tabby', 2000,
-        'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
-    Cat('tabby', 2000,
-        'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
-    Cat('tabby', 2000,
-        'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
-    Cat('tabby', 2000,
-        'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
-    Cat('tabby', 2000,
-        'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
-    Cat('tabby', 2000,
-        'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg'),
-  ];
 
-  AdoptionScreen({super.key});
-  static Query ref = DbHelper.getQuery('cat');
+  
+   AdoptionScreen({super.key});
+
+  static Query query = DbHelper.getQuery('cat');
+  //Map catMap = await DbHelper.getCats();
   @override
   Widget build(BuildContext context) {
     MediaQueryData homeQuery = MediaQuery.of(context);
-    DatabaseReference catRef=DbHelper.database.ref('cat');
-
-    catRef.once().then((snapshot){
-      Map cat = snapshot.snapshot.value as Map;
-      
-    });
+   
     return Scaffold(
       appBar: appBarCustom(context, homeQuery) as PreferredSize,
       //Builds a grid of cat objects with photos
-      body: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            crossAxisCount: 4,
-          ),
-          itemBuilder: (context, index) {
-            return FirebaseAnimatedList(
-                query: ref,
-                itemBuilder: ((context, snapshot, animation, index) {
-                  Map cat = snapshot.value as Map;
-                  cat['key'] = snapshot.key;
+      body: FirebaseAnimatedList(
+        query: query,
+       itemBuilder:(context, snapshot, animation, index) {
+        Map cat = snapshot.value as Map;
+        cat['key']=snapshot.key;
 
-                  return catCardV2(cat: cat);
-                }),
-                );
-          }
-          //       },
-          //     )
-          ),
+        return catCardV2(cat:cat);
+
+       }
+       
+       ,),
+      // GridView.builder(
+      //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      //       crossAxisSpacing: 10,
+      //       mainAxisSpacing: 10,
+      //       crossAxisCount: 4,
+      //     ),
+          
+      //     itemCount: DbHelper.getCatCount(),
+      //     itemBuilder: (context, index) {
+      //       return catCardV2(cat: catMap);
+      //     }
+        
+      //     ),
     );
   }
 }
@@ -100,12 +72,27 @@ Widget catCard(cats, index) {
       ));
 }
 
+Widget Test(Map cat){
+  
+  var catName = cat['name'];
+  var imageUrl = cat['imageUrl'];
+  var catKey = cat['key'];
+  return Container(
+    child: 
+   // catName==null ? Text('The catname is null'):
+    Text(catName)
+  );
+}
+
 Widget catCardV2({required Map cat}) {
+
   // changes google drive format to an accepted format
   String url = cat['imageUrl'];
   url = url.replaceAll('file/d/', 'uc?export=view&id=');
   url = url.replaceAll('/view?usp=share_link', ' ');
+
   var catName=cat['name'];
+
   return FittedBox(
       fit: BoxFit.scaleDown,
       child: Column(

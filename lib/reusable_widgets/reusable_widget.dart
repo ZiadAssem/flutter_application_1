@@ -123,9 +123,10 @@ and then redirect to correct page
   }
   return false;
  }
- appBarCustom(context, homeQuery)   {
-    
 
+ //A custom appbar for easy implementation
+ appBarCustom(context, homeQuery)   {
+  
   return PreferredSize(
     
     preferredSize: Size.fromHeight(0.07 * homeQuery.size.height),
@@ -175,6 +176,8 @@ and then redirect to correct page
   );
 }
 
+
+//Custom button for appbar
 Widget homeButton(context) {
   return IconButton(
     icon: Image.asset('assets/download2.png'),

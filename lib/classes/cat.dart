@@ -8,6 +8,14 @@ String name = '';
 int birthYear = 0;
 String imageUrl='';
 int age=0;
+static var catCounter=0;
+static Map catMapHelper={};
+static  Map cat = {
+  'key':{
+  'catName' : 'ostor',
+  }
+};
+
 
 
 Cat(this.name,this.birthYear,this.imageUrl){
