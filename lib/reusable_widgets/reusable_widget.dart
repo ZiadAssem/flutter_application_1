@@ -120,12 +120,7 @@ Widget appBarButton(Widget navigateTo, String title, context) {
     ),
   );
 }
-/*
-Admin authentication needs to be worked on
-we need to find if user is admin
-and then redirect to correct page
 
-*/
 
 //A custom appbar for easy implementation
 appBarCustom(context, homeQuery) {
@@ -154,12 +149,7 @@ appBarCustom(context, homeQuery) {
             Container(padding: const EdgeInsets.all(10)),
             appBarButton(AdoptionScreen(), 'ADOPT  ', context),
             Container(padding: const EdgeInsets.all(10)),
-            appBarButton(
-                const
-                // AddCat(),
-                HomeScreen(),
-                'Add Cat',
-                context)
+          
           ],
         ),
       ],
