@@ -5,27 +5,23 @@ import '../utils/database.dart';
 
 class Request {
   
-  static requestCat(catName) async {
+  static requestCat(catName,catId) async {
     final uId = AuthenticationRepository.auth.currentUser!.uid;
-    // Query query = DbHelper.database.ref('user').orderByValue().equalTo(uId);
-
-    // final snapshot = await query.get();
-    // final user = snapshot.value as Map;
-
-    // user['key'] = snapshot.key;
-    // var userName = user['fullName'];
+    
     final itemRef = DbHelper.database.ref('user/$uId');
     
     DatabaseReference ref = DbHelper.database.ref('request');
 
     itemRef.once().then((snapshot){
-      Map snapshot2 = snapshot.snapshot.value as Map;
-      var userName = snapshot2["fullName"];
-      var phoneNo = snapshot2["phoneNo"];
+      Map userMap = snapshot.snapshot.value as Map;
+
+      var userName = userMap["fullName"];
+      var phoneNo = userMap["phoneNo"];
 
        ref.push().set(
       {
-      'catName': catName, 
+      'catName': catName,
+      'catId':catId, 
       'userName': userName, 
       'userId': uId,
       'userPhoneNo': phoneNo,

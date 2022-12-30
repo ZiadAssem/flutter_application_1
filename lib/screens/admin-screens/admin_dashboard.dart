@@ -19,6 +19,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
   @override
   Widget build(BuildContext context) {
     MediaQueryData homeQuery = MediaQuery.of(context);
+
+
     return Scaffold(
      appBar: appBarCustom(context, homeQuery),
      body:Row(
@@ -37,8 +39,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
           return listRequest(request: request);
         }) ,
         ),
-     ),],
-    ));
+     ),
+     ],
+    ),
+    );
   }
 }
 // Displays Adoption requests in shape of cards

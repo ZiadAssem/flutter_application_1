@@ -24,7 +24,8 @@ class _AdoptionScreenState extends State<AdoptionScreen> {
     return Scaffold(
         appBar: appBarCustom(context, homeQuery) as PreferredSize,
         //Builds a grid of cat objects with photos
-        body: Stack(children: [
+        body: Stack(
+          children: [
           Container(
             decoration: const BoxDecoration(
              
@@ -35,6 +36,7 @@ class _AdoptionScreenState extends State<AdoptionScreen> {
           FirebaseAnimatedList(
             query: query,
             itemBuilder: (context, snapshot, animation, index) {
+              
               Map cat = snapshot.value as Map;
               cat['key'] = snapshot.key;
 
@@ -52,19 +54,7 @@ class _AdoptionScreenState extends State<AdoptionScreen> {
             },
           )
         ]
-            // GridView.builder(
-            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            //       crossAxisSpacing: 10,
-            //       mainAxisSpacing: 10,
-            //       crossAxisCount: 4,
-            //     ),
-
-            //     itemCount: DbHelper.getCatCount(),
-            //     itemBuilder: (context, index) {
-            //       return catCardV2(cat: catMap);
-            //     }
-
-            //     ),
+    
             ));
   }
 }
@@ -73,11 +63,13 @@ class _AdoptionScreenState extends State<AdoptionScreen> {
 
 
 Widget catCardV2(homeQuery, {required Map cat}) {
+
   // changes google drive format to an accepted format
   String url = cat['imageUrl'];
   url = url.replaceAll('file/d/', 'uc?export=view&id=');
   url = url.replaceAll('/view?usp=share_link', ' ');
-
+  
+  var catKey = cat['key'];
   var catName = cat['name'];
   var imageUrl = cat['imageUrl'];
   var birthYear = cat['birthYear'];
@@ -112,7 +104,7 @@ Widget catCardV2(homeQuery, {required Map cat}) {
           children: [Text('BIRTH YEAR: $birthYear'), Text('COLOR: $color')],
         ),
         SizedBox(width: homeQuery.size.width*0.01,),
-        ElevatedButton(onPressed: (){Request.requestCat(catName);}, child: const Text('Adopt Me <3'))
+        ElevatedButton(onPressed: (){Request.requestCat(catName,catKey);}, child: const Text('Adopt Me <3'))
       ],
     ),
   )

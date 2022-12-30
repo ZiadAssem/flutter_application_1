@@ -15,7 +15,8 @@ class ValidationMixin {
     return null;
   }
   String? validateEmpty(String? value) {
-    if (value==null) {
+
+    if (value!.isEmpty) {
       return 'Please fill the form';
     }
     return null;
