@@ -17,12 +17,21 @@ static isAdmin()async{
   if(AuthenticationRepository.auth.currentUser?.uid !=null){
 
   var currentId = AuthenticationRepository.auth.currentUser!.uid;
-  final  snapshot =await database.ref('user/$currentId/admin').once();
-  Map adminMap = snapshot.snapshot.value as Map;
-
-  //User.setIsAdmin(snapshot.snapshot.value as bool);  
-  User.setIsAdmin(adminMap['admin']);
+  DatabaseReference ref = FirebaseDatabase.instance.ref('user/$currentId/admin');
+  final  snapshot =await ref.get();
+ // Map adminMap = snapshot.value as Map;
+  User.isAdmin=snapshot.value as bool ;
+  User.setIsAdmin(snapshot.value as bool);
+  return snapshot.value as bool;
   }
+}
+
+static isAdminTest()async{
+ // if(AuthenticationRepository.auth.currentUser?.uid !=null){
+  DatabaseReference ref = FirebaseDatabase.instance.ref('user/uFkR1Z1UoVTVUmbpDmgU7BXGT852/admin');
+  final  snapshot =await ref.get();
+  return snapshot.value as bool;
+  //}
 }
 
 static int getCatCount(){

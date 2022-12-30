@@ -23,7 +23,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
      appBar: appBarCustom(context, homeQuery),
      body:Row(
       children: [
-
+        
         Container(
           alignment: Alignment.centerLeft,
           width: 0.3* homeQuery.size.width,

@@ -5,6 +5,7 @@ import 'package:flutter_application_1/src2/authentication_repository.dart';
 
 //import 'package:flutter_application_1/screens/registerscreen2.dart';
 import 'package:get/get.dart';
+import '../classes/user.dart';
 import '../mixins/validation_mixin.dart';
 import '../src2/login_controller.dart';
 import '../utils/database.dart';
@@ -145,7 +146,7 @@ Widget submitButton(context, controller, formKey, loggedIn) {
            formKey.currentState.reset();
 
         if ( AuthenticationRepository.auth.currentUser != null) {
-            await DbHelper.isAdmin();
+            User.isAdmin =await DbHelper.isAdmin();
 
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const HomeScreen()));

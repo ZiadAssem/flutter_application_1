@@ -26,14 +26,11 @@ class _AdoptionScreenState extends State<AdoptionScreen> {
         //Builds a grid of cat objects with photos
         body: Stack(children: [
           Container(
-            // decoration: const BoxDecoration(
-            //   image: DecorationImage(
-            //     fit: BoxFit.fitWidth,
-            //     image: AssetImage('assets/paw_background.jpg'),
-            //   ),
-            //   color: Colors.deepPurple,
-            //   //Color(0xff69539C),
-            // ),
+            decoration: const BoxDecoration(
+             
+              color: Colors.deepPurple,
+              //Color(0xff69539C),
+            ),
           ),
           FirebaseAnimatedList(
             query: query,

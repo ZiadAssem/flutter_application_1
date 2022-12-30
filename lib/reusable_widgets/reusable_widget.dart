@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/admin-screens/addcatscreen.dart';
 import 'package:flutter_application_1/src2/authentication_repository.dart';
 import 'package:flutter_application_1/utils/database.dart';
+import 'package:get/get.dart';
 import '../classes/user.dart';
 import '../screens/admin-screens/admin_dashboard.dart';
 import '../screens/homescreen.dart';
 import '../screens/loginscreen.dart';
 import '../screens/adoptscreen.dart';
+import '../screens/testscreen.dart';
 
 Image logoWidget(String imageName) {
   //logo image
@@ -23,8 +25,7 @@ Image logoWidget(String imageName) {
 //text form field
 Widget reusableTextField(String text, IconData icon, bool isPasswordType,
     TextEditingController controller,
-    [validator,suffixIcon,bool showPassword= true]) {
-      
+    [validator, suffixIcon, bool showPassword = true]) {
   return Card(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
     color: Colors.transparent,
@@ -32,23 +33,24 @@ Widget reusableTextField(String text, IconData icon, bool isPasswordType,
     child: TextFormField(
       validator: validator,
       controller: controller,
-      obscureText:  !showPassword,
+      obscureText: !showPassword,
       enableSuggestions: !isPasswordType,
       autocorrect: !isPasswordType,
       style: TextStyle(color: Colors.black.withOpacity(0.9)),
       decoration: InputDecoration(
-       suffixIcon:  suffixIcon,
+        suffixIcon: suffixIcon,
         prefixIcon: Icon(
           icon,
           color: const Color(0xff69539C),
-          
         ),
         labelText: text,
         labelStyle: TextStyle(color: Colors.black.withOpacity(0.9)),
         filled: true,
         floatingLabelBehavior: FloatingLabelBehavior.never,
         fillColor: Colors.white,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0),),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
       ),
       keyboardType: isPasswordType
           ? TextInputType.visiblePassword
@@ -56,6 +58,7 @@ Widget reusableTextField(String text, IconData icon, bool isPasswordType,
     ),
   );
 }
+
 //SignUpbutton in register screen 2
 Container firebaseUIButton(
     BuildContext context, String title, Function onTap, width) {
@@ -70,7 +73,6 @@ Container firebaseUIButton(
       },
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(Colors.deepPurple),
-          
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
       child: Text(
@@ -83,7 +85,7 @@ Container firebaseUIButton(
 }
 
 //builds image for slideshow
-Widget buildImage(String urlImage,[homeQuery]) => Container(
+Widget buildImage(String urlImage, [homeQuery]) => Container(
       margin: const EdgeInsets.symmetric(horizontal: 2),
       //width:homeQuery==Null?Null: homeQuery.size.width *0.3,
       color: Colors.grey,
@@ -93,15 +95,16 @@ Widget buildImage(String urlImage,[homeQuery]) => Container(
       ),
     );
 
-Widget buildRequestImage(String urlImage,[homeQuery]) => Container(
+Widget buildRequestImage(String urlImage, [homeQuery]) => Container(
       margin: const EdgeInsets.symmetric(horizontal: 2),
-      width:homeQuery==Null?Null: homeQuery.size.width *0.3,
+      width: homeQuery == Null ? Null : homeQuery.size.width * 0.3,
       color: Colors.grey,
       child: Image.network(
         urlImage,
         fit: BoxFit.cover,
       ),
     );
+
 Widget appBarButton(Widget navigateTo, String title, context) {
   //buttons for appbar navigation
   return TextButton(
@@ -124,13 +127,10 @@ and then redirect to correct page
 
 */
 
-
-
- //A custom appbar for easy implementation
- appBarCustom(context, homeQuery)   {
+//A custom appbar for easy implementation
+appBarCustom(context, homeQuery) {
   bool test = User.isAdmin;
   return PreferredSize(
-    
     preferredSize: Size.fromHeight(0.07 * homeQuery.size.height),
     child: AppBar(
       title: homeButton(context),
@@ -138,28 +138,28 @@ and then redirect to correct page
       actions: <Widget>[
         Row(
           children: [
-
-
-               if(User.isAdmin)
-               appBarButton(AdminDashboard(), 'ADMIN', context)
-               else
-               appBarButton(AdoptionScreen(), '$test', context),
-
-              if(AuthenticationRepository.auth.currentUser==null) appBarButton(const LoginScreen(), 'LOGIN', context)
-              
-              else TextButton(
-                onPressed: (){
-                  AuthenticationRepository.logout();
-                },
-               child: const Text('LOGOUT',style: TextStyle(color: Colors.white),)),
-            
+            adminButton(context),
+           // appBarButton(TestScreen(), 'test', context),
+            if (AuthenticationRepository.auth.currentUser == null)
+              appBarButton(const LoginScreen(), 'LOGIN', context)
+            else
+              TextButton(
+                  onPressed: () {
+                    AuthenticationRepository.logout();
+                  },
+                  child: const Text(
+                    'LOGOUT',
+                    style: TextStyle(color: Colors.white),
+                  )),
             Container(padding: const EdgeInsets.all(10)),
             appBarButton(AdoptionScreen(), 'ADOPT  ', context),
             Container(padding: const EdgeInsets.all(10)),
-            appBarButton(const
-            // AddCat(),
-            HomeScreen(),
-             'Add Cat', context)
+            appBarButton(
+                const
+                // AddCat(),
+                HomeScreen(),
+                'Add Cat',
+                context)
           ],
         ),
       ],
@@ -167,7 +167,6 @@ and then redirect to correct page
     ),
   );
 }
-
 
 //Custom button for appbar
 Widget homeButton(context) {
@@ -179,4 +178,29 @@ Widget homeButton(context) {
           .push(MaterialPageRoute(builder: (context) => const HomeScreen()));
     },
   );
+}
+
+Widget adminButton(context) {
+  return TextButton(
+      onPressed: () async {
+        if (AuthenticationRepository.auth.currentUser == null) {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const LoginScreen()));
+        } else if (await DbHelper.isAdmin()) {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const AdminDashboard()));
+        } else {
+          // Navigator.of(context).push(
+          //     MaterialPageRoute(builder: (context) => const HomeScreen()));
+         Get.showSnackbar(GetSnackBar(message: 'UNAUTHORIZED ACCESS',));
+
+        }
+      },
+      child: const Text(
+        'Admin??',
+        style:  TextStyle(
+        color: Colors.white,
+        )
+      
+      ));
 }
