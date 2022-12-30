@@ -1,4 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:get/get.dart';
+
 
 import '../utils/database.dart';
 
@@ -10,11 +12,7 @@ String imageUrl='';
 int age=0;
 static var catCounter=0;
 static Map catMapHelper={};
-static  Map cat = {
-  'key':{
-  'catName' : 'ostor',
-  }
-};
+
 
 
 
@@ -27,15 +25,24 @@ FirebaseDatabase database = FirebaseDatabase.instance;
 static DatabaseReference reference = FirebaseDatabase.instance.ref('cat/');
 
 //Add Birth Month later
- static void  addCat(name,birthYear,imageUrl) {
+ static void  addCat(name,birthYear,birthMonth,vaccinated,type,color,imageUrl) {
     
 
   reference.push().set({
     'name': name,  
     'birthYear':birthYear,
+    'birthMonth':birthMonth,
+    'vaccinated':vaccinated,
+    'type':type,
+    'color':color,
     'imageUrl':imageUrl,
     
-    });
+    }).whenComplete(() => 
+     Get.showSnackbar(const GetSnackBar(message: 'Cat Added Successfully',))
+
+    ).onError((error, stackTrace) => 
+          Get.showSnackbar(GetSnackBar(message: error.toString(),))
+    );
 }
 static  getCount(snapshot){
    Query ref = DbHelper.getQuery('cat');

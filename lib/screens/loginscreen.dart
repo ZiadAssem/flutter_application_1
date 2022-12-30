@@ -141,7 +141,7 @@ Widget submitButton(context, controller, formKey, loggedIn) {
       if (formKey.currentState!.validate()) {
         //loginFormKey.currentState?.save();
         LoginController.instance.loginUser(
-            controller.email.text.trim() as String,
+            controller.email.text.toLowerCase().trim() as String,
             controller.password.text.trim() as String);
            formKey.currentState.reset();
 
