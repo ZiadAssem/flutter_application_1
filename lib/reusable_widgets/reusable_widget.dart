@@ -10,6 +10,7 @@ import '../screens/homescreen.dart';
 import '../screens/loginscreen.dart';
 import '../screens/adoptscreen.dart';
 import '../screens/testscreen.dart';
+import 'package:flutter_application_1/screens/loginscreen2.dart';
 
 Image logoWidget(String imageName) {
   //logo image
@@ -121,7 +122,6 @@ Widget appBarButton(Widget navigateTo, String title, context) {
   );
 }
 
-
 //A custom appbar for easy implementation
 appBarCustom(context, homeQuery) {
   bool test = User.isAdmin;
@@ -134,9 +134,9 @@ appBarCustom(context, homeQuery) {
         Row(
           children: [
             adminButton(context),
-           // appBarButton(TestScreen(), 'test', context),
+            // appBarButton(TestScreen(), 'test', context),
             if (AuthenticationRepository.auth.currentUser == null)
-              appBarButton(const LoginScreen(), 'LOGIN', context)
+              appBarButton(const LoginScreen2(), 'LOGIN', context)
             else
               TextButton(
                   onPressed: () {
@@ -149,7 +149,6 @@ appBarCustom(context, homeQuery) {
             Container(padding: const EdgeInsets.all(10)),
             appBarButton(AdoptionScreen(), 'ADOPT  ', context),
             Container(padding: const EdgeInsets.all(10)),
-          
           ],
         ),
       ],
@@ -182,15 +181,13 @@ Widget adminButton(context) {
         } else {
           // Navigator.of(context).push(
           //     MaterialPageRoute(builder: (context) => const HomeScreen()));
-         Get.showSnackbar(GetSnackBar(message: 'UNAUTHORIZED ACCESS',));
-
+          Get.showSnackbar(GetSnackBar(
+            message: 'UNAUTHORIZED ACCESS',
+          ));
         }
       },
-      child: const Text(
-        'Admin??',
-        style:  TextStyle(
-        color: Colors.white,
-        )
-      
-      ));
+      child: const Text('Admin??',
+          style: TextStyle(
+            color: Colors.white,
+          )));
 }
