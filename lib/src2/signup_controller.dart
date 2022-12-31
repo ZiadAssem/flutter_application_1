@@ -22,6 +22,8 @@ class SignUpController extends GetxController {
     .createUserWithEmailAndPassword(email, password).then((value) 
     => u.User.addUser(AuthenticationRepository.auth.currentUser!.uid,
      fullName, email, phoneNo)) as String);
+
+     
     // Get.put(AuthenticationRepository.instance
     // .createUserWithEmailAndPassword(email, password)
     // .then((value) => u.User.addUser(
