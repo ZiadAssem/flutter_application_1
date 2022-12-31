@@ -66,18 +66,20 @@ class _AddCatState extends State<AddCat> with ValidationMixin {
                       ),
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    width: 0.3 * homeQuery.size.width,
-                    child: FirebaseAnimatedList(
-                      query: ref,
-                      itemBuilder: ((context, snapshot, animation, index) {
-                        Map request = snapshot.value as Map;
+                  Center(
+                    child: Container(
+                      // alignment: Alignment.centerRight,
+                      width: 0.3 * homeQuery.size.width,
+                      child: FirebaseAnimatedList(
+                        query: ref,
+                        itemBuilder: ((context, snapshot, animation, index) {
+                          Map request = snapshot.value as Map;
 
-                        request['key'] = snapshot.key;
+                          request['key'] = snapshot.key;
 
-                        return listRequest(request: request);
-                      }),
+                          return listRequest(request: request);
+                        }),
+                      ),
                     ),
                   ),
                 ],
@@ -128,8 +130,8 @@ Widget catForm(
         ),
         reusableTextField('Cat Color', Icons.color_lens_rounded, false,
             controller.color, validateEmpty),
-        reusableTextField('Link for GOOGLE DRIVE image',
-            Icons.image_rounded, false, controller.image, validateEmpty),
+        reusableTextField('Link for GOOGLE DRIVE image', Icons.image_rounded,
+            false, controller.image, validateEmpty),
         Row(
           children: [
             const SizedBox(
@@ -173,17 +175,21 @@ Future<void> pickFile() async {
 
 Widget listRequest({required Map request}) {
   return Card(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(500)),
     child: Column(
       children: [
-        Text(request['userName']),
+        Text(
+          "Requester name: " + request['userName'],
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        ),
         const SizedBox(
           height: 5,
         ),
-        Text(request['catName']),
+        Text("Cat name: " + request['catName']),
         const SizedBox(
           height: 5,
         ),
-        Text(request['userPhoneNo']),
+        Text("Requester phone number: " + request['userPhoneNo']),
       ],
     ),
   );

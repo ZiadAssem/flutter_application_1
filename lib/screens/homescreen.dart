@@ -40,6 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 slideShow(homeQuery),
                 Container(margin: const EdgeInsets.only(top: 25.0)),
                 buildIndicator(),
+                Container(margin: const EdgeInsets.only(top: 25.0)),
+                Container(margin: const EdgeInsets.only(top: 25.0)),
+                aboutUs(),
               ],
             ),
           )),
@@ -77,5 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 // About us info to be included
 Widget aboutUs() {
-  return Container();
+  return Container(
+    child: Center(child: Text("About Us")),
+  );
 }
