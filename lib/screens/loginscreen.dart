@@ -60,8 +60,8 @@ class LoginScreenState extends State<LoginScreen> with ValidationMixin {
               child: Column(children: [
                 Container(margin: const EdgeInsets.only(top: 50.0)),
                 Container(
-                  child: loginForm(
-                      context, controller, loginFormKey, validateEmail, loggedIn),
+                  child: loginForm(context, controller, loginFormKey,
+                      validateEmail, loggedIn),
                 ),
                 Container(margin: const EdgeInsets.only(top: 50.0)),
                 newUserButton(context),
@@ -95,8 +95,8 @@ Widget loginForm(context, controller, formKey, validateEmail, loggedIn) {
       key: formKey,
       child: Column(
         children: [
-          emailField(controller, validateEmail,formKey),
-          passwordField(controller,formKey),
+          emailField(controller, validateEmail, formKey),
+          passwordField(controller, formKey),
           Container(margin: const EdgeInsets.only(top: 50.0)),
           submitButton(context, controller, formKey, loggedIn),
         ],
@@ -105,9 +105,8 @@ Widget loginForm(context, controller, formKey, validateEmail, loggedIn) {
   );
 }
 
-Widget emailField(controller, validateEmail,loginFormKey) {
+Widget emailField(controller, validateEmail, loginFormKey) {
   return TextFormField(
-    
     validator: validateEmail,
     controller: controller.email,
     // onSaved: (String? value) {
@@ -121,7 +120,7 @@ Widget emailField(controller, validateEmail,loginFormKey) {
   );
 }
 
-Widget passwordField(controller,loginFormKey) {
+Widget passwordField(controller, loginFormKey) {
   return TextFormField(
     controller: controller.password,
     // onSaved: (String? value) {
@@ -137,16 +136,16 @@ Widget passwordField(controller,loginFormKey) {
 
 Widget submitButton(context, controller, formKey, loggedIn) {
   return ElevatedButton(
-    onPressed:  () async {
+    onPressed: () async {
       if (formKey.currentState!.validate()) {
         //loginFormKey.currentState?.save();
         LoginController.instance.loginUser(
             controller.email.text.toLowerCase().trim() as String,
             controller.password.text.trim() as String);
-           formKey.currentState.reset();
+        formKey.currentState.reset();
 
-        if ( AuthenticationRepository.auth.currentUser != null) {
-            User.isAdmin =await DbHelper.isAdmin();
+        if (AuthenticationRepository.auth.currentUser != null) {
+          User.isAdmin = await DbHelper.isAdmin();
 
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const HomeScreen()));
