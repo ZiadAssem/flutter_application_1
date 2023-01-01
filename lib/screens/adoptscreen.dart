@@ -24,7 +24,7 @@ class _AdoptionScreenState extends State<AdoptionScreen> {
     MediaQueryData homeQuery = MediaQuery.of(context);
 
     return Scaffold(
-        appBar: appBarCustom(context, homeQuery) as PreferredSize,
+        appBar: appBarCustom(context, homeQuery,Container()) as PreferredSize,
         //Builds a grid of cat objects with photos
         body: Stack(children: [
           Container(

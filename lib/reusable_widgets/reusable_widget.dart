@@ -122,7 +122,7 @@ Widget appBarButton(Widget navigateTo, String title, context) {
 }
 
 //A custom appbar for easy implementation
-appBarCustom(context, homeQuery) {
+appBarCustom(context, homeQuery,Widget InvoiceButton) {
   bool test = User.isAdmin;
   return PreferredSize(
     preferredSize: Size.fromHeight(0.07 * homeQuery.size.height),
@@ -132,6 +132,7 @@ appBarCustom(context, homeQuery) {
       actions: <Widget>[
         Row(
           children: [
+            InvoiceButton,
             adminButton(context),
             // appBarButton(TestScreen(), 'test', context),
             if (AuthenticationRepository.auth.currentUser == null)

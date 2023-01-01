@@ -22,7 +22,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
 
 
     return Scaffold(
-     appBar: appBarCustom(context, homeQuery),
+     appBar: appBarCustom(context, homeQuery,Container()),
      body:Container(),
     );
   }

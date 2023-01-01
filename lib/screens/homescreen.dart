@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },
         child: const Icon(Icons.arrow_downward),
       ),
-      appBar: appBarCustom(context, homeQuery),
+      appBar: appBarCustom(context, homeQuery,Container()),
       body: SingleChildScrollView(
         controller: scrollController,
         child: Column(

@@ -54,7 +54,7 @@ class LoginScreen2State extends State<LoginScreen2> with ValidationMixin {
   Widget screenDecoration(context, title, Widget child, homeQuery) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: appBarCustom(context, homeQuery) as PreferredSize,
+      appBar: appBarCustom(context, homeQuery,Container()) as PreferredSize,
       body: Stack(
         children: [
           Container(

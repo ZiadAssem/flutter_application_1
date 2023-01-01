@@ -10,6 +10,8 @@ import 'package:flutter_application_1/src2/addcat_controller.dart';
 import 'package:get/get.dart';
 import '../../utils/database.dart';
 import '../../classes/cat.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class AddCat extends StatefulWidget {
   const AddCat({super.key});
@@ -29,7 +31,7 @@ class _AddCatState extends State<AddCat> with ValidationMixin {
     MediaQueryData homeQuery = MediaQuery.of(context);
 
     return Scaffold(
-      appBar: appBarCustom(context, homeQuery) as PreferredSize,
+      appBar: appBarCustom(context, homeQuery,invoiceButton()) as PreferredSize,
       body: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Stack(
@@ -248,4 +250,14 @@ Widget listRequest({required Map request}) {
       ,
     ),
   );
+}
+Widget invoiceButton(){
+  return InkWell(
+              child: new Text('Invoice'),
+              onTap: () => launch('https://invoice-generator.com/'
+              //   Uri(
+              //   path: ,
+              // ),
+              )
+          );
 }

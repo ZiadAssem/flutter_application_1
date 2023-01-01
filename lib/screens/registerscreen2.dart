@@ -49,7 +49,7 @@ class SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
 Widget screenDecoration(context, title, Widget child, homeQuery) {
   return Scaffold(
     extendBodyBehindAppBar: true,
-    appBar: appBarCustom(context, homeQuery) as PreferredSize,
+    appBar: appBarCustom(context, homeQuery,Container()) as PreferredSize,
     body: Stack(
       children: [
         Container(
