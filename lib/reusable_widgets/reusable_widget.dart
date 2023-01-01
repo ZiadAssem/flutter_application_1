@@ -133,8 +133,7 @@ appBarCustom(context, homeQuery) {
       actions: <Widget>[
         Row(
           children: [
-            appBarButton(navigateTo, title, context)
-            adminButton(context),
+            
             // appBarButton(TestScreen(), 'test', context),
             if (AuthenticationRepository.auth.currentUser == null)
               appBarButton(const LoginScreen2(), 'LOGIN', context)

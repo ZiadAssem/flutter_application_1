@@ -8,7 +8,6 @@ import 'package:flutter_application_1/reusable_widgets/reusable_widget.dart';
 //import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 
-
 import '../classes/cat.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -41,10 +40,11 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: scrollController,
         child: Column(
           children: [
-            Container(margin: const EdgeInsets.only(top: 50.0)),
+             Container(margin: const EdgeInsets.only(top: 50.0)),
             slideShow2(homeQuery),
-            Container(margin: const EdgeInsets.only(top: 25.0)),
+            Container(margin: const EdgeInsets.only(top: 100.0)),
             // buildIndicator(),
+            aboutUs(homeQuery),
           ],
         ),
       ),
@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
           //final urlImageList = List<String>.from(snapshot.data?.value as List);
           return customCarousel(homeQuery, Cat.urlImages);
         } else {
-          return Text('Error');
+          return const CircularProgressIndicator();
         }
       },
     );
@@ -93,13 +93,26 @@ class _HomeScreenState extends State<HomeScreen> {
         count: urlImages.length,
       );
 
-// About us info to be included
-Widget aboutUs() {
-  return Container(
-    child: Center(child: Text("About Us")),
-  );
-}
-
+  Widget aboutUs(homeQuery) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: SizedBox(
+        width: homeQuery.size.width * 0.5,
+        child: Column(
+          children: const [
+            Text("About Us",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+             Text(
+      'Animal Rights Association is a non-profit organization that operates within the American University in Cairo (AUC) was founded in AUC in 2017. ARA aims to make a difference in the community, by increasing public awareness of animal welfare in Egypt and reducing cruelty towards animals. This is done by various projects, which include cats on campus, awareness campaigns, and supporting animal shelters. The club faces some problems as they need to reach more amount of people and make some actions easier to happen with a well developed website'
+         ' We have developed some solutions for the club to make the club more findable and to ease some actions made by the customers who wants to adopt or rescue cats most importantly, we provide the training and support for this new solution that ensures the staff can ramp up quickly and realize our improvements to their services.'            ,
+                style: TextStyle(fontSize: 20),
+                textAlign:TextAlign.justify,
+             )
+          ],
+        ),
+      )
+      );
+  }
 
   Widget AnimatedList() {
     Query ref = DbHelper.getQuery('imageUrl');
@@ -118,6 +131,7 @@ Widget aboutUs() {
   Widget customCarousel(homeQuery, List<String> urlList) {
     return CarouselSlider(
       options: CarouselOptions(
+        height: homeQuery.size.height * 0.7,
         autoPlay: true,
         aspectRatio: 2.0,
         enlargeCenterPage: true,
