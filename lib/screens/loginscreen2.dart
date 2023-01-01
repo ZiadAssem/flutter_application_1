@@ -31,7 +31,7 @@ class LoginScreen2State extends State<LoginScreen2> with ValidationMixin {
     return screenDecoration(
       context,
       const Text('login'),
-      LoginDesign(
+      loginDesign(
         controller,
         _formKey,
         context,
@@ -96,7 +96,7 @@ Widget screenDecoration(context, title, Widget child, homeQuery) {
   );
 }
 
-Widget LoginDesign(controller, formKey, context, validateEmail,
+Widget loginDesign(controller, formKey, context, validateEmail,
     validatePassword, passwordIcon, showPassword) {
   return Form(
     key: formKey,
@@ -127,7 +127,6 @@ Widget LoginDesign(controller, formKey, context, validateEmail,
 
             if (AuthenticationRepository.auth.currentUser != null) {
               User.isAdmin = await DbHelper.isAdmin();
-
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const HomeScreen()));
             } else {
@@ -181,6 +180,10 @@ Widget newUserButton(context) {
         ),
       ),
       ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateColor.resolveWith(
+              (states) => Colors.deepPurple),
+        ),
           onPressed: () {
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => const SignUpScreen()));

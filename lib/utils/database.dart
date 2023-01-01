@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/cat.dart';
 import 'package:flutter_application_1/classes/user.dart';
 import 'package:flutter_application_1/src2/authentication_repository.dart';
+import 'package:get/get.dart';
 
 
 class DbHelper{
@@ -26,44 +27,6 @@ static isAdmin()async{
   }
 }
 
-static isAdminTest()async{
- // if(AuthenticationRepository.auth.currentUser?.uid !=null){
-  DatabaseReference ref = FirebaseDatabase.instance.ref('user/uFkR1Z1UoVTVUmbpDmgU7BXGT852/admin');
-  final  snapshot =await ref.get();
-  return snapshot.value as bool;
-  //}
-}
-
-static int getCatCount(){
-   DatabaseReference catRef=DbHelper.database.ref('cat');
-    
-    catRef.once().then((snapshot){
-      Map cat = snapshot.snapshot.value as Map;
-      Cat.catCounter = cat.length;
-    });
-    return Cat.catCounter;
-}
-
-static getCats()  async{
-
-  Query catRef = getQuery('cat');
-
-  DatabaseEvent catQuery =await catRef.once();
-  // .then((snapshot) {
-  //   Cat.catMapHelper = snapshot.snapshot.value as Map;
-  //   Cat.catMapHelper['key'] = snapshot.snapshot.key;
-    
-  //   });
-
-  //final snapshot =   catRef.get();
- // Cat.cat = snapshot.value as Map;
-  //Map catMap = snapshot.value as Map;
-  // Cat.cat = catRef.get().snapshot.value as Map;
-
-  // Cat.cat['key'] = catQuery.snapshot.key;
-  }
-
-
 
 static getImageUrlFromFirebase()async{
   List<String> imageUrls=['h'];
@@ -74,6 +37,57 @@ static getImageUrlFromFirebase()async{
 });
 return imageUrls;
 } 
+
+static deleteRequest(String id)async{
+  await FirebaseDatabase.instance.ref('request/$id').remove();
+  Get.showSnackbar(const GetSnackBar(
+    duration: Duration(seconds: 1),
+    message: 'Request Deleted Successfully',));
+} 
+static deleteRequestsWithCatId(catId)async{
+  await FirebaseDatabase.instance.ref()
+  .child('request')
+  .orderByChild('catId')
+  .equalTo('$catId')
+  .once()
+  .then(( snapshot) {
+    Map<dynamic, dynamic> children = snapshot.snapshot.value as Map;
+    children.forEach((key, value) {
+
+      FirebaseDatabase.instance.ref()
+        .child('request')        
+        .child(key)
+        .remove();
+    });
+  });
+  
+  
+  
+  // await FirebaseDatabase.instance.ref('request/').once().then((snapshot) {
+  //   Map<dynamic, dynamic> values = snapshot.snapshot.value as Map;
+  //   Map cat = queryCatId();
+  //   values.forEach((key, values) {
+  //     if(values['catId']==cat['catId']){
+  //       FirebaseDatabase.instance.ref('request/$key').remove();
+  //     }
+  //   });
+  // });
+  Get.showSnackbar(const GetSnackBar(
+    duration: Duration(seconds: 1),
+    message: 'Request Deleted Successfully',));
+}
+static acceptRequest(String requestId,String catId)async{
+  //await FirebaseDatabase.instance.ref('request/$requestId').remove();
+  deleteRequestsWithCatId(catId);
+  await FirebaseDatabase.instance.ref('cat/$catId').remove();
+  Get.showSnackbar(const GetSnackBar(
+    duration: Duration(seconds: 1),
+    message: 'Request accepted',));
+}
+
+static queryCatId(){
+  return FirebaseDatabase.instance.ref('cat').orderByChild('catId') as Map;
+}
 
 // static getUrlImages()async{
 //   final ref =  FirebaseDatabase.instance

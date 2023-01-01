@@ -36,7 +36,7 @@ class App extends StatelessWidget {
           }
           if (snapshot.connectionState == ConnectionState.done) {
             //return const HomeScreen();
-           return HomeScreen();
+           return AddCat();
            //return SignUpScreen();
            // return AddCat();
           }

@@ -133,7 +133,7 @@ appBarCustom(context, homeQuery) {
       actions: <Widget>[
         Row(
           children: [
-            
+            adminButton(context),
             // appBarButton(TestScreen(), 'test', context),
             if (AuthenticationRepository.auth.currentUser == null)
               appBarButton(const LoginScreen2(), 'LOGIN', context)
@@ -174,19 +174,20 @@ Widget adminButton(context) {
       onPressed: () async {
         if (AuthenticationRepository.auth.currentUser == null) {
           Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const LoginScreen()));
+              MaterialPageRoute(builder: (context) => const LoginScreen2()));
         } else if (await DbHelper.isAdmin()) {
           Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const AdminDashboard()));
+              MaterialPageRoute(builder: (context) => const AddCat()));
         } else {
           // Navigator.of(context).push(
           //     MaterialPageRoute(builder: (context) => const HomeScreen()));
-          Get.showSnackbar(GetSnackBar(
+          Get.showSnackbar(
+            const GetSnackBar(
             message: 'UNAUTHORIZED ACCESS',
           ));
         }
       },
-      child: const Text('Admin??',
+      child: const Text('ADMIN',
           style: TextStyle(
             color: Colors.white,
           )));

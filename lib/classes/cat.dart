@@ -39,27 +39,33 @@ static DatabaseReference reference = FirebaseDatabase.instance.ref('cat/');
     'imageUrl':imageUrl,
     
     }).whenComplete(() => 
-     Get.showSnackbar(const GetSnackBar(message: 'Cat Added Successfully',))
+     Get.showSnackbar(const GetSnackBar(
+      duration: Duration(seconds: 1),
+      message: 'Cat Added Successfully',)
+      )
 
     ).onError((error, stackTrace) => 
-          Get.showSnackbar(GetSnackBar(message: error.toString(),))
+          Get.showSnackbar(GetSnackBar(
+            duration:const  Duration(seconds: 1),
+            message: error.toString(),))
     );
 
   imageRef.child(imageUrl).set({
     'cat':'test'
   });
 }
-static  getCount(snapshot){
-   Query ref = DbHelper.getQuery('cat');
-   
-   Map cat=snapshot.value as Map;
-   cat['key']=snapshot.key;
-   return cat.length;
-  // reference.onValue.listen((event) {
-  //   final data =event.snapshot.value;
-  //   var count = data.
 
-  // });  
-}
+// static  getCount(snapshot){
+//    Query ref = DbHelper.getQuery('cat');
+   
+//    Map cat=snapshot.value as Map;
+//    cat['key']=snapshot.key;
+//    return cat.length;
+//   // reference.onValue.listen((event) {
+//   //   final data =event.snapshot.value;
+//   //   var count = data.
+
+//   // });  
+// }
 
 }

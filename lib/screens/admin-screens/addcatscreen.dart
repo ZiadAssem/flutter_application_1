@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -174,23 +176,74 @@ Future<void> pickFile() async {
 }
 
 Widget listRequest({required Map request}) {
-  return Card(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(500)),
-    child: Column(
-      children: [
-        Text(
-          "Requester name: " + request['userName'],
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+  return Container(
+    height: 100,
+    child: Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(500)),
+      child: ListTile(
+       
+        leading:const  CircleAvatar(
+          radius: 30,
+          backgroundImage: AssetImage('cat_avatar.png'),
         ),
-        const SizedBox(
-          height: 5,
+        title: Text(
+           request['userName'],
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ),
-        Text("Cat name: " + request['catName']),
-        const SizedBox(
-          height: 5,
+        subtitle: Column(
+          children: [
+            Text(
+              request['userPhoneNo'],
+              style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold)
+              ) 
+            ,
+            Text(
+               request['catName'],
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
+            
+          ],
         ),
-        Text("Requester phone number: " + request['userPhoneNo']),
-      ],
+        trailing: Column(
+          children: [
+            InkWell(
+              
+              child: const Icon(
+                Icons.check
+                
+                ),
+              onTap: () {
+                DbHelper.acceptRequest(request['key'],request['catId']);
+              },
+            ),
+            
+
+            InkWell(
+              child: const Icon(Icons.delete),
+              onTap: () {
+                DbHelper.deleteRequest(request['key']);
+              },
+            ),
+          ],
+        ),
+      )
+      // Column(
+      //   children: [
+      //     Text(
+      //       "Name: " + request['userName'],
+      //       style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+      //     ),
+      //     const SizedBox(
+      //       height: 5,
+      //     ),
+      //     Text("Cat: " + request['catName']),
+      //     const SizedBox(
+      //       height: 5,
+      //     ),
+      //     Text("phoneNo: " + request['userPhoneNo']),
+      //   ],
+      // )
+      ,
     ),
   );
 }
