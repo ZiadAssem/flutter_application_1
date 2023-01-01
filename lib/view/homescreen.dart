@@ -1,14 +1,11 @@
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
-import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_application_1/model/database.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:flutter_application_1/view/reusable_widgets/reusable_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
-//import 'package:file_picker/file_picker.dart';
-import 'dart:io';
+
+import 'package:flutter_application_1/model/database.dart';
+import 'package:flutter_application_1/view/reusable_widgets/reusable_widget.dart';
 
 import '../classes/cat.dart';
 
@@ -22,7 +19,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int activeIndex = 0;
   ScrollController scrollController = ScrollController();
-  
 
   @override
   Widget build(BuildContext context) {
@@ -32,32 +28,33 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.deepPurple,
         onPressed: () {
-        scrollController.animateTo(500,
-            duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
-      },
+          scrollController.animateTo(500,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeIn);
+        },
         child: const Icon(Icons.arrow_downward),
       ),
-      appBar: appBarCustom(context, homeQuery,Container()),
+      appBar: appBarCustom(context, homeQuery, Container()),
       body: SingleChildScrollView(
         controller: scrollController,
         child: Column(
           children: [
             Container(margin: const EdgeInsets.only(top: 50.0)),
-            slideShow2(homeQuery),
+            slideshow(homeQuery),
             Container(margin: const EdgeInsets.only(top: 100.0)),
             // buildIndicator(),
             Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20,10,5,10),
+                  padding: const EdgeInsets.fromLTRB(20, 10, 5, 10),
                   child: aboutUs(homeQuery),
                 ),
                 SizedBox(width: homeQuery.size.width * 0.05),
                 Align(
-                  alignment:  Alignment.centerRight,
+                  alignment: Alignment.centerRight,
                   child: Column(
                     children: [
-                      emergencyContact( homeQuery),
+                      emergencyContact(homeQuery),
                       SizedBox(height: homeQuery.size.height * 0.05),
                       joinUs(homeQuery),
                     ],
@@ -65,14 +62,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 )
               ],
             ),
-
           ],
         ),
       ),
     );
   }
 
-  Widget slideShow2(homeQuery) {
+  // generates slideshow of images
+  Widget slideshow(homeQuery) {
     return FutureBuilder(
       future: DbHelper.getImageUrlFromFirebase(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -92,34 +89,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-// generates slideshow of images
-  Widget slideShow(homeQuery, List urlImages) {
-    return Center(
-      child: Expanded(
-        child: CarouselSlider.builder(
-          options: CarouselOptions(
-              height: 0.7 * homeQuery.size.height,
-              autoPlay: true,
-              enlargeCenterPage: true,
-              onPageChanged: ((index, reason) => setState(() {
-                    activeIndex = index;
-                  }))),
-          itemCount: urlImages.length,
-          itemBuilder: ((context, index, realIndex) {
-            final urlImage = urlImages[index];
-            return buildImage(urlImage);
-          }),
-        ),
-      ),
-    );
-  }
-
 // Animation for slideshow
   Widget buildIndicator(List urlImages) => AnimatedSmoothIndicator(
         activeIndex: activeIndex,
         count: urlImages.length,
       );
 
+// Text for the about us section
   Widget aboutUs(homeQuery) {
     return Align(
         alignment: Alignment.centerLeft,
@@ -140,6 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ));
   }
 
+  // responsible for moving the images of slideshow
   Widget customCarousel(homeQuery, List<String> urlList) {
     return CarouselSlider(
       options: CarouselOptions(
@@ -157,58 +134,61 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-Widget emergencyContact(homeQuery){
+// Button that opens the emergency contact snackbar
+Widget emergencyContact(homeQuery) {
   return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        minimumSize: Size(homeQuery.size.width *0.4,  50),
-        maximumSize: Size(homeQuery.size.width *0.4,  50),
-       backgroundColor: Colors.red,
+        minimumSize: Size(homeQuery.size.width * 0.4, 50),
+        maximumSize: Size(homeQuery.size.width * 0.4, 50),
+        backgroundColor: Colors.red,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
       ),
-      onPressed: (){
-      Get.showSnackbar(GetSnackBar(
-        message: 'EMERGENCY CONTACT',
-        duration: const Duration(seconds: 3),
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        margin: const EdgeInsets.all(8),
-        borderRadius: 8,
-        icon: const Icon(Icons.warning_amber_outlined),
-        mainButton: TextButton(
-          onPressed: () {},
-          child: const Text('UNDO'),
-        ),
-      ));
+      onPressed: () {
+        Get.showSnackbar(GetSnackBar(
+          message: 'EMERGENCY CONTACT',
+          duration: const Duration(seconds: 3),
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          margin: const EdgeInsets.all(8),
+          borderRadius: 8,
+          icon: const Icon(Icons.warning_amber_outlined),
+          mainButton: TextButton(
+            onPressed: () {},
+            child: const Text('UNDO'),
+          ),
+        ));
       },
-       child: const Text(
+      child: const Text(
         'EMERGENCY CONTACT',
-        style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
-        )
-    );
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      ));
 }
-Widget joinUs(homeQuery){
-  
+
+// Button that opens the join us form
+Widget joinUs(homeQuery) {
   return ElevatedButton(
     style: ElevatedButton.styleFrom(
-      minimumSize: Size(homeQuery.size.width *0.4,  50),
-      maximumSize: Size(homeQuery.size.width *0.4,  50),
+      minimumSize: Size(homeQuery.size.width * 0.4, 50),
+      maximumSize: Size(homeQuery.size.width * 0.4, 50),
       backgroundColor: Colors.deepPurple,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
     ),
-    onPressed: (){
-      launch('https://docs.google.com/forms/d/e/1FAIpQLSeShHTu7iZvSj8lguZ0asfwiK9q0fg6p5P7JNNRsAWkno1ZEg/formrestricted');
-    }, 
-    child:  const Text(
-        'JOIN US',
-        style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
-        ),
-        );
+    onPressed: () {
+      launch(
+          'https://docs.google.com/forms/d/e/1FAIpQLSeShHTu7iZvSj8lguZ0asfwiK9q0fg6p5P7JNNRsAWkno1ZEg/formrestricted');
+    },
+    child: const Text(
+      'JOIN US',
+      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    ),
+  );
 }
 
+// generates the images of the slideshow as a list
 List<Widget> imageSliders(List<String> imgList) => imgList
     .map((item) => Container(
           child: Container(
@@ -220,10 +200,10 @@ List<Widget> imageSliders(List<String> imgList) => imgList
         ))
     .toList();
 
+// builds the images from the links in the database
 Widget buildImageFromMap(url, [homeQuery]) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 2),
-    //width:homeQuery==Null?Null: homeQuery.size.width *0.3,
     color: Colors.grey,
     child: Image.network(
       url,

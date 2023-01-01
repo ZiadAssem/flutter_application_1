@@ -53,6 +53,8 @@ class _AdoptionScreenState extends State<AdoptionScreen> {
   }
 }
 
+
+// A card with cat details
 Widget catCardV2(homeQuery, context, {required Map cat}) {
   // changes google drive format to an accepted format
   String url = cat['imageUrl'];
@@ -63,6 +65,7 @@ Widget catCardV2(homeQuery, context, {required Map cat}) {
   var catName = cat['name'];
   var birthYear = cat['birthYear'];
   var color = cat['color'];
+
   return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),
@@ -92,7 +95,6 @@ Widget catCardV2(homeQuery, context, {required Map cat}) {
               ],
             ),
             Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
               children: [Text('BIRTH YEAR: $birthYear'), Text('COLOR: $color')],
             ),
             SizedBox(
