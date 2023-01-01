@@ -21,36 +21,7 @@ Cat(this.name,this.birthYear,this.imageUrl){
      this.age= now.year - birthYear;
 
 }
-FirebaseDatabase database = FirebaseDatabase.instance;
-static DatabaseReference reference = FirebaseDatabase.instance.ref('cat/');
 
-//Add Birth Month later
- static void  addCat(name,birthYear,birthMonth,vaccinated,type,color,imageUrl) {
-    DatabaseReference imageRef = FirebaseDatabase.instance.ref('imageUrl/');
-
-  reference.push().set({
-    'name': name,  
-    'birthYear':birthYear,
-    'birthMonth':birthMonth,
-    'vaccinated':vaccinated,
-    'type':type,
-    'color':color,
-    'imageUrl':imageUrl,
-    
-    }).whenComplete(() => 
-     Get.showSnackbar(const GetSnackBar(
-      duration: Duration(seconds: 1),
-      message: 'Cat Added Successfully',)
-      )
-
-    ).onError((error, stackTrace) => 
-          Get.showSnackbar(GetSnackBar(
-            duration:const  Duration(seconds: 1),
-            message: error.toString(),))
-    );
-
-  imageRef.push().set(imageUrl);
-}
 
 
 

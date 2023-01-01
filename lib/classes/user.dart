@@ -26,22 +26,9 @@ class User {
   static setIsAdmin(bool value){
     isAdmin = value;
   }
-//need to set the singleton later on
 FirebaseDatabase database = FirebaseDatabase.instance;
 
 
-static addUser(
-  String uId,
-  String name,String email,String phoneNo) {
-    DatabaseReference reference = FirebaseDatabase.instance.ref('user/');
- reference.child(uId).set({
-    
-    'fullName': name, 
-    'email': email, 
-    'phoneNo':phoneNo,
-    'admin':false,
-    });
-}
 
 
 

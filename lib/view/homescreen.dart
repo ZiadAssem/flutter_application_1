@@ -5,7 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_application_1/model/database.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:flutter_application_1/reusable_widgets/reusable_widget.dart';
+import 'package:flutter_application_1/view/reusable_widgets/reusable_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 //import 'package:file_picker/file_picker.dart';
 import 'dart:io';

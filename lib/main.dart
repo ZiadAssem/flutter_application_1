@@ -1,9 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_application_1/screens/admin-screens/addcatscreen.dart';
-import 'package:flutter_application_1/screens/adoptscreen.dart';
-import 'package:flutter_application_1/screens/loginscreen2.dart';
-import 'package:flutter_application_1/screens/homescreen.dart';
-import 'package:flutter_application_1/screens/testscreen.dart';
+import 'package:flutter_application_1/view/homescreen.dart';
 import 'package:get/get.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +7,6 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final Future<FirebaseApp> _future = Firebase.initializeApp();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.web);
   runApp(App());
@@ -31,11 +26,15 @@ class App extends StatelessWidget {
         future: _initialization,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            print('Error');
+            return const Scaffold(
+              body: Center(
+                child: Text('Error'),
+              ),
+            );
           }
           if (snapshot.connectionState == ConnectionState.done) {
             //return const HomeScreen();
-           return HomeScreen();
+           return const HomeScreen();
            //return SignUpScreen();
            // return AddCat();
           }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/model/database.dart';
 import 'package:get/get.dart';
 import '../classes/user.dart' as u;
 import '../model/authentication_repository.dart';
@@ -20,7 +21,7 @@ class SignUpController extends GetxController {
     Get.put(AuthenticationRepository());
     String? error = Get.put(AuthenticationRepository.instance
     .createUserWithEmailAndPassword(email, password).then((value) 
-    => u.User.addUser(AuthenticationRepository.auth.currentUser!.uid,
+    => DbHelper.addUser(AuthenticationRepository.auth.currentUser!.uid,
      fullName, email, phoneNo)) as String);
 
      

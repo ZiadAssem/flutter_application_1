@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/homescreen.dart';
+import 'package:flutter_application_1/view/homescreen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

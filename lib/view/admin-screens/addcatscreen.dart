@@ -4,8 +4,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/mixins/validation_mixin.dart';
-import 'package:flutter_application_1/reusable_widgets/reusable_widget.dart';
+import 'package:flutter_application_1/controller/mixins/validation_mixin.dart';
+import 'package:flutter_application_1/view/reusable_widgets/reusable_widget.dart';
 import 'package:flutter_application_1/controller/addcat_controller.dart';
 import 'package:get/get.dart';
 import '../../model/database.dart';
@@ -152,7 +152,7 @@ Widget catForm(formKey, context, homeQuery, controller, validateEmpty,
         ),
         firebaseUIButton(context, 'Add Cat', () {
           if (formKey.currentState.validate()) {
-            Cat.addCat(
+            DbHelper.addCat(
                 controller.name.text.trim(),
                 controller.birthYear.text.trim(),
                 controller.birthMonth.text.trim(),

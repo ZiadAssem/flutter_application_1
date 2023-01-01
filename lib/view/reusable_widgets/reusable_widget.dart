@@ -1,14 +1,14 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/admin-screens/addcatscreen.dart';
+import 'package:flutter_application_1/view/admin-screens/addcatscreen.dart';
 import 'package:flutter_application_1/model/authentication_repository.dart';
 import 'package:flutter_application_1/model/database.dart';
 import 'package:get/get.dart';
-import '../classes/user.dart';
-import '../screens/homescreen.dart';
-import '../screens/adoptscreen.dart';
-import 'package:flutter_application_1/screens/loginscreen2.dart';
+import '../../classes/user.dart';
+import '../../view/homescreen.dart';
+import '../../view/adoptscreen.dart';
+import 'package:flutter_application_1/view/loginscreen2.dart';
 
 Image logoWidget(String imageName) {
   //logo image

@@ -1,6 +1,6 @@
-import 'package:flutter_application_1/screens/mixins/validation_mixin.dart';
+import 'package:flutter_application_1/controller/mixins/validation_mixin.dart';
 import 'package:get/get.dart';
-import '../reusable_widgets/reusable_widget.dart';
+import 'reusable_widgets/reusable_widget.dart';
 import 'package:flutter/material.dart';
 import '../controller/signup_controller.dart';
 
