@@ -4,11 +4,11 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/mixins/validation_mixin.dart';
+import 'package:flutter_application_1/screens/mixins/validation_mixin.dart';
 import 'package:flutter_application_1/reusable_widgets/reusable_widget.dart';
-import 'package:flutter_application_1/src2/addcat_controller.dart';
+import 'package:flutter_application_1/controller/addcat_controller.dart';
 import 'package:get/get.dart';
-import '../../utils/database.dart';
+import '../../model/database.dart';
 import '../../classes/cat.dart';
 import 'package:url_launcher/url_launcher.dart';
 

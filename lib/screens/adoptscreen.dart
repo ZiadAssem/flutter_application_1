@@ -1,12 +1,10 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/classes/cat.dart';
 import 'package:flutter_application_1/reusable_widgets/reusable_widget.dart';
 import 'package:flutter_application_1/screens/loginscreen2.dart';
-import 'package:flutter_application_1/src2/authentication_repository.dart';
-import 'package:flutter_application_1/utils/database.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:flutter_application_1/model/authentication_repository.dart';
+import 'package:flutter_application_1/model/database.dart';
 import '../classes/request.dart';
 
 class AdoptionScreen extends StatefulWidget {

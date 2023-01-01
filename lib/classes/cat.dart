@@ -2,7 +2,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 
 
-import '../utils/database.dart';
 
 class Cat {
 
@@ -53,17 +52,6 @@ static DatabaseReference reference = FirebaseDatabase.instance.ref('cat/');
   imageRef.push().set(imageUrl);
 }
 
-// static  getCount(snapshot){
-//    Query ref = DbHelper.getQuery('cat');
-   
-//    Map cat=snapshot.value as Map;
-//    cat['key']=snapshot.key;
-//    return cat.length;
-//   // reference.onValue.listen((event) {
-//   //   final data =event.snapshot.value;
-//   //   var count = data.
 
-//   // });  
-// }
 
 }

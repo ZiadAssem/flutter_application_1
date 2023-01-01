@@ -1,9 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import '../../reusable_widgets/reusable_widget.dart';
-import '../../utils/database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
-import 'package:cloud_firestore/cloud_firestore.dart' as fs;
+import '../../model/database.dart';
 
 
 class AdminDashboard extends StatefulWidget {

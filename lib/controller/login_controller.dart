@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/utils/database.dart';
+import 'package:flutter_application_1/model/database.dart';
 import 'package:get/get.dart';
 
-import 'authentication_repository.dart';
+import '../model/authentication_repository.dart';
 
 
 class LoginController extends GetxController {

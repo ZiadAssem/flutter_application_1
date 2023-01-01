@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../classes/cat.dart';
-import '../utils/database.dart';
+import '../model/database.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({super.key});

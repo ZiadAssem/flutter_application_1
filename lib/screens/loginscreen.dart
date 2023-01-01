@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/homescreen.dart';
 import 'package:flutter_application_1/screens/registerscreen2.dart';
-import 'package:flutter_application_1/src2/authentication_repository.dart';
+import 'package:flutter_application_1/model/authentication_repository.dart';
 
 //import 'package:flutter_application_1/screens/registerscreen2.dart';
 import 'package:get/get.dart';
 import '../classes/user.dart';
-import '../mixins/validation_mixin.dart';
-import '../src2/login_controller.dart';
-import '../utils/database.dart';
+import 'mixins/validation_mixin.dart';
+import '../controller/login_controller.dart';
+import '../model/database.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

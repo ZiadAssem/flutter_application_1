@@ -1,13 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../screens/homescreen.dart';
 //import 'package:login_flutter_app/src/features/authentication/screens/welcome/welcome_screen.dart';
 //import 'package:login_flutter_app/src/features/core/screens/dashboard/dashboard.dart';
 
-import 'exceptions/auth_exception_other.dart';
-import 'exceptions/login_with_email_and_pssword_failure.dart';
-import 'exceptions/signup_email_password_failure.dart';
+import '../controller/exceptions/auth_exception_other.dart';
+import '../controller/exceptions/login_with_email_and_pssword_failure.dart';
+import '../controller/exceptions/signup_email_password_failure.dart';
 
 enum AuthStatus {
   successful,
@@ -20,10 +19,10 @@ enum AuthStatus {
 
 class AuthenticationRepository extends GetxController {
   static late AuthStatus _status;
-
+  // Singleton
   static AuthenticationRepository get instance => Get.find();
 
-  //Variables
+  
   static final auth = FirebaseAuth.instance;
   late final Rx<User?> firebaseUser;
 
@@ -43,7 +42,8 @@ class AuthenticationRepository extends GetxController {
         : Get.offAll(() => const HomeScreen()); //changelater
   }
 
-  //FUNC
+
+
   Future<String?> createUserWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -76,6 +76,7 @@ class AuthenticationRepository extends GetxController {
     return null;
   }
 
+  // delete account from Firebase Authentication
   Future deleteAccount() async {
     try {
       final user = await auth.currentUser!;

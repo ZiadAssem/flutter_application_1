@@ -1,17 +1,15 @@
-import 'package:flutter_application_1/mixins/validation_mixin.dart';
+import 'package:flutter_application_1/screens/mixins/validation_mixin.dart';
 import 'package:flutter_application_1/screens/homescreen.dart';
-import 'package:flutter_application_1/screens/registerscreen.dart';
 import 'package:flutter_application_1/screens/registerscreen2.dart';
-import 'package:flutter_application_1/src2/authentication_repository.dart';
+import 'package:flutter_application_1/model/authentication_repository.dart';
 import 'package:get/get.dart';
 import '../classes/user.dart';
 import '../reusable_widgets/reusable_widget.dart';
 import 'package:flutter/material.dart';
 import '../src2/Login_controller.dart';
-import '../classes/user.dart' as u;
-import 'dart:io';
 
-import '../utils/database.dart';
+
+import '../model/database.dart';
 
 class LoginScreen2 extends StatefulWidget {
   const LoginScreen2({Key? key}) : super(key: key);

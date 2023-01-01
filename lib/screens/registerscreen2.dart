@@ -1,11 +1,8 @@
-import 'package:flutter_application_1/mixins/validation_mixin.dart';
-import 'package:flutter_application_1/src2/authentication_repository.dart';
+import 'package:flutter_application_1/screens/mixins/validation_mixin.dart';
 import 'package:get/get.dart';
 import '../reusable_widgets/reusable_widget.dart';
 import 'package:flutter/material.dart';
-import '../src2/signup_controller.dart';
-import '../classes/user.dart' as u;
-import 'dart:io';
+import '../controller/signup_controller.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);

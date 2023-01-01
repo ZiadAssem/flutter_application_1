@@ -2,13 +2,17 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/classes/cat.dart';
 import 'package:flutter_application_1/classes/user.dart';
-import 'package:flutter_application_1/src2/authentication_repository.dart';
+import 'package:flutter_application_1/model/authentication_repository.dart';
 import 'package:get/get.dart';
 
 class DbHelper {
-  static FirebaseDatabase database = FirebaseDatabase.instance;
-  static DatabaseReference ref = FirebaseDatabase.instance.ref();
 
+
+  static  FirebaseDatabase database = FirebaseDatabase.instance;
+  static late DatabaseReference ref ;
+  static late DatabaseReference refWithChild ;
+
+  
   static Query getQuery(String ref) {
     return FirebaseDatabase.instance.ref(ref);
   }
