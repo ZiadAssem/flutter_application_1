@@ -5,10 +5,22 @@ import '../screens/homescreen.dart';
 //import 'package:login_flutter_app/src/features/authentication/screens/welcome/welcome_screen.dart';
 //import 'package:login_flutter_app/src/features/core/screens/dashboard/dashboard.dart';
 
+import 'exceptions/auth_exception_other.dart';
 import 'exceptions/login_with_email_and_pssword_failure.dart';
 import 'exceptions/signup_email_password_failure.dart';
 
+enum AuthStatus {
+  successful,
+  wrongPassword,
+  emailAlreadyExists,
+  invalidEmail,
+  weakPassword,
+  unknown,
+}
+
 class AuthenticationRepository extends GetxController {
+  static late AuthStatus _status;
+
   static AuthenticationRepository get instance => Get.find();
 
   //Variables
@@ -75,6 +87,14 @@ class AuthenticationRepository extends GetxController {
       ));
       return null;
     }
+  }
+   Future resetPassword({required String email}) async {
+    
+    await auth
+        .sendPasswordResetEmail(email: email)
+        .then((value) =>  _status = AuthStatus.successful)
+        .catchError((e) => _status = AuthExceptionHandler.handleAuthException(e));
+    return _status;
   }
 
   static Future<void> logout() async => await auth.signOut();
