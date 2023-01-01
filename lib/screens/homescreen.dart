@@ -31,16 +31,20 @@ class _HomeScreenState extends State<HomeScreen> {
     MediaQueryData homeQuery = MediaQuery.of(context);
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {
+      floatingActionButton: FloatingActionButton(
+
+        onPressed: () {
         scrollController.animateTo(500,
-            duration: const Duration(seconds: 1), curve: Curves.easeIn);
-      }),
+            duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
+      },
+        child: const Icon(Icons.arrow_downward),
+      ),
       appBar: appBarCustom(context, homeQuery),
       body: SingleChildScrollView(
         controller: scrollController,
         child: Column(
           children: [
-             Container(margin: const EdgeInsets.only(top: 50.0)),
+            Container(margin: const EdgeInsets.only(top: 50.0)),
             slideShow2(homeQuery),
             Container(margin: const EdgeInsets.only(top: 100.0)),
             // buildIndicator(),
@@ -57,7 +61,13 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           //final urlImageList = List<String>.from(snapshot.data?.value as List);
-          return customCarousel(homeQuery, Cat.urlImages);
+          return Column(
+            children: [
+              customCarousel(homeQuery, Cat.urlImages),
+              Container(margin: const EdgeInsets.only(top: 50.0)),
+              buildIndicator(Cat.urlImages),
+            ],
+          );
         } else {
           return const CircularProgressIndicator();
         }
@@ -95,37 +105,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget aboutUs(homeQuery) {
     return Align(
-      alignment: Alignment.centerLeft,
-      child: SizedBox(
-        width: homeQuery.size.width * 0.5,
-        child: Column(
-          children: const [
-            Text("About Us",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-             Text(
-      'Animal Rights Association is a non-profit organization that operates within the American University in Cairo (AUC) was founded in AUC in 2017. ARA aims to make a difference in the community, by increasing public awareness of animal welfare in Egypt and reducing cruelty towards animals. This is done by various projects, which include cats on campus, awareness campaigns, and supporting animal shelters. The club faces some problems as they need to reach more amount of people and make some actions easier to happen with a well developed website'
-         ' We have developed some solutions for the club to make the club more findable and to ease some actions made by the customers who wants to adopt or rescue cats most importantly, we provide the training and support for this new solution that ensures the staff can ramp up quickly and realize our improvements to their services.'            ,
+        alignment: Alignment.centerLeft,
+        child: SizedBox(
+          width: homeQuery.size.width * 0.5,
+          child: Column(
+            children: const [
+              Text("About Us",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+              Text(
+                'Animal Rights Association is a non-profit organization that operates within the American University in Cairo (AUC) was founded in AUC in 2017. ARA aims to make a difference in the community, by increasing public awareness of animal welfare in Egypt and reducing cruelty towards animals. This is done by various projects, which include cats on campus, awareness campaigns, and supporting animal shelters. The club faces some problems as they need to reach more amount of people and make some actions easier to happen with a well developed website'
+                ' We have developed some solutions for the club to make the club more findable and to ease some actions made by the customers who wants to adopt or rescue cats most importantly, we provide the training and support for this new solution that ensures the staff can ramp up quickly and realize our improvements to their services.',
                 style: TextStyle(fontSize: 20),
-                textAlign:TextAlign.justify,
-             )
-          ],
-        ),
-      )
-      );
-  }
-
-  Widget AnimatedList() {
-    Query ref = DbHelper.getQuery('imageUrl');
-    return FirebaseAnimatedList(
-      query: ref,
-      itemBuilder: ((context, snapshot, animation, index) {
-        Map urlMap = snapshot.value as Map;
-
-        urlMap['key'] = snapshot.key;
-
-        return buildImageFromMap(urlMap);
-      }),
-    );
+                textAlign: TextAlign.justify,
+              )
+            ],
+          ),
+        ));
   }
 
   Widget customCarousel(homeQuery, List<String> urlList) {
@@ -136,6 +131,9 @@ class _HomeScreenState extends State<HomeScreen> {
         aspectRatio: 2.0,
         enlargeCenterPage: true,
         enlargeStrategy: CenterPageEnlargeStrategy.height,
+        onPageChanged: (index, reason) => setState(() {
+          activeIndex = index;
+        }),
       ),
       items: imageSliders(urlList),
     );
