@@ -140,10 +140,11 @@ class LoginScreen2State extends State<LoginScreen2> with ValidationMixin {
               }
             }
           }, 0.25 * MediaQuery.of(context).size.width),
-          const SizedBox(
+         
+          newUserButton(context),
+           const SizedBox(
             height: 20,
           ),
-          newUserButton(context),
           forgotPasswordButton(context),
         ],
       ),
