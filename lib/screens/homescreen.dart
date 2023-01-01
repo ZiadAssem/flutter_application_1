@@ -8,6 +8,7 @@ import 'package:flutter_application_1/reusable_widgets/reusable_widget.dart';
 //import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 
+
 import '../classes/cat.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -93,9 +94,12 @@ class _HomeScreenState extends State<HomeScreen> {
       );
 
 // About us info to be included
-  Widget aboutUs() {
-    return Container();
-  }
+Widget aboutUs() {
+  return Container(
+    child: Center(child: Text("About Us")),
+  );
+}
+
 
   Widget AnimatedList() {
     Query ref = DbHelper.getQuery('imageUrl');
