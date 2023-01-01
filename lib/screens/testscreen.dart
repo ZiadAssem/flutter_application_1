@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../classes/cat.dart';
 import '../utils/database.dart';
 
 class TestScreen extends StatefulWidget {
@@ -11,6 +12,9 @@ class TestScreen extends StatefulWidget {
 
 class _TestScreenState extends State<TestScreen>  {
   bool test = true;
+  int counter = 0;
+  List testList = ['h'];
+  
   @override
   Widget build(BuildContext context) {
     
@@ -21,13 +25,16 @@ class _TestScreenState extends State<TestScreen>  {
         ElevatedButton(
           onPressed: ()async{
           
-          test =await DbHelper.isAdminTest();
+           testList = await DbHelper.getImageUrlFromFirebase();
+           //await DbHelper.getImageUrlFromFirebase();
+            counter++;
+
 
             setState(() {
               
               });
         }
-        , child: Text("$test")),
+        , child: Text(Cat.urlImages.elementAt(0))),
       ]),
     );
   }

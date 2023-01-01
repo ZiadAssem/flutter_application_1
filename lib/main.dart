@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_application_1/screens/admin-screens/addcatscreen.dart';
 import 'package:flutter_application_1/screens/adoptscreen.dart';
+import 'package:flutter_application_1/screens/homescreen.dart';
+import 'package:flutter_application_1/screens/testscreen.dart';
 import 'package:get/get.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +42,7 @@ class App extends StatelessWidget {
           }
           if(snapshot.connectionState==ConnectionState.done){
             //return const HomeScreen();
-           return AddCat();
+           return HomeScreen();
            //return SignUpScreen();
            // return AddCat();
           }

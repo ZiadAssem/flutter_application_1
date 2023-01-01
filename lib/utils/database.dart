@@ -62,5 +62,51 @@ static getCats()  async{
 
   // Cat.cat['key'] = catQuery.snapshot.key;
   }
-}
 
+
+
+static getImageUrlFromFirebase()async{
+  List<String> imageUrls=['h'];
+  await
+ FirebaseDatabase.instance.ref().child('imageUrl').once().then(( snapshot) {
+   imageUrls = snapshot.snapshot.children.map((e) => e.value as String).toList();
+  Cat.urlImages=imageUrls;
+});
+return imageUrls;
+} 
+
+// static getUrlImages()async{
+//   final ref =  FirebaseDatabase.instance
+//                 .ref().child('imageUrl/').get();
+
+//  await ref.then((snapshot) {
+//     var imageKey = snapshot.key;
+//     if(snapshot.value!=null){
+//       var imageUrl = snapshot.value;
+//       Cat.urlImages.add(imageUrl);
+//     }
+//   });
+//     // ((snapshot) {
+//     //   var imageKey = snapshot.key;
+//     //   var imageUrl = snapshot.value;
+//     //   });
+                
+  
+//   //final snapshot = ref.value as List;
+//   //List images =['cat'];  
+  
+//   // ref.forEach((key, value) {
+//   //   images.add(value);
+//   // });
+
+//   // cat
+//   // catMap.forEach((key,value){
+//   //   urlImageList.add(value);
+//   // });
+  
+//   Cat.urlImages.add('a') ;
+//  // Cat.urlImages= ref.values.toList();
+
+//   }
+
+}

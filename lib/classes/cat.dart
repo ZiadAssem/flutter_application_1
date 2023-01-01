@@ -12,6 +12,7 @@ String imageUrl='';
 int age=0;
 static var catCounter=0;
 static Map catMapHelper={};
+static List<String> urlImages= ['h'];
 
 
 
@@ -26,7 +27,7 @@ static DatabaseReference reference = FirebaseDatabase.instance.ref('cat/');
 
 //Add Birth Month later
  static void  addCat(name,birthYear,birthMonth,vaccinated,type,color,imageUrl) {
-    
+    DatabaseReference imageRef = FirebaseDatabase.instance.ref('imageUrl/');
 
   reference.push().set({
     'name': name,  
@@ -43,6 +44,10 @@ static DatabaseReference reference = FirebaseDatabase.instance.ref('cat/');
     ).onError((error, stackTrace) => 
           Get.showSnackbar(GetSnackBar(message: error.toString(),))
     );
+
+  imageRef.child(imageUrl).set({
+    'cat':'test'
+  });
 }
 static  getCount(snapshot){
    Query ref = DbHelper.getQuery('cat');
