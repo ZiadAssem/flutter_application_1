@@ -50,9 +50,7 @@ static DatabaseReference reference = FirebaseDatabase.instance.ref('cat/');
             message: error.toString(),))
     );
 
-  imageRef.child(imageUrl).set({
-    'cat':'test'
-  });
+  imageRef.push().set(imageUrl);
 }
 
 // static  getCount(snapshot){

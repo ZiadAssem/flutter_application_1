@@ -55,7 +55,7 @@ class _AddCatState extends State<AddCat> with ValidationMixin {
                         context,
                         homeQuery,
                         addCatController,
-                        validateEmpty,
+                        validateEmpty,validateBirthMonth,validateBirthYear,
                         Checkbox(
                           value: this.value,
                           onChanged: (bool? value) {
@@ -93,7 +93,8 @@ class _AddCatState extends State<AddCat> with ValidationMixin {
 }
 
 Widget catForm(
-    formKey, context, homeQuery, controller, validateEmpty, checkBox, value) {
+    formKey, context, homeQuery, controller, validateEmpty,
+    validateBirthMonth,validateBirthYear,checkBox, value) {
   return Form(
     key: formKey,
     child: Column(
@@ -114,11 +115,11 @@ Widget catForm(
           children: [
             Expanded(
               child: reusableTextField('Birth Year', Icons.calendar_month,
-                  false, controller.birthYear, validateEmpty),
+                  false, controller.birthYear, validateBirthYear),
             ),
             Expanded(
               child: reusableTextField('Birth Month', Icons.calendar_month,
-                  false, controller.birthMonth, validateEmpty),
+                  false, controller.birthMonth, validateBirthMonth),
             )
           ],
         ),
@@ -155,8 +156,9 @@ Widget catForm(
                 value,
                 controller.type.text.trim(),
                 controller.color.text.trim(),
-                controller.image.text.trim());
-            formKey.currentState.reset();
+                controller.image.text.trim()
+                );
+            formKey.currentState.clear();
           }
         }, homeQuery.size.width * 0.25)
       ],

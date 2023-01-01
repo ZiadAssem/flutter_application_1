@@ -71,11 +71,12 @@ Widget catCardV2(homeQuery, {required Map cat}) {
   
   var catKey = cat['key'];
   var catName = cat['name'];
-  var imageUrl = cat['imageUrl'];
   var birthYear = cat['birthYear'];
-  var color = 'Orange';
+  var color = cat['color'];
   return Card(
-    color: const Color.fromARGB(255, 195, 194, 194),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30.0),
+    ),
     elevation: 15,
     child:SizedBox(
       width: homeQuery.size.width*0.6,
@@ -85,7 +86,7 @@ Widget catCardV2(homeQuery, {required Map cat}) {
           children: [
             SizedBox(
               width: homeQuery.size.width*0.1,
-            child:buildRequestImage(imageUrl, homeQuery),
+            child:buildRequestImage(url, homeQuery),
             ),
             SizedBox(width: homeQuery.size.width * 0.4,),
             Text(

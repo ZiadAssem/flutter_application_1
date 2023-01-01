@@ -5,7 +5,6 @@ import 'package:flutter_application_1/src2/authentication_repository.dart';
 import 'package:flutter_application_1/utils/database.dart';
 import 'package:get/get.dart';
 import '../classes/user.dart';
-import '../screens/admin-screens/admin_dashboard.dart';
 import '../screens/homescreen.dart';
 import '../screens/loginscreen.dart';
 import '../screens/adoptscreen.dart';
@@ -101,7 +100,7 @@ Widget buildRequestImage(String urlImage, [homeQuery]) => Container(
       width: homeQuery == Null ? Null : homeQuery.size.width * 0.3,
       color: Colors.grey,
       child: Image.network(
-        urlImage,
+        urlImage.trim(),
         fit: BoxFit.cover,
       ),
     );

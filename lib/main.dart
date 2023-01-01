@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 
-import 'screens/admin-screens/admin_dashboard.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

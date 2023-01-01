@@ -39,10 +39,22 @@ return imageUrls;
 } 
 
 static deleteRequest(String id)async{
-  await FirebaseDatabase.instance.ref('request/$id').remove();
-  Get.showSnackbar(const GetSnackBar(
+  await FirebaseDatabase.instance.ref('request/$id').remove().then((value) =>  
+  Get.showSnackbar(
+    const GetSnackBar(
     duration: Duration(seconds: 1),
-    message: 'Request Deleted Successfully',));
+    message: 'Request Deleted Successfully',)
+    )
+    ).onError((error, stackTrace) => 
+    Future<SnackbarController>.value(
+      Get.showSnackbar(
+        GetSnackBar(
+          duration:const  Duration(seconds: 1),
+          message: error.toString(),))
+    )
+    );
+    
+ 
 } 
 static deleteRequestsWithCatId(catId)async{
   await FirebaseDatabase.instance.ref()
@@ -59,22 +71,15 @@ static deleteRequestsWithCatId(catId)async{
         .child(key)
         .remove();
     });
-  });
-  
-  
-  
-  // await FirebaseDatabase.instance.ref('request/').once().then((snapshot) {
-  //   Map<dynamic, dynamic> values = snapshot.snapshot.value as Map;
-  //   Map cat = queryCatId();
-  //   values.forEach((key, values) {
-  //     if(values['catId']==cat['catId']){
-  //       FirebaseDatabase.instance.ref('request/$key').remove();
-  //     }
-  //   });
-  // });
-  Get.showSnackbar(const GetSnackBar(
+  }).then((value) =>  Get.showSnackbar(const GetSnackBar(
     duration: Duration(seconds: 1),
-    message: 'Request Deleted Successfully',));
+    message: 'Request Deleted Successfully',)));
+    
+  
+  
+  
+  
+ 
 }
 static acceptRequest(String requestId,String catId)async{
   //await FirebaseDatabase.instance.ref('request/$requestId').remove();
