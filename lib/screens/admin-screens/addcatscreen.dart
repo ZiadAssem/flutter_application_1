@@ -12,7 +12,6 @@ import '../../utils/database.dart';
 import '../../classes/cat.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 class AddCat extends StatefulWidget {
   const AddCat({super.key});
 
@@ -31,7 +30,8 @@ class _AddCatState extends State<AddCat> with ValidationMixin {
     MediaQueryData homeQuery = MediaQuery.of(context);
 
     return Scaffold(
-      appBar: appBarCustom(context, homeQuery,invoiceButton()) as PreferredSize,
+      appBar:
+          appBarCustom(context, homeQuery, invoiceButton()) as PreferredSize,
       body: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Stack(
@@ -57,7 +57,9 @@ class _AddCatState extends State<AddCat> with ValidationMixin {
                         context,
                         homeQuery,
                         addCatController,
-                        validateEmpty,validateBirthMonth,validateBirthYear,
+                        validateEmpty,
+                        validateBirthMonth,
+                        validateBirthYear,
                         Checkbox(
                           value: this.value,
                           onChanged: (bool? value) {
@@ -94,9 +96,8 @@ class _AddCatState extends State<AddCat> with ValidationMixin {
   }
 }
 
-Widget catForm(
-    formKey, context, homeQuery, controller, validateEmpty,
-    validateBirthMonth,validateBirthYear,checkBox, value) {
+Widget catForm(formKey, context, homeQuery, controller, validateEmpty,
+    validateBirthMonth, validateBirthYear, checkBox, value) {
   return Form(
     key: formKey,
     child: Column(
@@ -158,8 +159,7 @@ Widget catForm(
                 value,
                 controller.type.text.trim(),
                 controller.color.text.trim(),
-                controller.image.text.trim()
-                );
+                controller.image.text.trim());
             formKey.currentState.clear();
           }
         }, homeQuery.size.width * 0.25)
@@ -185,43 +185,33 @@ Widget listRequest({required Map request}) {
     child: Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(500)),
       child: ListTile(
-       
-        leading:const  CircleAvatar(
+        leading: const CircleAvatar(
           radius: 30,
           backgroundImage: AssetImage('cat_avatar.png'),
         ),
         title: Text(
-           request['userName'],
+          request['userName'],
           style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ),
         subtitle: Column(
           children: [
+            Text(request['userPhoneNo'],
+                style:
+                    const TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
             Text(
-              request['userPhoneNo'],
-              style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold)
-              ) 
-            ,
-            Text(
-               request['catName'],
+              request['catName'],
               style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
-            
           ],
         ),
         trailing: Column(
           children: [
             InkWell(
-              
-              child: const Icon(
-                Icons.check
-                
-                ),
+              child: const Icon(Icons.check),
               onTap: () {
-                DbHelper.acceptRequest(request['key'],request['catId']);
+                DbHelper.acceptRequest(request['key'], request['catId']);
               },
             ),
-            
-
             InkWell(
               child: const Icon(Icons.delete),
               onTap: () {
@@ -230,34 +220,17 @@ Widget listRequest({required Map request}) {
             ),
           ],
         ),
-      )
-      // Column(
-      //   children: [
-      //     Text(
-      //       "Name: " + request['userName'],
-      //       style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-      //     ),
-      //     const SizedBox(
-      //       height: 5,
-      //     ),
-      //     Text("Cat: " + request['catName']),
-      //     const SizedBox(
-      //       height: 5,
-      //     ),
-      //     Text("phoneNo: " + request['userPhoneNo']),
-      //   ],
-      // )
-      ,
+      ),
     ),
   );
 }
-Widget invoiceButton(){
+
+Widget invoiceButton() {
   return InkWell(
-              child: new Text('Invoice'),
-              onTap: () => launch('https://invoice-generator.com/'
-              //   Uri(
-              //   path: ,
-              // ),
-              )
-          );
+      child: new Text('Invoice'),
+      onTap: () => launch('https://invoice-generator.com/'
+          //   Uri(
+          //   path: ,
+          // ),
+          ));
 }

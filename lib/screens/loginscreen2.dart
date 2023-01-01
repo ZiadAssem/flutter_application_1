@@ -232,8 +232,8 @@ class LoginScreen2State extends State<LoginScreen2> with ValidationMixin {
                       Navigator.of(context).pop();
                     },
                     child: const CircleAvatar(
-                      child: Icon(Icons.close),
                       backgroundColor: Colors.red,
+                      child: Icon(Icons.close),
                     ),
                   ),
                 ),

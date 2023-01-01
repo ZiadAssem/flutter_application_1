@@ -10,6 +10,7 @@ class User {
   final String fullName;
   final String email;
   final String phoneNo;
+  static String helperName = '';
   static bool isAdmin = false;
   
    User({required this.fullName,required this.email,required this.phoneNo,}){

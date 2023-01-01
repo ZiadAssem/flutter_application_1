@@ -3,8 +3,10 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_application_1/utils/database.dart';
+import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_application_1/reusable_widgets/reusable_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 //import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 
@@ -20,11 +22,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int activeIndex = 0;
   ScrollController scrollController = ScrollController();
-  // final urlImages = [
-  //   // list of dummy images
-  //   'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_2x1.jpg',
-  //   'https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png'
-  // ];
+  
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-
+        backgroundColor: Colors.deepPurple,
         onPressed: () {
         scrollController.animateTo(500,
             duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
@@ -48,7 +46,26 @@ class _HomeScreenState extends State<HomeScreen> {
             slideShow2(homeQuery),
             Container(margin: const EdgeInsets.only(top: 100.0)),
             // buildIndicator(),
-            aboutUs(homeQuery),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20,10,5,10),
+                  child: aboutUs(homeQuery),
+                ),
+                SizedBox(width: homeQuery.size.width * 0.05),
+                Align(
+                  alignment:  Alignment.centerRight,
+                  child: Column(
+                    children: [
+                      emergencyContact( homeQuery),
+                      SizedBox(height: homeQuery.size.height * 0.05),
+                      joinUs(homeQuery),
+                    ],
+                  ),
+                )
+              ],
+            ),
+
           ],
         ),
       ),
@@ -138,6 +155,58 @@ class _HomeScreenState extends State<HomeScreen> {
       items: imageSliders(urlList),
     );
   }
+}
+
+Widget emergencyContact(homeQuery){
+  return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        minimumSize: Size(homeQuery.size.width *0.4,  50),
+        maximumSize: Size(homeQuery.size.width *0.4,  50),
+       backgroundColor: Colors.red,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+      ),
+      onPressed: (){
+      Get.showSnackbar(GetSnackBar(
+        message: 'EMERGENCY CONTACT',
+        duration: const Duration(seconds: 3),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        margin: const EdgeInsets.all(8),
+        borderRadius: 8,
+        icon: const Icon(Icons.warning_amber_outlined),
+        mainButton: TextButton(
+          onPressed: () {},
+          child: const Text('UNDO'),
+        ),
+      ));
+      },
+       child: const Text(
+        'EMERGENCY CONTACT',
+        style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+        )
+    );
+}
+Widget joinUs(homeQuery){
+  
+  return ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      minimumSize: Size(homeQuery.size.width *0.4,  50),
+      maximumSize: Size(homeQuery.size.width *0.4,  50),
+      backgroundColor: Colors.deepPurple,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+    ),
+    onPressed: (){
+      launch('https://docs.google.com/forms/d/e/1FAIpQLSeShHTu7iZvSj8lguZ0asfwiK9q0fg6p5P7JNNRsAWkno1ZEg/formrestricted');
+    }, 
+    child:  const Text(
+        'JOIN US',
+        style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+        ),
+        );
 }
 
 List<Widget> imageSliders(List<String> imgList) => imgList

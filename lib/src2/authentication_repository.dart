@@ -76,7 +76,7 @@ class AuthenticationRepository extends GetxController {
     return null;
   }
 
-  Future deleteUser(String email, String password) async {
+  Future deleteAccount() async {
     try {
       final user = await auth.currentUser!;
       user.delete();

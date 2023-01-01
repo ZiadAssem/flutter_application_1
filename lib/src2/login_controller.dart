@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/utils/database.dart';
 import 'package:get/get.dart';
 
 import 'authentication_repository.dart';
@@ -20,7 +21,8 @@ class LoginController extends GetxController {
     Get.put(AuthenticationRepository());
 
     String? error =   '';
-    error = Get.put(await AuthenticationRepository.instance.loginWithEmailAndPassword(email, password)as String ) ; 
+    error = Get.put(await AuthenticationRepository.instance.loginWithEmailAndPassword(email, password).
+    then((value) => DbHelper.queryUserInfo()) as String ) ; 
     
     if(error != null) {
       Get.showSnackbar(

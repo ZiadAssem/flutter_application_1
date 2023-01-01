@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/admin-screens/addcatscreen.dart';
@@ -122,7 +124,7 @@ Widget appBarButton(Widget navigateTo, String title, context) {
 }
 
 //A custom appbar for easy implementation
-appBarCustom(context, homeQuery,Widget InvoiceButton) {
+appBarCustom(context, homeQuery, Widget InvoiceButton) {
   bool test = User.isAdmin;
   return PreferredSize(
     preferredSize: Size.fromHeight(0.07 * homeQuery.size.height),
@@ -132,6 +134,11 @@ appBarCustom(context, homeQuery,Widget InvoiceButton) {
       actions: <Widget>[
         Row(
           children: [
+            if (AuthenticationRepository.auth.currentUser != null)
+              helloUser(context)
+            else
+              Container(),
+
             InvoiceButton,
             adminButton(context),
             // appBarButton(TestScreen(), 'test', context),
@@ -146,7 +153,6 @@ appBarCustom(context, homeQuery,Widget InvoiceButton) {
                     'LOGOUT',
                     style: TextStyle(color: Colors.white),
                   )),
-            Container(padding: const EdgeInsets.all(10)),
             appBarButton(AdoptionScreen(), 'ADOPT  ', context),
             Container(padding: const EdgeInsets.all(10)),
           ],
@@ -176,13 +182,12 @@ Widget adminButton(context) {
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const LoginScreen2()));
         } else if (await DbHelper.isAdmin()) {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const AddCat()));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => const AddCat()));
         } else {
           // Navigator.of(context).push(
           //     MaterialPageRoute(builder: (context) => const HomeScreen()));
-          Get.showSnackbar(
-            const GetSnackBar(
+          Get.showSnackbar(const GetSnackBar(
             message: 'UNAUTHORIZED ACCESS',
           ));
         }
@@ -191,4 +196,78 @@ Widget adminButton(context) {
           style: TextStyle(
             color: Colors.white,
           )));
+}
+
+Widget helloUser(context) {
+  return TextButton(
+      onPressed: (() async => await userPopUp(context)),
+      child: Text('Hello ' + User.helperName,
+          style: const TextStyle(
+              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)));
+}
+
+Future userPopUp(context) async {
+  final userInfo = await DbHelper.queryUserInfo();
+  return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Stack(
+            children: <Widget>[
+              Positioned(
+                right: -40.0,
+                top: -40.0,
+                child: InkResponse(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const CircleAvatar(
+                    backgroundColor: Colors.red,
+                    child: Icon(Icons.close),
+                  ),
+                ),
+              ),
+              Column(
+                children: [
+                  Text('Hello ' + userInfo['fullName'],
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('Email: ' + userInfo['email'],
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('Phone: ' + userInfo['phoneNo'],
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  deleteAccount(),
+                ],
+              ),
+            ],
+          ),
+        );
+      });
+}
+
+Widget deleteAccount() {
+  return ElevatedButton(
+    onPressed: () async {
+      await AuthenticationRepository.instance.deleteAccount();
+      await DbHelper.deleteAccount();
+      await AuthenticationRepository.logout().then((value) {
+        Get.showSnackbar(const GetSnackBar(
+          message: 'Account Deleted',
+          duration: Duration(seconds: 2),
+        ));
+      });
+    },
+    child: const Text('Delete Account'),
+  );
 }
