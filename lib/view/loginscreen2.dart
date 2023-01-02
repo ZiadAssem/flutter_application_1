@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import '../classes/user.dart';
 import 'reusable_widgets/reusable_widget.dart';
 import 'package:flutter/material.dart';
-import '../src2/Login_controller.dart';
+import '../controller/Login_controller.dart';
 
 
 import '../model/database.dart';
