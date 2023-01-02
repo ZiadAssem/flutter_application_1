@@ -12,7 +12,7 @@ run the command
     flutter pub get 
 to get the packages in the dependancies
 
-Make sure the device connected is Chrome
+Make sure the device connected is Chrome (If you are using vs code, you will find the devices in the    bottom right corner)
 
 Finally, run the project
 
