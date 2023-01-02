@@ -1,18 +1,22 @@
 # flutter_application_1
 
-A new Flutter project.
+This is a webapp made with dart, flutter, and firebase. It is made for Animal Rights Association for the sake of helping and adopting cats. The user can create an account, browse the cats available for adoption, send a request to adopt a cat, get the Emergency contact for the organization, and join the organization through a form. The admin can add cats for adoption and can also accept or decline adoption requests.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Make sure you have flutter installed on your pc
 
-A few resources to get you started if this is your first Flutter project:
+Clone the project
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+run the command
+    flutter pub get 
+to get the packages in the dependancies
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Make sure the device connected is Chrome
 
-Hello
+Finally, run the project
+
+You can use
+    flutter run -d chrome --web-renderer html
+in the terminal to run the project and allow it to render the images from the other domains.
+
