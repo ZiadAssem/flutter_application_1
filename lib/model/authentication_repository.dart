@@ -89,6 +89,7 @@ class AuthenticationRepository extends GetxController {
       return null;
     }
   }
+  // sends email with link to reset password
    Future resetPassword({required String email}) async {
     
     await auth

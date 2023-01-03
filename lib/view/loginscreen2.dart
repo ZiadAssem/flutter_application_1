@@ -3,6 +3,7 @@ import 'package:flutter_application_1/view/homescreen.dart';
 import 'package:flutter_application_1/view/registerscreen2.dart';
 import 'package:flutter_application_1/model/authentication_repository.dart';
 import 'package:get/get.dart';
+import '../classes/request.dart';
 import '../classes/user.dart';
 import 'reusable_widgets/reusable_widget.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class LoginScreen2State extends State<LoginScreen2> with ValidationMixin {
     MediaQueryData homeQuery = MediaQuery.of(context);
     return screenDecoration(
       context,
-      const Text('login'),
+       Text(Request.buttons['login']),
       loginDesign(
         controller,
         resetPasswordFormKey,
@@ -99,9 +100,9 @@ class LoginScreen2State extends State<LoginScreen2> with ValidationMixin {
       key: formKey,
       child: Column(
         children: [
-          const Text(
-            'Login!',
-            style: TextStyle(
+           Text(
+            Request.buttons['login'],
+            style:const TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
               fontSize: 20,
@@ -120,7 +121,7 @@ class LoginScreen2State extends State<LoginScreen2> with ValidationMixin {
               passwordIcon,
               showPassword),
           const SizedBox(height: 20),
-          firebaseUIButton(context, "login", () async {
+          firebaseUIButton(context, Request.buttons['login'], () async {
             if (formKey.currentState!.validate()) {
               //loginFormKey.currentState?.save();
               LoginController.instance.loginUser(
@@ -149,37 +150,14 @@ class LoginScreen2State extends State<LoginScreen2> with ValidationMixin {
     );
   }
 
-  Widget submitButton(context, controller, formKey, loggedIn) {
-    return ElevatedButton(
-      onPressed: () async {
-        if (formKey.currentState!.validate()) {
-          //loginFormKey.currentState?.save();
-          LoginController.instance.loginUser(
-              controller.email.text.toLowerCase().trim() as String,
-              controller.password.text.trim() as String);
-          formKey.currentState.reset();
-
-          if (AuthenticationRepository.auth.currentUser != null) {
-            User.isAdmin = await DbHelper.isAdmin();
-
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const HomeScreen()));
-          } else {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const LoginScreen2()));
-          }
-        }
-      },
-      child: const Text('submit'),
-    );
-  }
+  
 
   Widget newUserButton(context) {
     return Column(
       children: [
-        const Text(
-          "New User? Register Here",
-          style: TextStyle(
+         Text(
+          Request.buttons['newUser'],
+          style:const  TextStyle(
             color: Colors.black,
             fontStyle: FontStyle.italic,
           ),
@@ -193,7 +171,7 @@ class LoginScreen2State extends State<LoginScreen2> with ValidationMixin {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const SignUpScreen()));
             },
-            child: const Text('REGISTER'))
+            child:  Text(Request.buttons['register']))
       ],
     );
   }
@@ -204,9 +182,9 @@ class LoginScreen2State extends State<LoginScreen2> with ValidationMixin {
       onPressed: () {
         resetPasswordForm(context, resetPasswordFormKey);
       },
-      child: const Text(
-        'Forgot Password?',
-        style: TextStyle(
+      child:  Text(
+        Request.buttons['forgotPassword'],
+        style: const TextStyle(
           color: Colors.black,
           fontStyle: FontStyle.italic,
         ),
@@ -240,10 +218,10 @@ class LoginScreen2State extends State<LoginScreen2> with ValidationMixin {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      const Padding(
+                       Padding(
                         padding: EdgeInsets.all(8.0),
                         child:  Text(
-                          "Enter your email for verification",
+                         Request.buttons['verification'],
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,

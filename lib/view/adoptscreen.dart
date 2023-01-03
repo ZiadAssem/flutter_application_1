@@ -65,6 +65,7 @@ Widget catCardV2(homeQuery, context, {required Map cat}) {
   var catName = cat['name'];
   var birthYear = cat['birthYear'];
   var color = cat['color'];
+  var birthYearButton = Request.buttons['birthYear'];
 
   return Card(
       shape: RoundedRectangleBorder(
@@ -95,7 +96,7 @@ Widget catCardV2(homeQuery, context, {required Map cat}) {
               ],
             ),
             Column(
-              children: [Text('BIRTH YEAR: $birthYear'), Text('COLOR: $color')],
+              children: [Text('$birthYearButton: $birthYear'), Text('COLOR: $color')],
             ),
             SizedBox(
               width: homeQuery.size.width * 0.01,
@@ -109,7 +110,7 @@ Widget catCardV2(homeQuery, context, {required Map cat}) {
                     DbHelper.requestCat(catName, catKey);
                   }
                 },
-                child: const Text('Adopt Me <3'))
+                child:  Text(Request.buttons['adoptMe']))
           ],
         ),
       ));

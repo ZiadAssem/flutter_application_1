@@ -1,6 +1,5 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_interpolation_to_compose_strings, deprecated_member_use
 
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +7,8 @@ import 'package:flutter_application_1/controller/mixins/validation_mixin.dart';
 import 'package:flutter_application_1/view/reusable_widgets/reusable_widget.dart';
 import 'package:flutter_application_1/controller/addcat_controller.dart';
 import 'package:get/get.dart';
+import '../../classes/request.dart';
 import '../../model/database.dart';
-import '../../classes/cat.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AddCat extends StatefulWidget {
@@ -22,7 +21,7 @@ class AddCat extends StatefulWidget {
 class _AddCatState extends State<AddCat> with ValidationMixin {
   final formKey = GlobalKey<FormState>();
   final addCatController = Get.put(AddCatController());
-  bool value = false;
+  bool vaccinated = false;
   static Query ref = DbHelper.getQuery('request');
 
   @override
@@ -36,6 +35,7 @@ class _AddCatState extends State<AddCat> with ValidationMixin {
           scrollDirection: Axis.horizontal,
           child: Stack(
             children: [
+              //Background
               Container(
                 width: homeQuery.size.width,
                 height: homeQuery.size.height,
@@ -46,12 +46,14 @@ class _AddCatState extends State<AddCat> with ValidationMixin {
                       image: AssetImage('assets/cat_background.jpeg')),
                 ),
               ),
+              
               Row(
                 children: [
                   SingleChildScrollView(
                     child: SizedBox(
                       width: homeQuery.size.width * 0.5,
                       height: homeQuery.size.height,
+                      //Add cat form
                       child: catForm(
                         formKey,
                         context,
@@ -61,21 +63,21 @@ class _AddCatState extends State<AddCat> with ValidationMixin {
                         validateBirthMonth,
                         validateBirthYear,
                         Checkbox(
-                          value: this.value,
+                          value: vaccinated,
                           onChanged: (bool? value) {
                             setState(() {
-                              this.value = value!;
+                              vaccinated = value!;
                             });
                           },
                         ),
-                        value,
+                        vaccinated,
                       ),
                     ),
                   ),
                   Center(
-                    child: Container(
-                      // alignment: Alignment.centerRight,
+                    child: SizedBox(
                       width: 0.3 * homeQuery.size.width,
+                      // List of requests
                       child: FirebaseAnimatedList(
                         query: ref,
                         itemBuilder: ((context, snapshot, animation, index) {
@@ -97,14 +99,14 @@ class _AddCatState extends State<AddCat> with ValidationMixin {
 }
 
 Widget catForm(formKey, context, homeQuery, controller, validateEmpty,
-    validateBirthMonth, validateBirthYear, checkBox, value) {
+    validateBirthMonth, validateBirthYear, checkBox, vaccinated) {
   return Form(
     key: formKey,
     child: Column(
       children: [
         const SizedBox(height: 5),
-        const Text(
-          'Fill with cat details',
+         Text(
+          Request.buttons['fillDetails'],
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 24,
@@ -143,7 +145,7 @@ Widget catForm(formKey, context, homeQuery, controller, validateEmpty,
             const SizedBox(
               width: 10,
             ),
-            const Text('VACCINATED?'),
+             Text('VACCINATED?'),
             checkBox,
           ],
         ),
@@ -156,7 +158,7 @@ Widget catForm(formKey, context, homeQuery, controller, validateEmpty,
                 controller.name.text.trim(),
                 controller.birthYear.text.trim(),
                 controller.birthMonth.text.trim(),
-                value,
+                vaccinated,
                 controller.type.text.trim(),
                 controller.color.text.trim(),
                 controller.image.text.trim());
@@ -168,17 +170,9 @@ Widget catForm(formKey, context, homeQuery, controller, validateEmpty,
   );
 }
 
-Future<void> pickFile() async {
-  var result = await FilePicker.platform.pickFiles(
-    type: FileType.image,
-  );
 
-  if (result != null && result.files.isNotEmpty) {
-    final fileBytes = result.files.first.bytes;
-    final fileName = result.files.first.name;
-  }
-}
 
+// presents the request in a list tile
 Widget listRequest({required Map request}) {
   return Container(
     height: 100,
@@ -225,12 +219,16 @@ Widget listRequest({required Map request}) {
   );
 }
 
+// redirects to invoice generator
 Widget invoiceButton() {
   return InkWell(
-      child: new Text('Invoice'),
-      onTap: () => launch('https://invoice-generator.com/'
-          //   Uri(
-          //   path: ,
-          // ),
-          ));
+      child:  Text(Request.buttons['invoice'],
+        style: const TextStyle(
+          
+          color: Colors.white,
+        ),
+      ),
+      onTap: () => launch('https://invoice-generator.com/')
+        
+          );
 }

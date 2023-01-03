@@ -8,6 +8,7 @@ import 'package:flutter_application_1/model/database.dart';
 import 'package:flutter_application_1/view/reusable_widgets/reusable_widget.dart';
 
 import '../classes/cat.dart';
+import '../classes/request.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -102,12 +103,11 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SizedBox(
           width: homeQuery.size.width * 0.5,
           child: Column(
-            children: const [
-              Text("About Us",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-              Text(
-                'Animal Rights Association is a non-profit organization that operates within the American University in Cairo (AUC) was founded in AUC in 2017. ARA aims to make a difference in the community, by increasing public awareness of animal welfare in Egypt and reducing cruelty towards animals. This is done by various projects, which include cats on campus, awareness campaigns, and supporting animal shelters. The club faces some problems as they need to reach more amount of people and make some actions easier to happen with a well developed website'
-                ' We have developed some solutions for the club to make the club more findable and to ease some actions made by the customers who wants to adopt or rescue cats most importantly, we provide the training and support for this new solution that ensures the staff can ramp up quickly and realize our improvements to their services.',
+            children:  [
+              Text(Request.buttons['aboutUs'],
+                  style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+               Text(
+                Request.buttons['aboutUsText'],
                 style: TextStyle(fontSize: 20),
                 textAlign: TextAlign.justify,
               )
@@ -147,22 +147,19 @@ Widget emergencyContact(homeQuery) {
       ),
       onPressed: () {
         Get.showSnackbar(GetSnackBar(
-          message: 'EMERGENCY CONTACT',
+          message: Request.buttons['emergencyContact'],
           duration: const Duration(seconds: 3),
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
           margin: const EdgeInsets.all(8),
           borderRadius: 8,
           icon: const Icon(Icons.warning_amber_outlined),
-          mainButton: TextButton(
-            onPressed: () {},
-            child: const Text('UNDO'),
-          ),
+         
         ));
       },
-      child: const Text(
-        'EMERGENCY CONTACT',
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      child:  Text(
+        Request.buttons['emergencyNumber'],
+        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ));
 }
 
@@ -181,8 +178,8 @@ Widget joinUs(homeQuery) {
       launch(
           'https://docs.google.com/forms/d/e/1FAIpQLSeShHTu7iZvSj8lguZ0asfwiK9q0fg6p5P7JNNRsAWkno1ZEg/formrestricted');
     },
-    child: const Text(
-      'JOIN US',
+    child:  Text(
+      Request.buttons['joinUs'],
       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
     ),
   );

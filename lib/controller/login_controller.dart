@@ -20,9 +20,8 @@ class LoginController extends GetxController {
   void loginUser(String email, String password)   async {
     Get.put(AuthenticationRepository());
 
-    String? error =   '';
-    error = Get.put(await AuthenticationRepository.instance.loginWithEmailAndPassword(email, password).
-    then((value) => DbHelper.queryUserInfo()) as String ) ; 
+    String? error = Get.put(await AuthenticationRepository.instance
+    .loginWithEmailAndPassword(email, password)as String) ; 
     
     if(error != null) {
       Get.showSnackbar(
@@ -32,6 +31,8 @@ class LoginController extends GetxController {
         isDismissible: true,
         ));
       error=null;
+    } else{
+      DbHelper.queryUserInfo();
     }
 
 

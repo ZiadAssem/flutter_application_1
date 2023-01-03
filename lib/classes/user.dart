@@ -26,20 +26,11 @@ class User {
   static setIsAdmin(bool value){
     isAdmin = value;
   }
-FirebaseDatabase database = FirebaseDatabase.instance;
 
 
 
 
 
   
-// void printFirebase(){
-//   reference.once().then(
-//     (event) 
-//     {
-//     final dataSnapshot = event.snapshot;
-//     print('Data : ${dataSnapshot.value}');
-//   }
-//   );
-// }
+
 }

@@ -17,23 +17,20 @@ class SignUpController extends GetxController {
 
 
   //Call this Function from Design & it will do the rest
-  void registerUser(String email, String password,String fullName, String phoneNo) {
+  void registerUser(String email, String password,String fullName, String phoneNo) async{
     Get.put(AuthenticationRepository());
-    String? error = Get.put(AuthenticationRepository.instance
-    .createUserWithEmailAndPassword(email, password).then((value) 
-    => DbHelper.addUser(AuthenticationRepository.auth.currentUser!.uid,
-     fullName, email, phoneNo)) as String);
+    String? error = Get.put( await AuthenticationRepository.instance
+    .createUserWithEmailAndPassword(email, password) as String);
 
-     
-    // Get.put(AuthenticationRepository.instance
-    // .createUserWithEmailAndPassword(email, password)
-    // .then((value) => u.User.addUser(
-    //   AuthenticationRepository.auth.currentUser!.uid,
-    //    fullName, email, phoneNo))
-    //  as String?);
+      
+   
+   
 
     if(error != null) {
       Get.showSnackbar(GetSnackBar(message: error.toString(),));
+    }else{
+      DbHelper.addUser(AuthenticationRepository.auth.currentUser!.uid,
+     fullName, email, phoneNo);
     }
     // else{
     //   var user =  AuthenticationRepository.auth.currentUser;

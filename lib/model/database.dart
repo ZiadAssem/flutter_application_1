@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_application_1/classes/request.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_application_1/classes/cat.dart';
@@ -14,82 +15,14 @@ class DbHelper {
     return FirebaseDatabase.instance.ref(ref);
   }
 
-// Checks if current user is an admin
-  static isAdmin() async {
-    if (AuthenticationRepository.auth.currentUser?.uid != null) {
-      var currentId = AuthenticationRepository.auth.currentUser!.uid;
-      DatabaseReference ref =
-          FirebaseDatabase.instance.ref('user/$currentId/admin');
-      final snapshot = await ref.get();
-      User.isAdmin = snapshot.value as bool;
-      User.setIsAdmin(snapshot.value as bool);
-      return snapshot.value as bool;
-    }
-  }
-
-  static requestCat(catName, catId) async {
-    final uId = AuthenticationRepository.auth.currentUser!.uid;
-
-    final itemRef = DbHelper.database.ref('user/$uId');
-
-    DatabaseReference ref = DbHelper.database.ref('request');
-
-    itemRef.once().then((snapshot) {
-      Map userMap = snapshot.snapshot.value as Map;
-
-      var userName = userMap["fullName"];
-      var phoneNo = userMap["phoneNo"];
-
-      ref.push().set({
-        'catName': catName,
-        'catId': catId,
-        'userName': userName,
-        'userId': uId,
-        'userPhoneNo': phoneNo,
-      });
-    });
-  }
-
-static addUser(
-  String uId,
-  String name,String email,String phoneNo) {
-    DatabaseReference reference = FirebaseDatabase.instance.ref('user/');
- reference.child(uId).set({
-    
-    'fullName': name, 
-    'email': email, 
-    'phoneNo':phoneNo,
-    'admin':false,
-    });
-}
 
 
-  static void addCat(
-      name, birthYear, birthMonth, vaccinated, type, color, imageUrl) {
-    DatabaseReference imageRef = FirebaseDatabase.instance.ref('imageUrl/');
-    final reference = FirebaseDatabase.instance.ref('cat/');
-    reference
-        .push()
-        .set({
-          'name': name,
-          'birthYear': birthYear,
-          'birthMonth': birthMonth,
-          'vaccinated': vaccinated,
-          'type': type,
-          'color': color,
-          'imageUrl': imageUrl,
-        })
-        .whenComplete(() => Get.showSnackbar(const GetSnackBar(
-              duration: Duration(seconds: 1),
-              message: 'Cat Added Successfully',
-            )))
-        .onError((error, stackTrace) => Get.showSnackbar(GetSnackBar(
-              duration: const Duration(seconds: 1),
-              message: error.toString(),
-            )));
 
-    imageRef.push().set(imageUrl);
-  }
+/*
+
+request database functions
+
+*/
 
   static getImageUrlFromFirebase() async {
     List<String> imageUrls = ['h'];
@@ -121,7 +54,7 @@ static addUser(
             ))));
   }
 
-// method to delete all remaining requests of same cat
+// method to delete all remaining requests of same cat after accepting other request
   static deleteRequestsWithCatId(catId) async {
     await FirebaseDatabase.instance
         .ref()
@@ -150,11 +83,43 @@ static addUser(
     ));
   }
 
-  static queryCatId() {
-    return FirebaseDatabase.instance.ref('cat').orderByChild('catId') as Map;
+ 
+
+ 
+
+/*
+
+User Database functions
+
+*/
+
+
+// Checks if current user is an admin
+  static isAdmin() async {
+    if (AuthenticationRepository.auth.currentUser?.uid != null) {
+      var currentId = AuthenticationRepository.auth.currentUser!.uid;
+      DatabaseReference ref =
+          FirebaseDatabase.instance.ref('user/$currentId/admin');
+      final snapshot = await ref.get();
+      User.isAdmin = snapshot.value as bool;
+      User.setIsAdmin(snapshot.value as bool);
+      return snapshot.value as bool;
+    }
   }
 
-  static queryUserInfo() async {
+
+static addUser(String uId,String name,String email,String phoneNo) {
+    DatabaseReference reference = FirebaseDatabase.instance.ref('user/');
+ reference.child(uId).set({
+    
+    'fullName': name, 
+    'email': email, 
+    'phoneNo':phoneNo,
+    'admin':false,
+    });
+}
+
+ static queryUserInfo() async {
     final currentId = AuthenticationRepository.auth.currentUser!.uid;
     final snapshot =
         await FirebaseDatabase.instance.ref('user/$currentId').get();
@@ -166,5 +131,82 @@ static addUser(
   static deleteAccount() {
     final currentId = AuthenticationRepository.auth.currentUser!.uid;
     FirebaseDatabase.instance.ref('user/$currentId').remove();
+  }
+
+/*
+
+Cat database functions
+
+*/
+
+static void addCat(name, birthYear, birthMonth, vaccinated, type, color, imageUrl) {
+    DatabaseReference imageRef = FirebaseDatabase.instance.ref('imageUrl/');
+    final reference = FirebaseDatabase.instance.ref('cat/');
+    reference
+        .push()
+        .set({
+          'name': name,
+          'birthYear': birthYear,
+          'birthMonth': birthMonth,
+          'vaccinated': vaccinated,
+          'type': type,
+          'color': color,
+          'imageUrl': imageUrl,
+        })
+        .whenComplete(() => Get.showSnackbar(const GetSnackBar(
+              duration: Duration(seconds: 1),
+              message: 'Cat Added Successfully',
+            )))
+        .onError((error, stackTrace) => Get.showSnackbar(GetSnackBar(
+              duration: const Duration(seconds: 1),
+              message: error.toString(),
+            )));
+
+    imageRef.push().set(imageUrl);
+  }
+
+
+  static requestCat(catName, catId) async {
+    final uId = AuthenticationRepository.auth.currentUser!.uid;
+
+    final itemRef = DbHelper.database.ref('user/$uId');
+
+    DatabaseReference ref = DbHelper.database.ref('request');
+
+    itemRef.once().then((snapshot) {
+      Map userMap = snapshot.snapshot.value as Map;
+
+      var userName = userMap["fullName"];
+      var phoneNo = userMap["phoneNo"];
+
+      ref.push().set({
+        'catName': catName,
+        'catId': catId,
+        'userName': userName,
+        'userId': uId,
+        'userPhoneNo': phoneNo,
+      });
+    });
+  }
+  
+ static queryCatId() {
+    return FirebaseDatabase.instance.ref('cat').orderByChild('catId') as Map;
+  }
+
+  /*
+
+  Buttons
+
+  */
+
+  static getButtons() async {
+    
+    final ref = FirebaseDatabase.instance.ref('Buttons/');
+    final snapshot = await ref.get();
+
+    Map buttons = snapshot.value as Map;
+    Request.buttons = buttons;
+    
+    return buttons;
   }
 }

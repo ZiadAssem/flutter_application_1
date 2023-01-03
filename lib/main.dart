@@ -1,4 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_application_1/classes/request.dart';
+import 'package:flutter_application_1/model/database.dart';
 import 'package:flutter_application_1/view/homescreen.dart';
 import 'package:get/get.dart';
 import 'firebase_options.dart';
@@ -33,10 +35,23 @@ class App extends StatelessWidget {
             );
           }
           if (snapshot.connectionState == ConnectionState.done) {
-            //return const HomeScreen();
-           return const HomeScreen();
-           //return SignUpScreen();
-           // return AddCat();
+           
+           return FutureBuilder(
+            future: DbHelper.getButtons(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return const Scaffold(
+                  body: Center(
+                    child: Text('Error'),
+                  ),
+                );
+              }
+              if (snapshot.connectionState == ConnectionState.done) {
+                return HomeScreen();
+              }
+              return const CircularProgressIndicator();
+            },
+           ); 
           }
           return const CircularProgressIndicator();
         },

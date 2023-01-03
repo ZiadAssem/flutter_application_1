@@ -10,11 +10,11 @@ class SignUpWithEmailAndPasswordFailure{
         case 'invalid-email':
         return const SignUpWithEmailAndPasswordFailure('Invalid email');
         case 'email-already-in-use':
-        return const SignUpWithEmailAndPasswordFailure('Please enter a stronger password');
+        return const SignUpWithEmailAndPasswordFailure('Email already in use');
         case 'operation-not-allowed':
-        return const SignUpWithEmailAndPasswordFailure('Please enter a stronger password');
+        return const SignUpWithEmailAndPasswordFailure('Operation not allowed');
         case 'user-disabled':
-        return const SignUpWithEmailAndPasswordFailure('Please enter a stronger password');
+        return const SignUpWithEmailAndPasswordFailure('User is disabled');
          default:
         return const SignUpWithEmailAndPasswordFailure();
         

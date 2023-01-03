@@ -5,6 +5,7 @@ import 'package:flutter_application_1/view/admin-screens/addcatscreen.dart';
 import 'package:flutter_application_1/model/authentication_repository.dart';
 import 'package:flutter_application_1/model/database.dart';
 import 'package:get/get.dart';
+import '../../classes/request.dart';
 import '../../classes/user.dart';
 import '../../view/homescreen.dart';
 import '../../view/adoptscreen.dart';
@@ -86,7 +87,6 @@ Container firebaseUIButton(
 //builds image for slideshow
 Widget buildImage(String urlImage, [homeQuery]) => Container(
       margin: const EdgeInsets.symmetric(horizontal: 2),
-      //width:homeQuery==Null?Null: homeQuery.size.width *0.3,
       color: Colors.grey,
       child: Image.network(
         urlImage,
@@ -135,10 +135,8 @@ appBarCustom(context, homeQuery, Widget InvoiceButton) {
               helloUser(context)
             else
               Container(),
-
             InvoiceButton,
             adminButton(context),
-            // appBarButton(TestScreen(), 'test', context),
             if (AuthenticationRepository.auth.currentUser == null)
               appBarButton(const LoginScreen2(), 'LOGIN', context)
             else
@@ -146,11 +144,12 @@ appBarCustom(context, homeQuery, Widget InvoiceButton) {
                   onPressed: () {
                     AuthenticationRepository.logout();
                   },
-                  child: const Text(
-                    'LOGOUT',
+                  child:  Text(
+                    Request.buttons['logout'],
                     style: TextStyle(color: Colors.white),
-                  )),
-            appBarButton(AdoptionScreen(), 'ADOPT  ', context),
+                  ),
+                  ),
+            appBarButton(const AdoptionScreen(), 'ADOPT  ', context),
             Container(padding: const EdgeInsets.all(10)),
           ],
         ),
@@ -174,33 +173,34 @@ Widget homeButton(context) {
 
 Widget adminButton(context) {
   return TextButton(
-      onPressed: () async {
-        if (AuthenticationRepository.auth.currentUser == null) {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const LoginScreen2()));
-        } else if (await DbHelper.isAdmin()) {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => const AddCat()));
-        } else {
-          // Navigator.of(context).push(
-          //     MaterialPageRoute(builder: (context) => const HomeScreen()));
-          Get.showSnackbar(const GetSnackBar(
-            message: 'UNAUTHORIZED ACCESS',
-          ));
-        }
-      },
-      child: const Text('ADMIN',
-          style: TextStyle(
-            color: Colors.white,
-          )));
+    onPressed: () async {
+      if (AuthenticationRepository.auth.currentUser == null) {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const LoginScreen2()));
+      } else if (await DbHelper.isAdmin()) {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const AddCat()));
+      } else {
+        Get.showSnackbar(const GetSnackBar(
+          message: 'UNAUTHORIZED ACCESS',
+        ));
+      }
+    },
+    child:  Text(
+      Request.buttons['admin'],
+      style: const TextStyle(
+        color: Colors.white,
+      ),
+    ),
+  );
 }
 
 Widget helloUser(context) {
   return TextButton(
       onPressed: (() async => await userPopUp(context)),
-      child: Text('Hello ' + User.helperName,
+      child: Text( Request.buttons['hello']+' ' + User.helperName,
           style: const TextStyle(
-              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)));
+              fontWeight: FontWeight.bold, color: Colors.white)));
 }
 
 Future userPopUp(context) async {

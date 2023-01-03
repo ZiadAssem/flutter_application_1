@@ -1,8 +1,10 @@
 import 'package:flutter_application_1/controller/mixins/validation_mixin.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/request/request.dart';
 import 'reusable_widgets/reusable_widget.dart';
 import 'package:flutter/material.dart';
 import '../controller/signup_controller.dart';
+import '../classes/request.dart' as request;
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -21,7 +23,7 @@ class SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
     MediaQueryData homeQuery = MediaQuery.of(context);
     return screenDecoration(
       context,
-      const Text('sign up'),
+       Text(request.Request.buttons['signUp']),
       signUpDesign(
         signUpController,
         _formKey,
@@ -93,8 +95,8 @@ Widget signUpDesign(controller, formKey, context, validateEmail,
     key: formKey,
     child: Column(
       children: [
-        const Text(
-          'SIGN UP, SAVE A LIFE',
+         Text(
+          request.Request.buttons['saveLife'],
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
