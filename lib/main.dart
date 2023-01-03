@@ -1,15 +1,21 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_application_1/classes/request.dart';
+import 'package:flutter_application_1/model/authentication_repository.dart';
 import 'package:flutter_application_1/model/database.dart';
 import 'package:flutter_application_1/view/homescreen.dart';
 import 'package:get/get.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
+GetIt locator = GetIt.instance;
 
+void setupSingletons() async {
+  locator.registerLazySingleton<AuthenticationRepository>(() => AuthenticationRepository());
+}
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  setupSingletons();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.web);
   runApp(App());
   //runApp(HomePage());
