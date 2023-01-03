@@ -28,7 +28,11 @@ class _AdoptionScreenState extends State<AdoptionScreen> {
           Container(
             decoration: const BoxDecoration(
               color: Colors.deepPurple,
-              //Color(0xff69539C),
+              image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage('assets/cat_background.jpeg'),
+                      ),
+                
             ),
           ),
           FirebaseAnimatedList(
