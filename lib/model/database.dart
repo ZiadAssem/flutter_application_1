@@ -15,9 +15,6 @@ class DbHelper {
     return FirebaseDatabase.instance.ref(ref);
   }
 
-
-
-
 /*
 
 request database functions
@@ -67,32 +64,57 @@ request database functions
       children.forEach((key, value) {
         FirebaseDatabase.instance.ref().child('request').child(key).remove();
       });
-    }).then((value) => Get.showSnackbar(const GetSnackBar(
-              duration: Duration(seconds: 1),
-              message: 'Request Deleted Successfully',
-            )));
+    }).then(
+      (value) => Get.showSnackbar(
+        const GetSnackBar(
+          duration: Duration(seconds: 1),
+          message: 'Request Deleted Successfully',
+        ),
+      ),
+    );
   }
 
   static acceptRequest(String requestId, String catId) async {
-    //await FirebaseDatabase.instance.ref('request/$requestId').remove();
     deleteRequestsWithCatId(catId);
     await FirebaseDatabase.instance.ref('cat/$catId').remove();
+
     Get.showSnackbar(const GetSnackBar(
       duration: Duration(seconds: 1),
       message: 'Request accepted',
     ));
   }
 
- 
+  static requestCat(catName, catId) async {
+    final uId = AuthenticationRepository.auth.currentUser!.uid;
 
- 
+    final itemRef = DbHelper.database.ref('user/$uId');
+
+    DatabaseReference ref = DbHelper.database.ref('request');
+
+    itemRef.once().then((snapshot) {
+      Map userMap = snapshot.snapshot.value as Map;
+
+      var userName = userMap["fullName"];
+      var phoneNo = userMap["phoneNo"];
+
+      ref.push().set({
+        'catName': catName,
+        'catId': catId,
+        'userName': userName,
+        'userId': uId,
+        'userPhoneNo': phoneNo,
+      });
+    }).then((value) => Get.showSnackbar(const GetSnackBar(
+          duration: Duration(seconds: 1),
+          message: 'Request Sent Successfully',
+        )));
+  }
 
 /*
 
 User Database functions
 
 */
-
 
 // Checks if current user is an admin
   static isAdmin() async {
@@ -107,19 +129,17 @@ User Database functions
     }
   }
 
-
-static addUser(String uId,String name,String email,String phoneNo) {
+  static addUser(String uId, String name, String email, String phoneNo) {
     DatabaseReference reference = FirebaseDatabase.instance.ref('user/');
- reference.child(uId).set({
-    
-    'fullName': name, 
-    'email': email, 
-    'phoneNo':phoneNo,
-    'admin':false,
+    reference.child(uId).set({
+      'fullName': name,
+      'email': email,
+      'phoneNo': phoneNo,
+      'admin': false,
     });
-}
+  }
 
- static queryUserInfo() async {
+  static queryUserInfo() async {
     final currentId = AuthenticationRepository.auth.currentUser!.uid;
     final snapshot =
         await FirebaseDatabase.instance.ref('user/$currentId').get();
@@ -139,7 +159,8 @@ Cat database functions
 
 */
 
-static void addCat(name, birthYear, birthMonth, vaccinated, type, color, imageUrl) {
+  static void addCat(
+      name, birthYear, birthMonth, vaccinated, type, color, imageUrl) {
     DatabaseReference imageRef = FirebaseDatabase.instance.ref('imageUrl/');
     final reference = FirebaseDatabase.instance.ref('cat/');
     reference
@@ -165,31 +186,7 @@ static void addCat(name, birthYear, birthMonth, vaccinated, type, color, imageUr
     imageRef.push().set(imageUrl);
   }
 
-
-  static requestCat(catName, catId) async {
-    final uId = AuthenticationRepository.auth.currentUser!.uid;
-
-    final itemRef = DbHelper.database.ref('user/$uId');
-
-    DatabaseReference ref = DbHelper.database.ref('request');
-
-    itemRef.once().then((snapshot) {
-      Map userMap = snapshot.snapshot.value as Map;
-
-      var userName = userMap["fullName"];
-      var phoneNo = userMap["phoneNo"];
-
-      ref.push().set({
-        'catName': catName,
-        'catId': catId,
-        'userName': userName,
-        'userId': uId,
-        'userPhoneNo': phoneNo,
-      });
-    });
-  }
-  
- static queryCatId() {
+  static queryCatId() {
     return FirebaseDatabase.instance.ref('cat').orderByChild('catId') as Map;
   }
 
@@ -200,13 +197,12 @@ static void addCat(name, birthYear, birthMonth, vaccinated, type, color, imageUr
   */
 
   static getButtons() async {
-    
     final ref = FirebaseDatabase.instance.ref('Buttons/');
     final snapshot = await ref.get();
 
     Map buttons = snapshot.value as Map;
     Request.buttons = buttons;
-    
+
     return buttons;
   }
 }

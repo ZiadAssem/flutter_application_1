@@ -1,4 +1,12 @@
+// This file contains all the validation methods for the form fields
+
+// It validates the email, password, birth month and birth year
+// It also validates if the fields are empty
+// before the form is sent to the server
+
 class ValidationMixin {
+
+// validates if email contains @
   String? validateEmail(String? value) {
     if (!value!.contains('@')) {
       return 'Invalid email address format';
@@ -6,6 +14,7 @@ class ValidationMixin {
     return null;
   }
 
+// validates if password is at least 4 characters and contains an uppercase letter
   String? validatePassword(String? value) {
     if (value!.length < 4) {
       return 'Password should consist of at least 4 characters';
@@ -15,6 +24,7 @@ class ValidationMixin {
     return null;
   }
 
+// validates if the field is empty
   String? validateEmpty(String? value) {
     if (value!.isEmpty) {
       return 'Please fill the form';
@@ -22,6 +32,7 @@ class ValidationMixin {
     return null;
   }
 
+// validates if birth month between 1 and 12
   String? validateBirthMonth(String? value) {
     if (value!.isEmpty) {
       return 'Please enter a valid month';
@@ -36,7 +47,7 @@ class ValidationMixin {
       return 'Please enter a valid month';
     }
   }
-
+// validates if bith year is over 1900
   String? validateBirthYear(String? value) {
     if (value!.isEmpty) {
       return 'Please enter a valid year';

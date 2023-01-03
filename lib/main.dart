@@ -12,13 +12,13 @@ GetIt locator = GetIt.instance;
 
 void setupSingletons() async {
   locator.registerLazySingleton<AuthenticationRepository>(() => AuthenticationRepository());
+  locator.registerLazySingleton<DbHelper>(() => DbHelper());
 }
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupSingletons();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.web);
   runApp(App());
-  //runApp(HomePage());
 }
 
 class App extends StatelessWidget {
@@ -53,7 +53,7 @@ class App extends StatelessWidget {
                 );
               }
               if (snapshot.connectionState == ConnectionState.done) {
-                return HomeScreen();
+                return const HomeScreen();
               }
               return const CircularProgressIndicator();
             },
